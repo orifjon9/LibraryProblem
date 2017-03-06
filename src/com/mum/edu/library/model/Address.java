@@ -23,7 +23,8 @@ public class Address implements Serializable{
 		this.state = state;
 		this.zip = zip;
 	}
-
+	
+	// to get Street
 	public String getStreet() {
 		return street;
 	}
