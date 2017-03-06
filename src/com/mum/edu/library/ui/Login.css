@@ -16,6 +16,13 @@
    -fx-fill: White;
 }
 
+
+#error-message {
+  	-fx-font-size: 12px;
+    -fx-font-weight: Arial Black;
+    -fx-text-fill: Red;
+}
+
 #actiontarget {
   -fx-fill: FIREBRICK;
   -fx-font-weight: bold;

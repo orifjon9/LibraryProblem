@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
 import com.mum.edu.library.model.Employee;
+import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
@@ -68,6 +69,13 @@ public class Login extends Application {
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(btn);
 		grid.add(hbBtn, 1, 4);
+		
+		Label informText = new Label();
+		informText.setId("error-message");
+		HBox hbBtnInform = new HBox(50);
+		hbBtnInform.setAlignment(Pos.CENTER);
+		hbBtnInform.getChildren().add(informText);
+		grid.add(hbBtnInform, 1, 5);
 
 		final Text actiontarget = new Text();
 		grid.add(actiontarget, 1, 6);
@@ -77,19 +85,25 @@ public class Login extends Application {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// missing validator
 				RuleSet rule = RuleSetFactory.getRuleSet(Login.this);
-				rule.applyRule(Login.this);
+				try {
+					rule.applyRule(Login.this);
+				} catch (RuleException e1) {
+					informText.setText(e1.getMessage());
+				}
 				List<Employee> libraryEmployee = DefaultData.LIBRARY_EMPLOYEE;
+				String notFoundUserNameAndPassWord = "UserName or Password is wrong";
 				for (Employee employee : libraryEmployee) {
 					if (employee.getIdNumber() != Integer.parseInt(getUserNameValue())) {
 						continue;
 					}
 					if (StringUtils.equals(employee.getPassword(), getPasswordValue())) {
+						notFoundUserNameAndPassWord = "";
 						Welcome welcome = Welcome.INSTANCE;
 						welcome.setStage(primaryStage);
 					}
 				}
+				informText.setText(notFoundUserNameAndPassWord);
 			}
 		});
 

@@ -7,8 +7,14 @@ import javafx.application.Application;
 public class LoginRuleSet implements RuleSet {
 
 	@Override
-	public void applyRule(Application application) {
+	public void applyRule(Application application) throws RuleException {
 		Login login = (Login) application;
+		String userNameValue = login.getUserNameValue();
+		try {
+			Integer.parseInt(userNameValue);
+		} catch(NumberFormatException ex) {
+			throw new RuleException("UserName or Password is wrong");
+		}
 	}
 
 }
