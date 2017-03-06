@@ -26,6 +26,8 @@ import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
 public class Login extends Application {
+	public static final Login INSTANCE = new Login();
+	
 	private TextField userNameTxt;
 	private PasswordField passWordTxt;
 

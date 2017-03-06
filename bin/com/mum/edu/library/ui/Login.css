@@ -19,7 +19,7 @@
 
 #error-message {
   	-fx-font-size: 12px;
-    -fx-font-weight: Arial Black;
+    -fx-font-family: Arial;
     -fx-text-fill: Red;
 }
 
