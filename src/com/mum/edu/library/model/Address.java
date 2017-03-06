@@ -1,10 +1,20 @@
 package com.mum.edu.library.model;
 
-public class Address {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Address implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String street;
 	private String city;
 	private String state;
 	private String zip;
+	
+	public Address() {
+	}
 	
 	public Address(String street, String city, String state, String zip) {
 		this.street = street;
@@ -16,7 +26,8 @@ public class Address {
 	public String getStreet() {
 		return street;
 	}
-
+	
+	@XmlElement
 	public void setStreet(String street) {
 		this.street = street;
 	}
@@ -24,7 +35,8 @@ public class Address {
 	public String getCity() {
 		return city;
 	}
-
+	
+	@XmlElement
 	public void setCity(String city) {
 		this.city = city;
 	}
@@ -33,6 +45,7 @@ public class Address {
 		return state;
 	}
 
+	@XmlElement
 	public void setState(String state) {
 		this.state = state;
 	}
@@ -40,7 +53,8 @@ public class Address {
 	public String getZip() {
 		return zip;
 	}
-
+	
+	@XmlElement
 	public void setZip(String zip) {
 		this.zip = zip;
 	}

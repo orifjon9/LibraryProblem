@@ -2,6 +2,7 @@ package com.mum.edu.library.model;
 
 public class Author extends People {
 
+	private static final long serialVersionUID = 1L;
 	private String credentials;
 	private String shortbio;
 	

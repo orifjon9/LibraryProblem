@@ -3,6 +3,7 @@ package com.mum.edu.library.model;
 import java.util.Set;
 
 public class Employee extends People {
+	private static final long serialVersionUID = 1L;
 	private int idNumber;
 	private String password;
 	private Set<Role> roles;

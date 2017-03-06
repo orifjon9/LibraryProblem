@@ -1,0 +1,2 @@
+http://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file-and-read-load-that-file-to-the
+https://www.mkyong.com/java/jaxb-hello-world-example/
