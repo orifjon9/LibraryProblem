@@ -1,5 +1,6 @@
 package com.mum.edu.library.model;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,6 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
+=======
+// Addrees Class
+public class Address {
+>>>>>>> 8548017809f9f77cc494ac968687d5dae82c8365
 	private String street;
 	private String city;
 	private String state;
