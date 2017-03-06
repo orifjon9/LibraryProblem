@@ -33,8 +33,9 @@ public class Welcome extends Stage {
 		MenuBar mainMenu = new MenuBar();
 
 		Text label = new Text("NEW BOOK");
-		label.setFont(Font.font("Open Sans", FontWeight.BOLD, 30));
-
+		label.setFont(Font.font("700 24px/24px 'Lora',sans-serif", FontWeight.BOLD, 30));
+		label.setId("new-book");
+		
 		HBox labelBox = new HBox(10);
 		labelBox.setAlignment(Pos.CENTER);
 		labelBox.getChildren().add(label);
@@ -124,6 +125,7 @@ public class Welcome extends Stage {
 		// must have to show
 		Scene scene = new Scene(topContainer, 1000, 520);
 		primaryStage.setScene(scene);
+		scene.getStylesheets().add(getClass().getResource("welcome.css").toExternalForm());
 		primaryStage.show();
 	}
 }
