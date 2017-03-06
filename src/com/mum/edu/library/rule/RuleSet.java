@@ -5,5 +5,4 @@ import javafx.application.Application;
 public interface RuleSet {
 	void applyRule(Application application);
 
-	void applyRule();
 }
