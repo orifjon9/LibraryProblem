@@ -20,7 +20,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public void save(Member memberToSave) {
 		JAXBContext jaxbContext = null;
 		Members members = new Members();
-		File file = new File("D:\\Java\\Testfile.xml");
+		File file = new File("D:\\Java\\member.xml");
 		try {
 
 			jaxbContext = JAXBContext.newInstance(Members.class);
