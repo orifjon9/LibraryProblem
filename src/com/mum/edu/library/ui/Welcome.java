@@ -138,8 +138,15 @@ public class Welcome extends Stage {
 			libraryMember.setStage(primaryStage, roles);
 		});
 
-		MenuItem editLibraryMember = new MenuItem("Edit Member");
-		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, editLibraryMember);
+		MenuItem libraryMemberManage = new MenuItem("Member");
+		
+		libraryMemberManage.setOnAction(evt -> {
+			ManageMemberScreen manageMember = ManageMemberScreen.INSTANCE;
+			manageMember.setStage(primaryStage, roles);
+//			manageMember.setData(members);
+		});
+		
+		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, libraryMemberManage);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
 		
 		authority(roles);

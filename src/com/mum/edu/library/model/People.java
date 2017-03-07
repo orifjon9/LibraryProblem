@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.beans.property.SimpleStringProperty;
+
 @XmlRootElement
 public class People implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String firstName;
-	private String lastName;
+	private SimpleStringProperty firstName;
+	private SimpleStringProperty lastName;
 	private Address address;
 	private String phoneNumber;
 	
@@ -18,29 +20,29 @@ public class People implements Serializable {
 	
 	public People(String firstName, String lastName, Address address,
 			String phoneNumber) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstName = new SimpleStringProperty(firstName);
+		this.lastName = new SimpleStringProperty(lastName);
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
 	
 	
 	public String getFirstName() {
-		return firstName;
+		return firstName.get();
 	}
 	
 	@XmlElement
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName.set(firstName);
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastName.get();
 	}
 	
 	@XmlElement
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName.set(lastName);
 	}
 
 	public Address getAddress() {

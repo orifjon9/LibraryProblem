@@ -15,7 +15,6 @@ public class FileUtil {
 		String result = "";
 		
 		ClassLoader classLoader = getClass().getClassLoader();
-//		URL resource = classLoader.getResource(fileName).toString();
 		try {
 		    result = IOUtils.toString(classLoader.getResourceAsStream(fileName));
 		} catch (IOException e) {
