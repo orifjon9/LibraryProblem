@@ -12,35 +12,25 @@ import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Members;
 
 public class MemberDAOImpl implements MemberDAO {
-	
-	/* 
-	 * Need to refactor
-	 */
+
 	@Override
 	public void save(Member memberToSave) {
 		JAXBContext jaxbContext = null;
 		Members members = new Members();
-		File file = new File("E:\\MPP\\member.xml");
+//		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File("E:\\MPP\\LibraryProblem\\resources\\database\\member.xml");
 		try {
 
 			jaxbContext = JAXBContext.newInstance(Members.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			members = (Members) jaxbUnmarshaller.unmarshal(file);
 			members.getMember().add(memberToSave);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
 
-		try {
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 			jaxbMarshaller.marshal(members, file);
 			jaxbMarshaller.marshal(members, System.out);
-
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}

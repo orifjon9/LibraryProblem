@@ -1,43 +1,34 @@
 package com.mum.edu.library.api;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import com.mum.edu.library.constant.Constant;
 
 public class CommonAPI {
-	private static final String FILENAME = "E:\\MPP\\LibraryProblem\\stateUS.txt";
 
 	public static List<String> getUSState() {
-		BufferedReader br = null;
-		FileReader fr = null;
-		List<String> result = null;
-		try {
-			fr = new FileReader(FILENAME);
-			br = new BufferedReader(fr);
-			
-			String sCurrentLine;
-			result = new ArrayList<>();
-			br = new BufferedReader(new FileReader(FILENAME));
+		List<String> result = new ArrayList<>();
+		ClassLoader classLoader = new ClassLoader() {
+		};
+		File file = new File(classLoader.getResource(Constant.US_STATE_FILE).getFile());
 
-			while ((sCurrentLine = br.readLine()) != null) {
-				result.add(sCurrentLine);
+		try (Scanner scanner = new Scanner(file)) {
+
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				result.add(line);
 			}
+
+			scanner.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-				if (fr != null)
-					fr.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-
 		}
+
 		return result;
 	}
 }

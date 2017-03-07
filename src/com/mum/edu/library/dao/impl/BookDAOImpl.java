@@ -13,9 +13,6 @@ import com.mum.edu.library.model.Books;
 
 public class BookDAOImpl implements BookDAO {
 	
-	/* 
-	 * Need to refactor
-	 */
 	@Override
 	public void save(Book bookToSave) {
 		JAXBContext jaxbContext = null;
@@ -26,24 +23,17 @@ public class BookDAOImpl implements BookDAO {
 			jaxbContext = JAXBContext.newInstance(Books.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			books = (Books) jaxbUnmarshaller.unmarshal(file);
 			books.getBook().add(bookToSave);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
 
-		try {
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 			jaxbMarshaller.marshal(books, file);
 			jaxbMarshaller.marshal(books, System.out);
-
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }

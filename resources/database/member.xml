@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Members>
+    <Member memberId="4332432">
+        <address>
+            <city></city>
+            <state></state>
+            <street></street>
+            <zip></zip>
+        </address>
+        <firstName></firstName>
+        <lastName></lastName>
+        <phoneNumber></phoneNumber>
+    </Member>
+    <Member memberId="4332432">
+        <address>
+            <city></city>
+            <state></state>
+            <street></street>
+            <zip></zip>
+        </address>
+        <firstName></firstName>
+        <lastName></lastName>
+        <phoneNumber></phoneNumber>
+    </Member>
+    <Member memberId="6777">
+        <address>
+            <city></city>
+            <state></state>
+            <street></street>
+            <zip></zip>
+        </address>
+        <firstName>vu</firstName>
+        <lastName>le</lastName>
+        <phoneNumber></phoneNumber>
+    </Member>
+    <Member memberId="6556">
+        <address>
+            <city></city>
+            <state></state>
+            <street></street>
+            <zip></zip>
+        </address>
+        <firstName></firstName>
+        <lastName></lastName>
+        <phoneNumber></phoneNumber>
+    </Member>
+    <Member memberId="54545">
+        <address>
+            <city>fdgdfgfd</city>
+            <state>gfdgfd</state>
+            <street>gfdg</street>
+            <zip>gdfgfd</zip>
+        </address>
+        <firstName>rttretg</firstName>
+        <lastName>gfdgfd</lastName>
+        <phoneNumber>123434</phoneNumber>
+    </Member>
+    <Member memberId="45">
+        <address>
+            <city></city>
+            <state></state>
+            <street>543534</street>
+            <zip></zip>
+        </address>
+        <firstName>435435435</firstName>
+        <lastName>43543543</lastName>
+        <phoneNumber></phoneNumber>
+    </Member>
+    <Member memberId="123">
+        <address>
+            <city>fff</city>
+            <state>Arizona</state>
+            <street>fff</street>
+            <zip>12345</zip>
+        </address>
+        <firstName>fsd</firstName>
+        <lastName>fff</lastName>
+        <phoneNumber>4543543</phoneNumber>
+    </Member>
+</Members>

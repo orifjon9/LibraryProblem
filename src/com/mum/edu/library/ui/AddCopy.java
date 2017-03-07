@@ -1,7 +1,5 @@
 package com.mum.edu.library.ui;
 
-import com.mum.edu.library.model.Book;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
