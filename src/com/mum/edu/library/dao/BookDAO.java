@@ -8,4 +8,5 @@ public interface BookDAO {
 	public void save(Book book);
 	public List<Book> read();
 	public Book searchBook(String idBook);
+	public void addCopy(Book book);
 }

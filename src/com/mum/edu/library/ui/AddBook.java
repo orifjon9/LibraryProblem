@@ -5,6 +5,7 @@ import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Author;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.BookCopy;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -64,6 +65,7 @@ public class AddBook extends Stage {
 			Book book = new Book("The Call of the Wild", "12345", true);
 			book.getAuthor().add(new Author("Jack","London",new Address("407 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Good"));
+			book.getBookCopies().add(new BookCopy(1001, 7));
 			bookDAO.save(book);	
 		
 		});

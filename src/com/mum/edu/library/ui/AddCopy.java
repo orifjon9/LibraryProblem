@@ -22,7 +22,10 @@ import javafx.stage.Stage;
 public class AddCopy extends Stage {
 	public static final AddCopy INSTANCE = new AddCopy();
 	Stage primaryStage;
-
+	
+	Integer maxCurrent = 0;
+	int borrowAbleDate = 0;
+	
 	private AddCopy() {
 	}
 
@@ -69,32 +72,38 @@ public class AddCopy extends Stage {
 		hbBtnAdd.getChildren().add(btnAdd);
 		grid.add(hbBtnAdd, 2, 9);
 		
+		BookDAO bookDAO = new BookDAOImpl();
+		
 		// Event handle for Search Book by ISBN
 		btnSearch.setOnAction(avt -> {
 			// To do something
 			String inISBN = isbn.getText();
-			BookDAO bookDAO = new BookDAOImpl();
 			Book book = bookDAO.searchBook(inISBN);			
 					
 			bookTitle.setText(book.getTitle());
 			Set<BookCopy> bookCopies = book.getBookCopies();
-			Integer maxCurrent = 0;
+
 			for(BookCopy bc:bookCopies)
 			{
 					if(bc.getIdCopyNumber() > maxCurrent)
-						maxCurrent = bc.getIdCopyNumber();						
+					{
+						maxCurrent = bc.getIdCopyNumber();
+						borrowAbleDate = bc.getBorrowAbleDate();
+					}
 			}
-			currentNum.setText(maxCurrent.toString());
-		
+			currentNum.setText(maxCurrent.toString());		
 		});
 		
 		// Event handle Add Book
 		btnAdd.setOnAction(avt -> {
 			// To do something
-			
+			Book book = bookDAO.searchBook(isbn.getText());
+			Set<BookCopy> bookCopies = book.getBookCopies();
+			BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate );
+			bookCopies.add(newCopy);
+			book.setBookCopies(bookCopies);
+			bookDAO.addCopy(book);
 		});
-		
-
 		
 		primaryStage.setScene(new Scene(grid, 800, 400));
 		primaryStage.show();
