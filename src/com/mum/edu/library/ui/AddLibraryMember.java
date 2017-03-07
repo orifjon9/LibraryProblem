@@ -2,6 +2,7 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Address;
@@ -12,9 +13,12 @@ import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -32,18 +36,23 @@ public class AddLibraryMember extends Stage {
 	private TextField lastName;
 	private TextField street;
 	private TextField city;
-	private TextField state;
+//	private TextField state;
 	private TextField zip;
 	private TextField phone;
 	
 	Stage primaryStage;
-
+	
+	private ComboBox<String> stateCb;
+	
 	private AddLibraryMember() {
 	}
 
 	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
 		primaryStage.setTitle("Add Library Member");
+		
+		ObservableList<String> options = FXCollections.observableArrayList(CommonAPI.getUSState());
+		stateCb = new ComboBox<>(options);
 		
 		VBox topContainer = new VBox();
 		
@@ -107,9 +116,9 @@ public class AddLibraryMember extends Stage {
 		statelbl.getStyleClass().add("member-label");
 		grid.add(statelbl, 1, 6);
 
-		state = new TextField();
-		state.setPrefWidth(400);
-		grid.add(state, 2, 6);
+//		state = new TextField();
+		stateCb.setPrefWidth(400);
+		grid.add(stateCb, 2, 6);
 		// ---------------Zip------------
 		Label ziplbl = new Label("Zip:");
 		ziplbl.getStyleClass().add("member-label");
@@ -145,7 +154,7 @@ public class AddLibraryMember extends Stage {
 			}
 			MemberDAO memberDAO = new MemberDAOImpl();
 			Member member = new Member(Integer.parseInt(memberID.getText()), firstName.getText(), lastName.getText(),
-					new Address(street.getText(), city.getText(), state.getText(), zip.getText()), phone.getText());
+					new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()), phone.getText());
 			memberDAO.save(member);
 		});
 		
@@ -191,7 +200,7 @@ public class AddLibraryMember extends Stage {
 		return city.getText();
 	}
 	public String getStateValue() {
-		return state.getText();
+		return stateCb.getValue();
 	}
 	public String getZipValue() {
 		return zip.getText();

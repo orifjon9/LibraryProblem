@@ -30,10 +30,6 @@ public class MemberRuleSet implements RuleSet {
 
 		numberic(libraryMember.getMemberIdValue(), libraryMember.getZipValue());
 
-		if (libraryMember.getStateValue().length() != 2 || !libraryMember.getStateValue().matches(".*[A-Z]")) {
-			throw new RuleException("State must have exactly two character in the range A-Z");
-		}
-
 		if (StringUtils.equals(libraryMember.getMemberIdValue(), libraryMember.getZipValue())) {
 			throw new RuleException("ID field may not equal zip field");
 		}
