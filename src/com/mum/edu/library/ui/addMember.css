@@ -1,0 +1,30 @@
+.root {
+     -fx-background-image: url("addnew.jpg");
+}
+
+
+.member-label {
+	 -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: White;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: #5cb85c;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-cursor: pointer;
+}
+
+.button:hover {
+    -fx-background-color: #286090;
+}
+
+#grid {
+	-fx-background-color: #2B2B2B;
+    -fx-padding: 10 10 10 10;
+	-fx-opacity: 0.8; 
+}
