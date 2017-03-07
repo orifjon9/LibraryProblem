@@ -1,12 +1,17 @@
 package com.mum.edu.library.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CheckoutEntry {
 	private BookCopy borrowItem;
-	private Date dateCheckout;
-	private Date dueDate;
+	private LocalDate dateCheckout;
+	private LocalDate dueDate;
 
+	public CheckoutEntry(BookCopy aBorrowItem){
+		this.borrowItem = aBorrowItem;
+	}
+	
 	public BookCopy getBorrowItem() {
 		return borrowItem;
 	}
@@ -15,19 +20,19 @@ public class CheckoutEntry {
 		this.borrowItem = borrowItem;
 	}
 
-	public Date getDateCheckout() {
+	public LocalDate getDateCheckout() {
 		return dateCheckout;
 	}
 
-	public void setDateCheckout(Date dateCheckout) {
+	public void setDateCheckout(LocalDate dateCheckout) {
 		this.dateCheckout = dateCheckout;
 	}
 
-	public Date getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

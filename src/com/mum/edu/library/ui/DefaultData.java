@@ -23,7 +23,7 @@ public class DefaultData {
 	
 	static {
 		Employee nguyenLe = new Employee(123,"123", "Nguyen", "Le", new Address("1000 N 4th", "Fairfield", "Iowa", "52707"), "+1 932 434 444", new HashSet<>(Arrays.asList(ADMINROLE)));
-		Employee caoHa = new Employee(1234,"handsomeBoy", "Cao", "Ha", new Address("1000 N 4th", "Fairfield", "Iowa", "52707"), "+1 939 329 333", new HashSet<>(Arrays.asList(LIBRARYROLE)));
+		Employee caoHa = new Employee(1234,"1234", "Cao", "Ha", new Address("1000 N 4th", "Fairfield", "Iowa", "52707"), "+1 939 329 333", new HashSet<>(Arrays.asList(LIBRARYROLE)));
 		Employee xing = new Employee(999,"handsomeBoy", "Xing", "He", new Address("1000 N 4th", "Fairfield", "Iowa", "52707"), "+1 333 444 444", new HashSet<>(Arrays.asList(ADMINROLE,LIBRARYROLE)));
 		
 		ADMINROLE.getEmployees().add(nguyenLe);
