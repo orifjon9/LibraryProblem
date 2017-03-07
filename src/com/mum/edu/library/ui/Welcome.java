@@ -1,5 +1,9 @@
 package com.mum.edu.library.ui;
 
+import java.util.Set;
+
+import com.mum.edu.library.model.Role;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,11 +24,14 @@ import javafx.stage.Stage;
 public class Welcome extends Stage {
 	public static final Welcome INSTANCE = new Welcome();
 	Stage primaryStage;
-
+	private Menu homeMenu;
+	private Menu adminMenu;
+	private Menu librarianMenu;
+	
 	private Welcome() {
 	}
 
-	public void setStage(Stage ps) {
+	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
 		primaryStage.setTitle("Welcome Page");
 
@@ -92,7 +99,7 @@ public class Welcome extends Stage {
 		topContainer.getChildren().add(labelBox);
 		topContainer.getChildren().add(gridpane);
 
-		Menu homeMenu = new Menu("Home");
+		homeMenu = new Menu("Home");
 		MenuItem logout = new MenuItem("Logout");
 		MenuItem exitApp = new MenuItem("Exit");
 		homeMenu.getItems().addAll(logout, exitApp);
@@ -102,7 +109,7 @@ public class Welcome extends Stage {
 			login.start(primaryStage);
 		});
 
-		Menu librarianMenu = new Menu("Librarian");
+		librarianMenu = new Menu("Librarian");
 		MenuItem checkoutBook = new MenuItem("Checkout Book");
 		librarianMenu.getItems().addAll(checkoutBook);
 		checkoutBook.setOnAction(evt -> {
@@ -110,7 +117,7 @@ public class Welcome extends Stage {
 		});
 
 		// did not add menu item for menu edit
-		Menu adminMenu = new Menu("Administrator");
+		adminMenu = new Menu("Administrator");
 		MenuItem addBook = new MenuItem("Add Book");
 		MenuItem addCopy = new MenuItem("Add Copy");
 		
@@ -127,18 +134,34 @@ public class Welcome extends Stage {
 
 		MenuItem createLibraryMember = new MenuItem("Create Member");
 		createLibraryMember.setOnAction(evt -> {
-			AddLibraryMember catalogListWindow = AddLibraryMember.INSTANCE;
-			catalogListWindow.setStage(primaryStage);
+			AddLibraryMember libraryMember = AddLibraryMember.INSTANCE;
+			libraryMember.setStage(primaryStage, roles);
 		});
 
 		MenuItem editLibraryMember = new MenuItem("Edit Member");
 		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, editLibraryMember);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
-
+		
+		authority(roles);
 		// must have to show
 		Scene scene = new Scene(topContainer, 1000, 520);
 		primaryStage.setScene(scene);
 		scene.getStylesheets().add(getClass().getResource("welcome.css").toExternalForm());
 		primaryStage.show();
+	}
+
+	private void authority(Set<Role> roles) {
+		if (roles.size() == 2) {
+			return;
+		}
+		for(Role role : roles) {
+			if ("LIBRARIAN".equals(role.getRoleName())) {
+				adminMenu.setDisable(true);
+				librarianMenu.setDisable(false);
+			} else {
+				librarianMenu.setDisable(true);
+				adminMenu.setDisable(false);
+			}
+		}
 	}
 }

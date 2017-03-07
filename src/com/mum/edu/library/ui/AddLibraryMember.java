@@ -1,9 +1,12 @@
 package com.mum.edu.library.ui;
 
+import java.util.Set;
+
 import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Member;
+import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
@@ -38,7 +41,7 @@ public class AddLibraryMember extends Stage {
 	private AddLibraryMember() {
 	}
 
-	public void setStage(Stage ps) {
+	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
 		primaryStage.setTitle("Add Library Member");
 		
@@ -155,7 +158,7 @@ public class AddLibraryMember extends Stage {
 		
 		back.setOnAction(evt -> {
 			Welcome welcome = Welcome.INSTANCE;
-			welcome.setStage(primaryStage);
+			welcome.setStage(primaryStage, roles);
 		});
 		
 		exit.setOnAction(evt -> Platform.exit());

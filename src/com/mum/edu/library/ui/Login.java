@@ -102,7 +102,7 @@ public class Login extends Application {
 					if (StringUtils.equals(employee.getPassword(), getPasswordValue())) {
 						notFoundUserNameAndPassWord = "";
 						Welcome welcome = Welcome.INSTANCE;
-						welcome.setStage(primaryStage);
+						welcome.setStage(primaryStage,employee.getRoles());
 					}
 				}
 				informText.setText(notFoundUserNameAndPassWord);
