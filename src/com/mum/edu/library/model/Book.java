@@ -1,5 +1,6 @@
 package com.mum.edu.library.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Book {
@@ -8,6 +9,14 @@ public class Book {
 	private Set<Author> author;
 	private boolean availability;
 	private Set<BookCopy> bookCopies;
+	
+	public Book(String title, String isbnNumber, boolean availability) {
+		this.title = title;
+		this.isbnNumber = isbnNumber;
+		this.author = new HashSet<>();
+		this.availability = availability;
+		this.bookCopies = new HashSet<>();
+	}
 
 	public String getTitle() {
 		return title;

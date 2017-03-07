@@ -111,7 +111,20 @@ public class Welcome extends Stage {
 
 		// did not add menu item for menu edit
 		Menu adminMenu = new Menu("Administrator");
-		MenuItem addNewBook = new MenuItem("Add Book");
+		MenuItem addBook = new MenuItem("Add Book");
+		MenuItem addCopy = new MenuItem("Add Copy");
+		
+		addBook.setOnAction(evt -> {
+			AddBook addBookWindow = AddBook.INSTANCE;
+			addBookWindow.setStage(primaryStage);
+		});
+
+		
+		addCopy.setOnAction(evt -> {
+			AddCopy addCopyWindow = AddCopy.INSTANCE;
+			addCopyWindow.setStage(primaryStage);
+		});
+
 		MenuItem createLibraryMember = new MenuItem("Create Member");
 		createLibraryMember.setOnAction(evt -> {
 			AddLibraryMember catalogListWindow = AddLibraryMember.INSTANCE;
@@ -119,7 +132,7 @@ public class Welcome extends Stage {
 		});
 
 		MenuItem editLibraryMember = new MenuItem("Edit Member");
-		adminMenu.getItems().addAll(addNewBook, createLibraryMember, editLibraryMember);
+		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, editLibraryMember);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
 
 		// must have to show
