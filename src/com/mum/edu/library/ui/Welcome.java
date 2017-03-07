@@ -2,9 +2,14 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import com.mum.edu.library.dao.MemberDAO;
+import com.mum.edu.library.dao.impl.MemberDAOImpl;
+import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Role;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -143,7 +148,10 @@ public class Welcome extends Stage {
 		libraryMemberManage.setOnAction(evt -> {
 			ManageMemberScreen manageMember = ManageMemberScreen.INSTANCE;
 			manageMember.setStage(primaryStage, roles);
-//			manageMember.setData(members);
+			// we must load data from member xml
+			MemberDAO memberDAO = new MemberDAOImpl();
+			ObservableList<Member> members = FXCollections.observableArrayList(memberDAO.loadMembers());
+			manageMember.setData(members);
 		});
 		
 		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, libraryMemberManage);

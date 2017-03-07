@@ -13,7 +13,7 @@ public class People implements Serializable {
 	private SimpleStringProperty firstName;
 	private SimpleStringProperty lastName;
 	private Address address;
-	private String phoneNumber;
+	private SimpleStringProperty phoneNumber;
 	
 	public People() {
 	}
@@ -23,7 +23,7 @@ public class People implements Serializable {
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
 		this.address = address;
-		this.phoneNumber = phoneNumber;
+		this.phoneNumber = new SimpleStringProperty(phoneNumber);
 	}
 	
 	
@@ -33,7 +33,11 @@ public class People implements Serializable {
 	
 	@XmlElement
 	public void setFirstName(String firstName) {
-		this.firstName.set(firstName);
+		if (this.firstName == null) {
+			this.firstName = new SimpleStringProperty(firstName);
+		} else {
+			this.firstName.set(firstName);
+		}
 	}
 
 	public String getLastName() {
@@ -42,7 +46,11 @@ public class People implements Serializable {
 	
 	@XmlElement
 	public void setLastName(String lastName) {
-		this.lastName.set(lastName);
+		if (this.lastName == null) {
+			this.lastName = new SimpleStringProperty(lastName);
+		} else {
+			this.lastName.set(lastName);
+		}
 	}
 
 	public Address getAddress() {
@@ -55,12 +63,16 @@ public class People implements Serializable {
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return phoneNumber.get();
 	}
 	
 	@XmlElement
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		if (this.phoneNumber == null) {
+			this.phoneNumber = new SimpleStringProperty(phoneNumber);
+		} else {
+			this.phoneNumber.set(phoneNumber);
+		}
 	}
 
 }

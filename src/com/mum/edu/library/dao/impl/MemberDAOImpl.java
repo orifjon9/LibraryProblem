@@ -1,6 +1,7 @@
 package com.mum.edu.library.dao.impl;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,8 +18,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public void save(Member memberToSave) {
 		JAXBContext jaxbContext = null;
 		Members members = new Members();
-//		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File("E:\\MPP\\LibraryProblem\\resources\\database\\member.xml");
+		File file = new File("E:\\MPP\\member.xml");
 		try {
 
 			jaxbContext = JAXBContext.newInstance(Members.class);
@@ -34,6 +34,24 @@ public class MemberDAOImpl implements MemberDAO {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Member> loadMembers() {
+		JAXBContext jaxbContext = null;
+		Members members = new Members();
+		File file = new File("E:\\MPP\\member.xml");
+		try {
+
+			jaxbContext = JAXBContext.newInstance(Members.class);
+
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			members = (Members) jaxbUnmarshaller.unmarshal(file);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		return members.getMember();
 	}
 
 }

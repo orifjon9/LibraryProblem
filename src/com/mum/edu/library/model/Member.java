@@ -5,28 +5,34 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 @XmlRootElement
 public class Member extends People implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int memberId;
+	private SimpleIntegerProperty memberId;
 	
 	public Member() {
 	}
 
 	public Member(int memberId, String firstName, String lastName, Address address, String phoneNumber) {
 		super(firstName, lastName, address, phoneNumber);
-		this.memberId = memberId;
+		this.memberId = new SimpleIntegerProperty(memberId);
+	}
+	
+	public int getMemberId() {
+		return memberId.get();
 	}
 	
 	@XmlAttribute
-	public int getMemberId() {
-		return memberId;
-	}
-	
 	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+		if (this.memberId == null) {
+			this.memberId = new SimpleIntegerProperty(memberId);
+		} else {
+			this.memberId.set(memberId);
+		}
 	}
 	
 	@Override
