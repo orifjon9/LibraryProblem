@@ -4,6 +4,9 @@ import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Member;
+import com.mum.edu.library.rule.RuleException;
+import com.mum.edu.library.rule.RuleSet;
+import com.mum.edu.library.rule.RuleSetFactory;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -21,6 +24,15 @@ import javafx.stage.Stage;
 
 public class AddLibraryMember extends Stage {
 	public static final AddLibraryMember INSTANCE = new AddLibraryMember();
+	private TextField memberID;
+	private TextField firstName;
+	private TextField lastName;
+	private TextField street;
+	private TextField city;
+	private TextField state;
+	private TextField zip;
+	private TextField phone;
+	
 	Stage primaryStage;
 
 	private AddLibraryMember() {
@@ -39,13 +51,19 @@ public class AddLibraryMember extends Stage {
 		grid.setPrefHeight(520);
 		
 		MenuBar mainMenu = new MenuBar();
-
+		HBox hBox = new HBox();
+		hBox.setPrefWidth(400);
+		Label errorMessage = new Label();
+		errorMessage.setId("error-message");
+		hBox.getChildren().add(errorMessage);
+		
+		grid.add(hBox, 2, 0);
 		// ---------------MemberID------------
 		Label memberIDlbl = new Label("MemberID:");
 		memberIDlbl.getStyleClass().add("member-label");
 		grid.add(memberIDlbl, 1, 1);
 
-		TextField memberID = new TextField();
+		memberID = new TextField();
 		grid.add(memberID, 2, 1);
 
 		// ---------------First Name------------
@@ -53,7 +71,7 @@ public class AddLibraryMember extends Stage {
 		firstNamelbl.getStyleClass().add("member-label");
 		grid.add(firstNamelbl, 1, 2);
 
-		TextField firstName = new TextField();
+		firstName = new TextField();
 		firstName.setPrefWidth(400);
 		grid.add(firstName, 2, 2);
 
@@ -62,7 +80,7 @@ public class AddLibraryMember extends Stage {
 		lastNamelbl.getStyleClass().add("member-label");
 		grid.add(lastNamelbl, 1, 3);
 
-		TextField lastName = new TextField();
+		lastName = new TextField();
 		lastName.setPrefWidth(400);
 		grid.add(lastName, 2, 3);
 		// ---------------Street------------
@@ -70,7 +88,7 @@ public class AddLibraryMember extends Stage {
 		streetlbl.getStyleClass().add("member-label");
 		grid.add(streetlbl, 1, 4);
 
-		TextField street = new TextField();
+		street = new TextField();
 		street.setPrefWidth(400);
 		grid.add(street, 2, 4);
 		// ---------------City------------
@@ -78,7 +96,7 @@ public class AddLibraryMember extends Stage {
 		citylbl.getStyleClass().add("member-label");
 		grid.add(citylbl, 1, 5);
 
-		TextField city = new TextField();
+		city = new TextField();
 		city.setPrefWidth(400);
 		grid.add(city, 2, 5);
 		// ---------------State------------
@@ -86,7 +104,7 @@ public class AddLibraryMember extends Stage {
 		statelbl.getStyleClass().add("member-label");
 		grid.add(statelbl, 1, 6);
 
-		TextField state = new TextField();
+		state = new TextField();
 		state.setPrefWidth(400);
 		grid.add(state, 2, 6);
 		// ---------------Zip------------
@@ -94,7 +112,7 @@ public class AddLibraryMember extends Stage {
 		ziplbl.getStyleClass().add("member-label");
 		grid.add(ziplbl, 1, 7);
 
-		TextField zip = new TextField();
+		zip = new TextField();
 		zip.setPrefWidth(400);
 		grid.add(zip, 2, 7);
 		// ---------------Telephone Number------------
@@ -102,7 +120,7 @@ public class AddLibraryMember extends Stage {
 		phonelbl.getStyleClass().add("member-label");
 		grid.add(phonelbl, 1, 8);
 
-		TextField phone = new TextField();
+		phone = new TextField();
 		phone.setPrefWidth(400);
 		grid.add(phone, 2, 8);
 
@@ -115,6 +133,13 @@ public class AddLibraryMember extends Stage {
 
 
 		btn.setOnAction(avt -> {
+			RuleSet ruleSet = RuleSetFactory.getRuleSet(AddLibraryMember.this);
+			try {
+				ruleSet.applyRule(AddLibraryMember.this);
+			} catch (RuleException e) {
+				errorMessage.setText(e.getMessage());
+				return;
+			}
 			MemberDAO memberDAO = new MemberDAOImpl();
 			Member member = new Member(Integer.parseInt(memberID.getText()), firstName.getText(), lastName.getText(),
 					new Address(street.getText(), city.getText(), state.getText(), zip.getText()), phone.getText());
@@ -139,12 +164,38 @@ public class AddLibraryMember extends Stage {
 			Login login = Login.INSTANCE;
 			login.start(primaryStage);
 		});
-		
 		topContainer.getChildren().addAll(mainMenu,grid);
 
 		primaryStage.setScene(new Scene(topContainer, 1000, 520));
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("addMember.css").toExternalForm());
 		primaryStage.show();
 	}
+	
+	public String getMemberIdValue() {
+		return memberID.getText();
+	}
+	
+	public String getFirstNameValue() {
+		return firstName.getText();
+	}
+	public String getLastNameValue() {
+		return lastName.getText();
+	}
+	public String getStreetValue() {
+		return street.getText();
+	}
+	public String getCityValue() {
+		return city.getText();
+	}
+	public String getStateValue() {
+		return state.getText();
+	}
+	public String getZipValue() {
+		return zip.getText();
+	}
+	public String getPhoneNumberValue() {
+		return phone.getText();
+	}
+	
 
 }

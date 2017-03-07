@@ -27,4 +27,12 @@ public class RuleSetFactory {
 		}
 		return maps.get(c1);
 	}
+	
+	public static RuleSet getRuleSet(Stage app) {
+		Class<? extends Stage> c1 = app.getClass();
+		if (!mapStages.containsKey(c1)) {
+			throw new IllegalArgumentException("No RuleSet found for this Component");
+		}
+		return mapStages.get(c1);
+	}
 }

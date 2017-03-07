@@ -3,6 +3,7 @@ package com.mum.edu.library.rule;
 import com.mum.edu.library.ui.Login;
 
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 public class LoginRuleSet implements RuleSet {
 
@@ -15,6 +16,11 @@ public class LoginRuleSet implements RuleSet {
 		} catch(NumberFormatException ex) {
 			throw new RuleException("UserName or Password is wrong");
 		}
+	}
+
+	@Override
+	public void applyRule(Stage stage) {
+		// Do not thing
 	}
 
 }

@@ -28,3 +28,9 @@
     -fx-padding: 10 10 10 10;
 	-fx-opacity: 0.8; 
 }
+
+#error-message {
+  	-fx-font-size: 12px;
+    -fx-font-family: Arial;
+    -fx-text-fill: Red;
+}
