@@ -10,17 +10,31 @@ public class BookCopy implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int IdCopyNumber;
+	private int BorrowAbleDate;
 
 	public BookCopy() {
 	}
+	
+	public BookCopy(int idCopyNumber, int borrowAbleDate) {
+		IdCopyNumber = idCopyNumber;
+		BorrowAbleDate = borrowAbleDate;
+	}
 
-	@XmlAttribute
 	public int getIdCopyNumber() {
 		return IdCopyNumber;
 	}
-
+	
+	public int getBorrowAbleDate() {
+		return BorrowAbleDate;
+	}
+	
+	@XmlAttribute
 	public void setIdCopyNumber(int idCopyNumber) {
 		IdCopyNumber = idCopyNumber;
 	}
-
+	
+	@XmlAttribute
+	public void setBorrowAbleDate(int borrowAbleDate) {
+		BorrowAbleDate = borrowAbleDate;
+	}
 }

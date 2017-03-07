@@ -1,5 +1,14 @@
 package com.mum.edu.library.ui;
 
+import java.util.Set;
+
+import com.mum.edu.library.dao.BookDAO;
+import com.mum.edu.library.dao.MemberDAO;
+import com.mum.edu.library.dao.impl.BookDAOImpl;
+import com.mum.edu.library.dao.impl.MemberDAOImpl;
+import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.BookCopy;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -64,10 +73,18 @@ public class AddCopy extends Stage {
 		btnSearch.setOnAction(avt -> {
 			// To do something
 			String inISBN = isbn.getText();
-			//Book book = new Book();
-			//String title = book.getIsbnNumber();
-						
-			bookTitle.setText(inISBN);
+			BookDAO bookDAO = new BookDAOImpl();
+			Book book = bookDAO.searchBook(inISBN);			
+					
+			bookTitle.setText(book.getTitle());
+			Set<BookCopy> bookCopies = book.getBookCopies();
+			Integer maxCurrent = 0;
+			for(BookCopy bc:bookCopies)
+			{
+					if(bc.getIdCopyNumber() > maxCurrent)
+						maxCurrent = bc.getIdCopyNumber();						
+			}
+			currentNum.setText(maxCurrent.toString());
 		
 		});
 		
