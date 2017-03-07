@@ -15,20 +15,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Books")
 public class Books implements Serializable {
 	
-	public Books() {
-		books = new ArrayList<>();
-	}
 
 	private static final long serialVersionUID = 1L;
 	@XmlElement(name = "Book", required = true)
-	protected List<Book> books;
+	protected List<Book> book;
 
-	public List<Book> getBook() {
-		return books;
+	public Books() {
+		book = new ArrayList<>();
 	}
 
-	public void setBook(List<Book> books) {
-		this.books = books;
+	public List<Book> getBook() {
+		return book;
+	}
+
+	public void setBook(List<Book> book) {
+		this.book = book;
 	}
 
 }

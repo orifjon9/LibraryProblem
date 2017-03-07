@@ -4,17 +4,25 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Book", propOrder = {"title","isbnNumber","availability", "author","bookCopies" })
+@XmlRootElement(name = "Book")
 public class Book implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	private String title;
 	private String isbnNumber;
+	
+	@XmlElement(name = "Author", required = true)
 	private Set<Author> author;
 	private boolean availability;
+	@XmlElement(name = "BookCopy", required = true)
 	private Set<BookCopy> bookCopies;
 	
 	public Book() {
@@ -28,7 +36,6 @@ public class Book implements Serializable  {
 		this.bookCopies = new HashSet<>();
 	}
 
-	@XmlAttribute
 	public String getTitle() {
 		return title;
 	}
@@ -37,7 +44,6 @@ public class Book implements Serializable  {
 		this.title = title;
 	}
 	
-	@XmlAttribute
 	public String getIsbnNumber() {
 		return isbnNumber;
 	}
@@ -46,7 +52,6 @@ public class Book implements Serializable  {
 		this.isbnNumber = isbnNumber;
 	}
 
-	@XmlAttribute
 	public Set<Author> getAuthor() {
 		return author;
 	}
@@ -63,7 +68,6 @@ public class Book implements Serializable  {
 		this.availability = availability;
 	}
 
-	@XmlAttribute
 	public Set<BookCopy> getBookCopies() {
 		return bookCopies;
 	}

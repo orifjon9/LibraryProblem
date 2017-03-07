@@ -12,6 +12,9 @@ public class Author extends People  implements Serializable {
 	private String credentials;
 	private String shortbio;
 	
+	public Author() {
+	}
+
 	public Author(String firstName, String lastName, Address address,
 			String phoneNumber, String credentials, String shortbio) {
 		super(firstName, lastName, address, phoneNumber);
@@ -19,20 +22,20 @@ public class Author extends People  implements Serializable {
 		this.shortbio = shortbio;
 	}
 	
-	@XmlAttribute
 	public String getCredentials() {
 		return credentials;
 	}
 
+	@XmlAttribute
 	public void setCredentials(String credentials) {
 		this.credentials = credentials;
 	}
 	
-	@XmlAttribute
 	public String getShortbio() {
 		return shortbio;
 	}
 
+	@XmlAttribute
 	public void setShortbio(String shortbio) {
 		this.shortbio = shortbio;
 	}
