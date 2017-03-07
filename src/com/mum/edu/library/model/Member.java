@@ -19,12 +19,12 @@ public class Member extends People implements Serializable {
 		super(firstName, lastName, address, phoneNumber);
 		this.memberId = memberId;
 	}
-
+	
+	@XmlAttribute
 	public int getMemberId() {
 		return memberId;
 	}
 	
-	@XmlAttribute
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}

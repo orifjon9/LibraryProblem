@@ -1,15 +1,25 @@
 package com.mum.edu.library.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Book {
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Book implements Serializable  {
+	private static final long serialVersionUID = 1L;
+
 	private String title;
 	private String isbnNumber;
 	private Set<Author> author;
 	private boolean availability;
 	private Set<BookCopy> bookCopies;
 	
+	public Book() {
+	}
+
 	public Book(String title, String isbnNumber, boolean availability) {
 		this.title = title;
 		this.isbnNumber = isbnNumber;
@@ -18,6 +28,7 @@ public class Book {
 		this.bookCopies = new HashSet<>();
 	}
 
+	@XmlAttribute
 	public String getTitle() {
 		return title;
 	}
@@ -25,7 +36,8 @@ public class Book {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
+	@XmlAttribute
 	public String getIsbnNumber() {
 		return isbnNumber;
 	}
@@ -34,6 +46,7 @@ public class Book {
 		this.isbnNumber = isbnNumber;
 	}
 
+	@XmlAttribute
 	public Set<Author> getAuthor() {
 		return author;
 	}
@@ -50,6 +63,7 @@ public class Book {
 		this.availability = availability;
 	}
 
+	@XmlAttribute
 	public Set<BookCopy> getBookCopies() {
 		return bookCopies;
 	}
