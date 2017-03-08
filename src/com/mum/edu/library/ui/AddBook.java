@@ -66,8 +66,12 @@ public class AddBook extends Stage {
 			book.getAuthor().add(new Author("Jack","London",new Address("407 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Good"));
 			book.getBookCopies().add(new BookCopy(1001, 7));
-			bookDAO.save(book);	
-		
+			bookDAO.save(book);
+			Book book2 = new Book("To Kill A Mockingbird", "12347", true);
+			book2.getAuthor().add(new Author("Happer","Lee",new Address("409 SD st", "Fairfield", "Iowa", "52556"), 
+					"123456","Certificate","Fair"));
+			book2.getBookCopies().add(new BookCopy(1002, 7));
+			bookDAO.save(book2);
 		});
 		
 	

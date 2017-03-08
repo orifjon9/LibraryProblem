@@ -71,21 +71,37 @@ public class BookDAOImpl implements BookDAO {
 	    		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 	    			Element eElement = (Element) nNode;
-	    			String title = eElement.getAttribute("title");
 	    			
-		    		Book book = new Book(eElement.getAttribute("title"), eElement.getAttribute("isbnNumber"),
-		    				Boolean.valueOf(eElement.getAttribute("availability")));
-		    		book.getAuthor().add(new Author(eElement.getAttribute("firstName"),eElement.getAttribute("lastName"),
-		    				new Address(eElement.getAttribute("city"), eElement.getAttribute("state"), eElement.getAttribute("street"), eElement.getAttribute("zip")), 
-		    				eElement.getAttribute("phoneNumber"), eElement.getAttribute("Certificate"), eElement.getAttribute("shortbio")));
-		    		book.getBookCopies().add(new BookCopy(Integer.parseInt(eElement.getAttribute("borrowAbleDate")), Integer.parseInt(eElement.getAttribute("idCopyNumber"))));
-
-
+	    			Integer borrow = Integer.parseInt(eElement.getElementsByTagName("borrowAbleDate").item(0).getTextContent());
+	    			Integer id = Integer.parseInt(eElement.getElementsByTagName("idCopyNumber").item(0).getTextContent());
+	    			Integer sum = borrow + id;
+	    			
+    			
+		    		Book book = new Book(eElement.getElementsByTagName("title").item(0).getTextContent(), 
+		    				eElement.getElementsByTagName("isbnNumber").item(0).getTextContent(),
+		    				Boolean.valueOf(eElement.getElementsByTagName("availability").item(0).getTextContent()));
+		    		book.getAuthor().add(new Author(eElement.getElementsByTagName("firstName").item(0).getTextContent(),
+		    				eElement.getElementsByTagName("lastName").item(0).getTextContent(),
+		    				new Address(eElement.getElementsByTagName("city").item(0).getTextContent(), 
+		    						eElement.getElementsByTagName("state").item(0).getTextContent(),
+		    						eElement.getElementsByTagName("street").item(0).getTextContent(),
+		    						eElement.getElementsByTagName("zip").item(0).getTextContent()),
+		    				eElement.getElementsByTagName("phoneNumber").item(0).getTextContent(), 
+		    				eElement.getAttribute("credentials"), 
+		    				eElement.getAttribute("shortbio")));
+		    		book.getBookCopies().add(new BookCopy(Integer.parseInt(eElement.getElementsByTagName("borrowAbleDate").item(0).getTextContent()), 
+		    				Integer.parseInt(eElement.getElementsByTagName("idCopyNumber").item(0).getTextContent())));
+//		    		book.getAuthor().add(new Author("Jack","London",new Address("407 SD st", "Fairfield", "Iowa", "52556"), 
+//							"123456","Certificate","Good"));
+//		    		book.getBookCopies().add(new BookCopy(1002, 7));
+		    		
+		    		lstBook.add(book);
 	    		}
+
 	    	}
-	    	} catch (Exception e) {
+	    } catch (Exception e) {
 	    		e.printStackTrace();
-	    	}		
+	    }		
 		
 //		Book book1 = new Book("TDo Androids Dream of Electric Sheep?", "12346", true);
 //		book1.getAuthor().add(new Author("Rick","Deckard",new Address("408 SD st", "Fairfield", "Iowa", "52556"), 
