@@ -22,4 +22,15 @@
         <lastName>Le</lastName>
         <phoneNumber>+1 985 778 6688</phoneNumber>
     </Member>
+    <Member memberId="2314">
+        <address>
+            <city>dsfsdfsd</city>
+            <state>Arizona</state>
+            <street>dsfsdf</street>
+            <zip>12345</zip>
+        </address>
+        <firstName>fsdsdf</firstName>
+        <lastName>sdfdsfsdf</lastName>
+        <phoneNumber>fdsfdsfsdfsd</phoneNumber>
+    </Member>
 </Members>

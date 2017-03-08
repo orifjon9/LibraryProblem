@@ -44,7 +44,7 @@ public class LibraryMemberActionScreen extends Stage {
 	private TextField zip;
 	private TextField phone;
 	private Member editMember;
-
+	MemberDAO memberDAO;
 	Stage primaryStage;
 
 	private ComboBox<String> stateCb;
@@ -208,13 +208,13 @@ public class LibraryMemberActionScreen extends Stage {
 			errorMessage.setText(e.getMessage());
 			return;
 		}
-		MemberDAO memberDAO = new MemberDAOImpl();
+		memberDAO = new MemberDAOImpl();
 		if (getEditMember() != null && !StringUtils.isBlank(String.valueOf(getEditMember().getMemberId()))) {
 			Member memberChanged = setValueChange(getEditMember());
 			try {
 				memberDAO.edit(memberChanged);
 			} catch (ApplicationException e) {
-				showErrorDialog(e);
+				showErrorDialog(e.getMessage());
 				return;
 			}
 			
@@ -224,14 +224,27 @@ public class LibraryMemberActionScreen extends Stage {
 					new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()),
 					phone.getText());
 			try {
-				memberDAO.save(member);
+				if (checkExist(member)) {
+					showErrorDialog("This MemberID is existing, Please Input Another MemberID");
+				} else {
+					memberDAO.save(member);
+				}
 			} catch (ApplicationException e) {
-				showErrorDialog(e);
+				showErrorDialog(e.getMessage());
 				return;
 			}
 			memberID.clear();
 		}
 		clearData();
+	}
+
+	private boolean checkExist(Member memberToSave) throws ApplicationException {
+		for(Member member : memberDAO.loadMembers()) {
+			if (member.getMemberId() == memberToSave.getMemberId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void clearData() {
@@ -244,11 +257,11 @@ public class LibraryMemberActionScreen extends Stage {
 		phone.clear();
 	}
 
-	private void showErrorDialog(ApplicationException e) {
+	private void showErrorDialog(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error Dialog");
 		alert.setHeaderText("Look, an Error Dialog");
-		alert.setContentText(e.getMessage());
+		alert.setContentText(message);
 		alert.showAndWait();
 	}
 

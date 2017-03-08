@@ -12,4 +12,5 @@ public interface MemberDAO {
 	public List<Member> loadMembers() throws ApplicationException ;
 
 	public void edit(Member editMember) throws ApplicationException;
+
 }

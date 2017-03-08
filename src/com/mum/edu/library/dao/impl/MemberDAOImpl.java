@@ -28,7 +28,7 @@ public class MemberDAOImpl implements MemberDAO {
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			members = (Members) jaxbUnmarshaller.unmarshal(file);
 			members.getMember().add(memberToSave);
-
+			
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(members, file);
 			jaxbMarshaller.marshal(members, System.out);
