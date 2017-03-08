@@ -50,12 +50,13 @@ public class MainScreen extends Stage {
 		VBox topContainer = new VBox();
 
 		MenuBar mainMenu = new MenuBar();
-
+		
 		Text label = new Text("NEW BOOK");
 		label.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		label.setId("new-book");
 		
 		HBox labelBox = new HBox(10);
+		labelBox.setPadding(new Insets(10, 0, 0, 0));
 		labelBox.setAlignment(Pos.CENTER);
 		labelBox.getChildren().add(label);
 

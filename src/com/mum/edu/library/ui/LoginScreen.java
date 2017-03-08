@@ -37,8 +37,8 @@ public class LoginScreen extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Library");
-		primaryStage.getIcons().add(new Image(LoginScreen.class.getResourceAsStream("manu.png")));
+		primaryStage.setTitle("Helios Team");
+		primaryStage.getIcons().add(new Image(LoginScreen.class.getResourceAsStream("helios.png")));
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
