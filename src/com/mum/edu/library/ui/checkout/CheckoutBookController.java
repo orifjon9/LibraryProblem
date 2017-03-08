@@ -4,8 +4,11 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.mum.edu.library.dao.BookDAO;
+import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.rule.ApplicationException;
 import com.mum.edu.library.rule.CheckoutRuleSet;
@@ -64,8 +67,10 @@ public class CheckoutBookController {
 	public Book getSelectedItem(){
 		try
 		{
-			ObservableList selectedItems = tableBook.getSelectionModel().getSelectedCells();
-			return (Book)selectedItems.get(0);
+			Object book = tableBook.getSelectionModel().getSelectedItem();
+			/*Object book = selectedItems.get(0);*/
+			
+			return (Book)book;
 		}
 		catch (Exception e) {
 			// TODO: handle exception
@@ -75,35 +80,45 @@ public class CheckoutBookController {
 	
 	@FXML
 	private void MakeCheckoutRecordButtonAction(ActionEvent event){
-		/*try
-		{*/
-			//RuleSet ruleSet = RuleSetFactory.getRuleSet(CheckoutBookWindow.getInstance());
+		try
+		{
+			RuleSet ruleSet = RuleSetFactory.getRuleSet(CheckoutBookController.this);
 		
-			//ruleSet.applyRule(CheckoutBookWindow.getInstance());
-		
+			ruleSet.applyRule(this);
 		
 		
 		int memberId = Integer.parseInt(txbMemberId.getText());
 		
-		Member requiredMember = null; 
-		try{
-			MemberDAOImpl mDao = new MemberDAOImpl();
-			requiredMember = mDao.getMember(memberId);
+		 			MemberDAOImpl mDao = new MemberDAOImpl();
+			Member requiredMember = mDao.getMember(memberId);
+		
+		
+		if(requiredMember == null){
+			throw new RuleException("Member was not found");
 		}
-		catch(ApplicationException ex){
-			
-		}
+		
 		//ObservableList selectedItems = tableBook.getSelectionModel().getSelectedCells();
 		Book book = this.getSelectedItem();
-		if(book != null && requiredMember != null){
+		BookCopy bookCopy = book.getAvailableBookCopy();
 		
-			boolean resultOfCheckout = CheckoutManager.getInstance()
-					.makeCheckoutRecord(requiredMember, book.getAvailableBookCopy());
+		boolean resultOfCheckout = CheckoutManager.getInstance().makeCheckoutRecord(requiredMember, bookCopy);
+		
+		if(resultOfCheckout){
+			bookCopy.setAvailability(false);
+			book.replaceBookCopy(bookCopy);
+			
+			BookDAO bookDao = new BookDAOImpl();
+			bookDao.editCopy(book);
 		}
-		/*}
+			
+		}
 		catch(RuleException ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
-		}*/
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -130,7 +145,8 @@ public class CheckoutBookController {
 		ObservableList<Book> data =
 		        FXCollections.observableArrayList();
 		for(Book book: CheckoutManager.getInstance().getSearchBookByISBN(txbISBN.getText())){
-			data.add(book);
+			if(book.getIsAvaliable())
+				data.add(book);
 		}
 		
 		tableBook.setItems(data);

@@ -82,4 +82,28 @@ public class Book implements Serializable  {
 		
 		return null;
 	}
+	
+	public boolean getIsAvaliable(){
+		for(BookCopy bookCopy: bookCopies){
+			if(bookCopy.getAvailability()){
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean replaceBookCopy(BookCopy newBookCopy){
+		for(BookCopy oldBookCopy: bookCopies){
+			if(oldBookCopy.getIdCopyNumber() == newBookCopy.getIdCopyNumber()){
+				bookCopies.remove(oldBookCopy);
+				bookCopies.add(newBookCopy);
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

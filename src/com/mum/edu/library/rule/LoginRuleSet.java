@@ -23,4 +23,10 @@ public class LoginRuleSet implements RuleSet {
 		// Do not thing
 	}
 
+	@Override
+	public void applyRule(Object object) throws RuleException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

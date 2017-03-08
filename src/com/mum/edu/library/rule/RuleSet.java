@@ -7,5 +7,8 @@ public interface RuleSet {
 	void applyRule(Application application) throws RuleException;
 
 	void applyRule(Stage stage) throws RuleException; 
+	
+	void applyRule(Object object) throws RuleException;
+	
 
 }

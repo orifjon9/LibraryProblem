@@ -48,4 +48,10 @@ public class MemberRuleSet implements RuleSet {
 		}
 	}
 
+	@Override
+	public void applyRule(Object object) throws RuleException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
