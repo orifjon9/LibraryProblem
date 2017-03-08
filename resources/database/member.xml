@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Members>
-    <Member memberId="2314">
+    <Member memberId="985696">
         <address>
-            <city>12621436</city>
-            <state>1251265</state>
-            <street>2352356</street>
-            <zip>12345</zip>
+            <city>FairField</city>
+            <state>Iowa</state>
+            <street>1000 4th North </street>
+            <zip>52727</zip>
         </address>
-        <firstName>521512</firstName>
-        <lastName>512165fsdf</lastName>
-        <phoneNumber>1256</phoneNumber>
+        <firstName>Nguyen Hoan Vu</firstName>
+        <lastName>Le</lastName>
+        <phoneNumber>+1 984 838 6688</phoneNumber>
     </Member>
-    <Member memberId="34324324">
+    <Member memberId="985677">
         <address>
-            <city>fdsfsd</city>
-            <state>Connecticut</state>
-            <street>dfsdf</street>
-            <zip>12345</zip>
+            <city>FairField</city>
+            <state>Iowa</state>
+            <street>1000 4th North</street>
+            <zip>52777</zip>
         </address>
-        <firstName>Nguyen Hoan Vu Le</firstName>
-        <lastName>123455</lastName>
-        <phoneNumber>frgfd</phoneNumber>
+        <firstName>Cao Ha </firstName>
+        <lastName>Tran</lastName>
+        <phoneNumber>+1 986 737 6688</phoneNumber>
     </Member>
 </Members>

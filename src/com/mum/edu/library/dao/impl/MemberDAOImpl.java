@@ -17,8 +17,14 @@ import com.mum.edu.library.model.Members;
 import com.mum.edu.library.rule.ApplicationException;
 
 public class MemberDAOImpl implements MemberDAO {
+	private static final String RESOURCES = "resources";
+	private static final String BIN = "bin";
 	JAXBContext jaxbContext = null;
-	File file = new File(getClass().getClassLoader().getResource(Constant.MEMBER_FILE).getFile());
+	private final File file = new File(findExactlyDataBase());
+
+	private String findExactlyDataBase() {
+		return getClass().getClassLoader().getResource(Constant.MEMBER_FILE).getFile().replace(BIN, RESOURCES);
+	}
 
 	@Override
 	public void save(Member memberToSave) throws ApplicationException {
@@ -26,8 +32,7 @@ public class MemberDAOImpl implements MemberDAO {
 			List<Member> membersLoaded = loadMembers();
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			membersLoaded.add(memberToSave);
-			
-			
+
 			flush(membersLoaded, jaxbMarshaller);
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -50,7 +55,6 @@ public class MemberDAOImpl implements MemberDAO {
 			jaxbContext = JAXBContext.newInstance(Members.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			members = (Members) jaxbUnmarshaller.unmarshal(file);
-
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new ApplicationException("Error with database");

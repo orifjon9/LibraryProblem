@@ -226,6 +226,7 @@ public class LibraryMemberActionScreen extends Stage {
 			try {
 				if (checkExist(member)) {
 					showErrorDialog("This MemberID is existing, Please Input Another MemberID");
+					return;
 				} else {
 					memberDAO.save(member);
 				}
