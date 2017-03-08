@@ -1,5 +1,6 @@
 package com.mum.edu.library.ui.checkout;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +49,7 @@ public class CheckoutBookController {
 	}
 	
 	@FXML
-	private void SearchBookActionButton(ActionEvent event){
+	private void SearchBookActionButton(ActionEvent event) throws ApplicationException{
 		
 		tableColumnTitle.setCellFactory(new PropertyValueFactory<Book,String>("title"));
 		tableColumnIsbnNumber.setCellFactory(new PropertyValueFactory<Book,String>("isbnNumber"));

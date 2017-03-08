@@ -3,7 +3,6 @@ package com.mum.edu.library.ui.checkout;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.ICheckoutDAO;
@@ -15,6 +14,7 @@ import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.CheckoutEntry;
 import com.mum.edu.library.model.CheckoutRecord;
 import com.mum.edu.library.model.Member;
+import com.mum.edu.library.rule.ApplicationException;
 
 public class CheckoutManager {
 	private static CheckoutManager instance;
@@ -75,7 +75,7 @@ public class CheckoutManager {
 		}
 	}
 	
-	public List<Book> getSearchBookByISBN(String isbn){
+	public List<Book> getSearchBookByISBN(String isbn) throws ApplicationException{
 		BookDAO bookDAO = new BookDAOImpl();
 		return bookDAO.searchBooks(isbn);
 	}
