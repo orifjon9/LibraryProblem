@@ -18,7 +18,7 @@ import com.mum.edu.library.rule.ApplicationException;
 
 public class MemberDAOImpl implements MemberDAO {
 	JAXBContext jaxbContext = null;
-	File file = new File(Constant.MEMBER_FILE);
+	File file = new File(getClass().getClassLoader().getResource(Constant.MEMBER_FILE).getFile());
 
 	@Override
 	public void save(Member memberToSave) throws ApplicationException {
