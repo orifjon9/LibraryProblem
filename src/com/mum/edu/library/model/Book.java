@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Book", propOrder = {"title","isbnNumber","availability", "author","bookCopies" })
+@XmlType(name = "Book", propOrder = {"title","isbnNumber", "author","bookCopies" })
 @XmlRootElement(name = "Book")
 public class Book implements Serializable  {
 	private static final long serialVersionUID = 1L;
@@ -21,18 +21,16 @@ public class Book implements Serializable  {
 	
 	@XmlElement(name = "Author", required = true)
 	private Set<Author> author;
-	private boolean availability;
 	@XmlElement(name = "BookCopy", required = true)
 	private Set<BookCopy> bookCopies;
 	
 	public Book() {
 	}
 
-	public Book(String title, String isbnNumber, boolean availability) {
+	public Book(String title, String isbnNumber) {
 		this.title = title;
 		this.isbnNumber = isbnNumber;
 		this.author = new HashSet<>();
-		this.availability = availability;
 		this.bookCopies = new HashSet<>();
 	}
 
@@ -60,26 +58,17 @@ public class Book implements Serializable  {
 		this.author = author;
 	}
 
-	public boolean getAvailability() {
-		return availability;
-	}
-
-	public void setAvailability(boolean availability) {
-		this.availability = availability;
-	}
-
-	public Set<BookCopy> getBookCopies() {
-		return bookCopies;
-	}
-
 	public void setBookCopies(Set<BookCopy> bookCopies) {
 		this.bookCopies = bookCopies;
 	}
 
+	public Set<BookCopy> getBookCopies() {
+		return bookCopies ;
+	}
+	
 	public void copyFrom(Book editBook) {
 		this.setTitle(editBook.getTitle());
 		this.setIsbnNumber(editBook.getIsbnNumber());
-		this.setAvailability(editBook.getAvailability());		
 		this.setAuthor(editBook.getAuthor());
 		this.setBookCopies(editBook.getBookCopies());		
 	}

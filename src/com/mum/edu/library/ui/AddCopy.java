@@ -105,7 +105,7 @@ public class AddCopy extends Stage {
 			try {
 				Book book = bookDAO.searchBook(isbn.getText());
 				Set<BookCopy> bookCopies = book.getBookCopies();
-				BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate);
+				BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate, true);
 				bookCopies.add(newCopy);
 				book.setBookCopies(bookCopies);
 				bookDAO.addCopy(book);

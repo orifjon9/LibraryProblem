@@ -11,14 +11,15 @@ public class BookCopy implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int IdCopyNumber;
 	private int BorrowAbleDate;
+	private boolean availability;
 
 	public BookCopy() {
 	}
 
-	
-	public BookCopy(int idCopyNumber, int borrowAbleDate) {
+	public BookCopy(int idCopyNumber, int borrowAbleDate, boolean availability) {
 		IdCopyNumber = idCopyNumber;
 		BorrowAbleDate = borrowAbleDate;
+		this.availability = availability;
 	}
 
 	public int getIdCopyNumber() {
@@ -27,6 +28,15 @@ public class BookCopy implements Serializable {
 	
 	public int getBorrowAbleDate() {
 		return BorrowAbleDate;
+	}
+	
+	public boolean getAvailability() {
+		return availability;
+	}
+	
+	@XmlAttribute
+	public void setAvailability(boolean availability) {
+		this.availability = availability;
 	}
 	
 	@XmlAttribute

@@ -63,20 +63,20 @@ public class AddBook extends Stage {
 		btnAddBook.setOnAction(avt -> {
 			// To do something			
 			BookDAO bookDAO = new BookDAOImpl();
-			Book book = new Book("The Call of the Wild", "12345", true);
+			Book book = new Book("The Call of the Wild", "12345");
 			book.getAuthor().add(new Author("Jack","London",new Address("407 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Good"));
-			book.getBookCopies().add(new BookCopy(1001, 7));
+			book.getBookCopies().add(new BookCopy(1001, 7, true));
 			try {
 				bookDAO.save(book);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
 			
-			Book book2 = new Book("To Kill A Mockingbird", "12347", true);
+			Book book2 = new Book("To Kill A Mockingbird", "12347");
 			book2.getAuthor().add(new Author("Happer","Lee",new Address("409 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Fair"));
-			book2.getBookCopies().add(new BookCopy(1002, 7));
+			book2.getBookCopies().add(new BookCopy(1002, 21, true));
 			try {
 				bookDAO.save(book2);
 			} catch (ApplicationException e) {
