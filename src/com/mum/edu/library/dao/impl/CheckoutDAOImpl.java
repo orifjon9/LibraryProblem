@@ -13,6 +13,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.ICheckoutDAO;
 import com.mum.edu.library.model.Books;
 import com.mum.edu.library.model.CheckoutEntry;
@@ -20,15 +21,15 @@ import com.mum.edu.library.model.CheckoutRecord;
 import com.mum.edu.library.model.CheckoutRecords;
 
 public class CheckoutDAOImpl implements ICheckoutDAO {
-	private final String FILE_NAME = "D:\\MUM\\MPP\\LibraryProblem\\CheckoutRecords.xml";
+	JAXBContext jaxbContext = null;
+	File file = new File(getClass().getClassLoader().getResource(Constant.CHECKOUTRECORD_FILE).getFile());
 
 	@Override
 	public void save(CheckoutRecord saveCheckoutRecord) {
 		// TODO Auto-generated method stub
-		JAXBContext jaxbContext = null;
-		CheckoutRecords checkoutRecords = new CheckoutRecords();
-		File file = new File(FILE_NAME);
 		
+		CheckoutRecords checkoutRecords = new CheckoutRecords();
+				
 		try {
 
 			jaxbContext = JAXBContext.newInstance(CheckoutRecords.class);
@@ -49,9 +50,7 @@ public class CheckoutDAOImpl implements ICheckoutDAO {
 	@Override
 	public List<CheckoutRecord> read() {
 		// TODO Auto-generated method stub
-				JAXBContext jaxbContext = null;
 				CheckoutRecords checkoutRecords = new CheckoutRecords();
-				File file = new File(FILE_NAME);
 				
 				try {
 
