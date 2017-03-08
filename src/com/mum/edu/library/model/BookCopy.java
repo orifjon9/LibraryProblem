@@ -14,6 +14,7 @@ public class BookCopy implements Serializable {
 
 	public BookCopy() {
 	}
+
 	
 	public BookCopy(int idCopyNumber, int borrowAbleDate) {
 		IdCopyNumber = idCopyNumber;
@@ -28,10 +29,12 @@ public class BookCopy implements Serializable {
 		return BorrowAbleDate;
 	}
 	
+	@XmlAttribute
 	public void setIdCopyNumber(int idCopyNumber) {
 		IdCopyNumber = idCopyNumber;
 	}
 	
+	@XmlAttribute
 	public void setBorrowAbleDate(int borrowAbleDate) {
 		BorrowAbleDate = borrowAbleDate;
 	}

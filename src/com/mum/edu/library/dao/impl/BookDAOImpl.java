@@ -87,6 +87,19 @@ public class BookDAOImpl implements BookDAO {
 	}
 	
 	@Override
+
+	public List<Book> searchBooks(String isbn){
+		List<Book> lstBook = read();
+		for(Book b:lstBook)
+		{
+			if(b.getIsbnNumber().indexOf(isbn) < 0)
+				lstBook.remove(b);
+		}
+		
+		return lstBook;
+	}
+	
+	@Override
 	public void addCopy(Book book) throws ApplicationException{
 		try {
 			List<Book> lstBook = read();
@@ -95,6 +108,7 @@ public class BookDAOImpl implements BookDAO {
 				if (b.getIsbnNumber().equals(book.getIsbnNumber())) {
 					b.copyFrom(book);
 				}					
+
 			}
 
 			flush(lstBook, jaxbMarshaller);
