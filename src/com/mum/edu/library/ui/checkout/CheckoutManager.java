@@ -76,8 +76,17 @@ public class CheckoutManager {
 	}
 	
 	public List<Book> getSearchBookByISBN(String isbn) throws ApplicationException{
-		BookDAO bookDAO = new BookDAOImpl();
-		return bookDAO.searchBooks(isbn);
+		try
+		{
+			BookDAO bookDAO = new BookDAOImpl();
+			return bookDAO.searchBooks(isbn);
+		}
+		catch (ApplicationException e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+		return null;
 	}
 	
 }

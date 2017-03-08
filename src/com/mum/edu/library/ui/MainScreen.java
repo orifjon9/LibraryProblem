@@ -2,6 +2,8 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
@@ -10,6 +12,7 @@ import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.ApplicationException;
+import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -123,6 +126,15 @@ public class MainScreen extends Stage {
 		librarianMenu.getItems().addAll(checkoutBook);
 		checkoutBook.setOnAction(evt -> {
 			// Implement In here.
+			try {
+				
+				CheckoutBookWindow.getInstance().start(primaryStage);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			};
 		});
 
 		// did not add menu item for menu edit
