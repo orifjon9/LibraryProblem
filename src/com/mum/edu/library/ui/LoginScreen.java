@@ -25,8 +25,8 @@ import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
-public class Login extends Application {
-	public static final Login INSTANCE = new Login();
+public class LoginScreen extends Application {
+	public static final LoginScreen INSTANCE = new LoginScreen();
 	
 	private TextField userNameTxt;
 	private PasswordField passWordTxt;
@@ -38,7 +38,7 @@ public class Login extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Library");
-		primaryStage.getIcons().add(new Image(Login.class.getResourceAsStream("manu.png")));
+		primaryStage.getIcons().add(new Image(LoginScreen.class.getResourceAsStream("manu.png")));
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -87,9 +87,9 @@ public class Login extends Application {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				RuleSet rule = RuleSetFactory.getRuleSet(Login.this);
+				RuleSet rule = RuleSetFactory.getRuleSet(LoginScreen.this);
 				try {
-					rule.applyRule(Login.this);
+					rule.applyRule(LoginScreen.this);
 				} catch (RuleException e1) {
 					informText.setText(e1.getMessage());
 				}
@@ -101,7 +101,7 @@ public class Login extends Application {
 					}
 					if (StringUtils.equals(employee.getPassword(), getPasswordValue())) {
 						notFoundUserNameAndPassWord = "";
-						Welcome welcome = Welcome.INSTANCE;
+						MainScreen welcome = MainScreen.INSTANCE;
 						welcome.setStage(primaryStage,employee.getRoles());
 					}
 				}

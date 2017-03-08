@@ -1,36 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Members>
-    <Member memberId="123">
-        <address>
-            <city>515</city>
-            <state>555</state>
-            <street>515</street>
-            <zip>555</zip>
-        </address>
-        <firstName>1414</firstName>
-        <lastName>414</lastName>
-        <phoneNumber>14313</phoneNumber>
-    </Member>
-    <Member memberId="1313">
-        <address>
-            <city>5155</city>
-            <state>5155</state>
-            <street>515</street>
-            <zip>5155</zip>
-        </address>
-        <firstName>41414</firstName>
-        <lastName>41415</lastName>
-        <phoneNumber>5555</phoneNumber>
-    </Member>
     <Member memberId="2314">
         <address>
-            <city>12621436</city>
-            <state>1251265</state>
-            <street>2352356</street>
-            <zip>1251265</zip>
+            <city>FairField</city>
+            <state>Iowa</state>
+            <street>1002 10th North</street>
+            <zip>51277</zip>
         </address>
-        <firstName>521512</firstName>
-        <lastName>512165</lastName>
-        <phoneNumber>1256</phoneNumber>
+        <firstName>Cao Ha</firstName>
+        <lastName>Tran Le</lastName>
+        <phoneNumber>+1 987 685 432</phoneNumber>
+    </Member>
+    <Member memberId="985696">
+        <address>
+            <city>FairField</city>
+            <state>Iowa</state>
+            <street>1000 4th North </street>
+            <zip>52771</zip>
+        </address>
+        <firstName>Nguyen Hoan Vu 2</firstName>
+        <lastName>Le</lastName>
+        <phoneNumber>+1 985 778 6688</phoneNumber>
     </Member>
 </Members>

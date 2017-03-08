@@ -2,7 +2,7 @@ package com.mum.edu.library.rule;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.mum.edu.library.ui.AddLibraryMember;
+import com.mum.edu.library.ui.LibraryMemberActionScreen;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,7 +16,7 @@ public class MemberRuleSet implements RuleSet {
 
 	@Override
 	public void applyRule(Stage stage) throws RuleException {
-		AddLibraryMember libraryMember = (AddLibraryMember) stage;
+		LibraryMemberActionScreen libraryMember = (LibraryMemberActionScreen) stage;
 		if (StringUtils.isBlank(libraryMember.getMemberIdValue())
 				|| StringUtils.isBlank(libraryMember.getFirstNameValue())
 				|| StringUtils.isBlank(libraryMember.getLastNameValue())

@@ -6,6 +6,7 @@ import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Role;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,14 +27,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Welcome extends Stage {
-	public static final Welcome INSTANCE = new Welcome();
+public class MainScreen extends Stage {
+	public static final MainScreen INSTANCE = new MainScreen();
 	Stage primaryStage;
 	private Menu homeMenu;
 	private Menu adminMenu;
 	private Menu librarianMenu;
 	
-	private Welcome() {
+	private MainScreen() {
 	}
 
 	public void setStage(Stage ps, Set<Role> roles) {
@@ -45,7 +46,7 @@ public class Welcome extends Stage {
 		MenuBar mainMenu = new MenuBar();
 
 		Text label = new Text("NEW BOOK");
-		label.setFont(Font.font("700 24px/24px 'Lora',sans-serif", FontWeight.BOLD, 30));
+		label.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		label.setId("new-book");
 		
 		HBox labelBox = new HBox(10);
@@ -60,42 +61,42 @@ public class Welcome extends Stage {
 		// --------------New Book------------------
 		HBox habitBox = new HBox(10);
 		ImageView habit = new ImageView();
-		Image habitImage = new Image(Welcome.class.getResourceAsStream("habit.jpg"));
+		Image habitImage = new Image(MainScreen.class.getResourceAsStream("habit.jpg"));
 		habit.setImage(habitImage);
 		habitBox.getChildren().add(habit);
 		gridpane.add(habitBox, 1, 1);
 
 		HBox fahrenheitBox = new HBox(10);
 		ImageView fahrement = new ImageView();
-		Image fahrementImage = new Image(Welcome.class.getResourceAsStream("fahrenheit.jpg"));
+		Image fahrementImage = new Image(MainScreen.class.getResourceAsStream("fahrenheit.jpg"));
 		fahrement.setImage(fahrementImage);
 		fahrenheitBox.getChildren().add(fahrement);
 		gridpane.add(fahrenheitBox, 2, 1);
 
 		HBox oceanBox = new HBox(10);
 		ImageView ocean = new ImageView();
-		Image oceanImage = new Image(Welcome.class.getResourceAsStream("ocean.jpg"));
+		Image oceanImage = new Image(MainScreen.class.getResourceAsStream("ocean.jpg"));
 		ocean.setImage(oceanImage);
 		oceanBox.getChildren().add(ocean);
 		gridpane.add(oceanBox, 3, 1);
 
 		HBox theFaultBox = new HBox(10);
 		ImageView theFault = new ImageView();
-		Image theFaultImage = new Image(Welcome.class.getResourceAsStream("theFault.jpg"));
+		Image theFaultImage = new Image(MainScreen.class.getResourceAsStream("theFault.jpg"));
 		theFault.setImage(theFaultImage);
 		theFaultBox.getChildren().add(theFault);
 		gridpane.add(theFaultBox, 1, 2);
 
 		HBox quietBox = new HBox(10);
 		ImageView quiet = new ImageView();
-		Image quietImage = new Image(Welcome.class.getResourceAsStream("quiet.jpg"));
+		Image quietImage = new Image(MainScreen.class.getResourceAsStream("quiet.jpg"));
 		quiet.setImage(quietImage);
 		quietBox.getChildren().add(quiet);
 		gridpane.add(quietBox, 2, 2);
 
 		HBox agreementBox = new HBox(10);
 		ImageView agreement = new ImageView();
-		Image agreementImage = new Image(Welcome.class.getResourceAsStream("agreement.jpg"));
+		Image agreementImage = new Image(MainScreen.class.getResourceAsStream("agreement.jpg"));
 		agreement.setImage(agreementImage);
 		agreementBox.getChildren().add(agreement);
 		gridpane.add(agreementBox, 3, 2);
@@ -110,7 +111,7 @@ public class Welcome extends Stage {
 		homeMenu.getItems().addAll(logout, exitApp);
 		exitApp.setOnAction(evt -> Platform.exit());
 		logout.setOnAction(evt -> {
-			Login login = Login.INSTANCE;
+			LoginScreen login = LoginScreen.INSTANCE;
 			login.start(primaryStage);
 		});
 
@@ -137,24 +138,23 @@ public class Welcome extends Stage {
 			addCopyWindow.setStage(primaryStage);
 		});
 
-		MenuItem createLibraryMember = new MenuItem("Create Member");
-		createLibraryMember.setOnAction(evt -> {
-			AddLibraryMember libraryMember = AddLibraryMember.INSTANCE;
-			libraryMember.setStage(primaryStage, roles);
-		});
-
 		MenuItem libraryMemberManage = new MenuItem("Member");
 		
 		libraryMemberManage.setOnAction(evt -> {
-			ManageMemberScreen manageMember = ManageMemberScreen.INSTANCE;
+			LibraryMemberManagementScreen manageMember = LibraryMemberManagementScreen.INSTANCE;
 			manageMember.setStage(primaryStage, roles);
 			// we must load data from member xml
 			MemberDAO memberDAO = new MemberDAOImpl();
-			ObservableList<Member> members = FXCollections.observableArrayList(memberDAO.loadMembers());
+			ObservableList<Member> members = null;
+			try {
+				members = FXCollections.observableArrayList(memberDAO.loadMembers());
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
 			manageMember.setData(members);
 		});
 		
-		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, libraryMemberManage);
+		adminMenu.getItems().addAll(addBook, addCopy, libraryMemberManage);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
 		
 		authority(roles);

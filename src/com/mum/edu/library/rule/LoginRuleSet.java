@@ -1,6 +1,6 @@
 package com.mum.edu.library.rule;
 
-import com.mum.edu.library.ui.Login;
+import com.mum.edu.library.ui.LoginScreen;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,7 +9,7 @@ public class LoginRuleSet implements RuleSet {
 
 	@Override
 	public void applyRule(Application application) throws RuleException {
-		Login login = (Login) application;
+		LoginScreen login = (LoginScreen) application;
 		String userNameValue = login.getUserNameValue();
 		try {
 			Integer.parseInt(userNameValue);

@@ -2,8 +2,8 @@ package com.mum.edu.library.rule;
 
 import java.util.HashMap;
 
-import com.mum.edu.library.ui.AddLibraryMember;
-import com.mum.edu.library.ui.Login;
+import com.mum.edu.library.ui.LibraryMemberActionScreen;
+import com.mum.edu.library.ui.LoginScreen;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,8 +16,8 @@ public class RuleSetFactory {
 	static HashMap<Class<? extends Stage>, RuleSet> mapStages = new HashMap<>();
 
 	static {
-		maps.put(Login.class, new LoginRuleSet());
-		mapStages.put(AddLibraryMember.class, new MemberRuleSet());
+		maps.put(LoginScreen.class, new LoginRuleSet());
+		mapStages.put(LibraryMemberActionScreen.class, new MemberRuleSet());
 	}
 
 	public static RuleSet getRuleSet(Application app) {

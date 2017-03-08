@@ -1,0 +1,37 @@
+.root {
+	-fx-background-image: url("08-Wallpaper.png");
+}
+
+.table-view .column-header-background .label {
+	-fx-text-fill: white;
+}
+
+.table-view .column-header {
+	-fx-background-color: #167F92;
+}
+
+#button-edit {
+	-fx-text-fill: white;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-background-color: #ec971f;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+	-fx-cursor: pointer;
+}
+
+#button-edit:hover {
+	-fx-background-color: #c9302c;
+}
+
+#button-new {
+	-fx-text-fill: white;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-background-color: #5cb85c;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+	-fx-cursor: pointer;
+}
+
+#button-new:hover {
+	-fx-background-color: #286090;
+}

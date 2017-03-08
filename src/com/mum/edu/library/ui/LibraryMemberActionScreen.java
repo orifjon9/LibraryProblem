@@ -2,12 +2,15 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.dao.MemberDAO;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Role;
+import com.mum.edu.library.rule.ApplicationException;
 import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
@@ -17,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -29,46 +34,51 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AddLibraryMember extends Stage {
-	public static final AddLibraryMember INSTANCE = new AddLibraryMember();
+public class LibraryMemberActionScreen extends Stage {
+	public static final LibraryMemberActionScreen INSTANCE = new LibraryMemberActionScreen();
 	private TextField memberID;
 	private TextField firstName;
 	private TextField lastName;
 	private TextField street;
 	private TextField city;
-//	private TextField state;
 	private TextField zip;
 	private TextField phone;
-	
+	private Member editMember;
+
 	Stage primaryStage;
-	
+
 	private ComboBox<String> stateCb;
-	
-	private AddLibraryMember() {
+
+	private LibraryMemberActionScreen() {
+	}
+
+	public void setStage(Stage ps, Set<Role> roles, Member editMember) {
+		setEditMember(editMember);
+		setStage(ps, roles);
 	}
 
 	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
 		primaryStage.setTitle("Add Library Member");
-		
+
 		ObservableList<String> options = FXCollections.observableArrayList(CommonAPI.getUSState());
 		stateCb = new ComboBox<>(options);
-		
+
 		VBox topContainer = new VBox();
-		
+
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setVgap(10);
 		grid.setHgap(20);
 		grid.setPrefHeight(520);
-		
+
 		MenuBar mainMenu = new MenuBar();
 		HBox hBox = new HBox();
 		hBox.setPrefWidth(400);
 		Label errorMessage = new Label();
 		errorMessage.setId("error-message");
 		hBox.getChildren().add(errorMessage);
-		
+
 		grid.add(hBox, 2, 0);
 		// ---------------MemberID------------
 		Label memberIDlbl = new Label("MemberID:");
@@ -116,7 +126,7 @@ public class AddLibraryMember extends Stage {
 		statelbl.getStyleClass().add("member-label");
 		grid.add(statelbl, 1, 6);
 
-//		state = new TextField();
+		// state = new TextField();
 		stateCb.setPrefWidth(400);
 		grid.add(stateCb, 2, 6);
 		// ---------------Zip------------
@@ -136,78 +146,176 @@ public class AddLibraryMember extends Stage {
 		phone.setPrefWidth(400);
 		grid.add(phone, 2, 8);
 
-		Button btn = new Button("Submit");
+		Button submitBtn = new Button("Submit");
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(btn);
+		hbBtn.getChildren().add(submitBtn);
 		grid.add(hbBtn, 2, 9);
 		grid.setId("grid");
-
-
-		btn.setOnAction(avt -> {
-			RuleSet ruleSet = RuleSetFactory.getRuleSet(AddLibraryMember.this);
-			try {
-				ruleSet.applyRule(AddLibraryMember.this);
-			} catch (RuleException e) {
-				errorMessage.setText(e.getMessage());
-				return;
-			}
-			MemberDAO memberDAO = new MemberDAOImpl();
-			Member member = new Member(Integer.parseInt(memberID.getText()), firstName.getText(), lastName.getText(),
-					new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()), phone.getText());
-			memberDAO.save(member);
-		});
 		
+		
+		//---------------------------------------- SUBMIT ACTION--------------------------------------------------
+		submitBtn.setOnAction(avt -> {
+			processSubmitAction(errorMessage);
+		});
+
 		Menu home = new Menu("Home");
 		MenuItem back = new MenuItem("Back");
 		MenuItem logout = new MenuItem("Logout");
 		MenuItem exit = new MenuItem("Exit");
-		home.getItems().addAll(back,logout,exit);
+		home.getItems().addAll(back, logout, exit);
 		mainMenu.getMenus().addAll(home);
 		
+		
+		//---------------------------------------- BACK ACTION--------------------------------------------------
 		back.setOnAction(evt -> {
-			Welcome welcome = Welcome.INSTANCE;
-			welcome.setStage(primaryStage, roles);
+			processBackAction(roles);
 		});
-		
+
 		exit.setOnAction(evt -> Platform.exit());
-		
+
 		logout.setOnAction(evt -> {
-			Login login = Login.INSTANCE;
+			LoginScreen login = LoginScreen.INSTANCE;
 			login.start(primaryStage);
 		});
-		topContainer.getChildren().addAll(mainMenu,grid);
+		topContainer.getChildren().addAll(mainMenu, grid);
 
 		primaryStage.setScene(new Scene(topContainer, 1000, 520));
+		inputValueToEdit(getEditMember());
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("addMember.css").toExternalForm());
 		primaryStage.show();
 	}
-	
+
+	private void processBackAction(Set<Role> roles) {
+		LibraryMemberManagementScreen libraryMemberManagementScreen = LibraryMemberManagementScreen.INSTANCE;
+		libraryMemberManagementScreen.setStage(primaryStage, roles);
+		// we must load data from member xml
+		MemberDAO memberDAO = new MemberDAOImpl();
+		ObservableList<Member> members = null;
+		try {
+			members = FXCollections.observableArrayList(memberDAO.loadMembers());
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		libraryMemberManagementScreen.setData(members);
+	}
+
+	private void processSubmitAction(Label errorMessage) {
+		RuleSet ruleSet = RuleSetFactory.getRuleSet(LibraryMemberActionScreen.this);
+		try {
+			ruleSet.applyRule(LibraryMemberActionScreen.this);
+		} catch (RuleException e) {
+			errorMessage.setText(e.getMessage());
+			return;
+		}
+		MemberDAO memberDAO = new MemberDAOImpl();
+		if (getEditMember() != null && !StringUtils.isBlank(String.valueOf(getEditMember().getMemberId()))) {
+			Member memberChanged = setValueChange(getEditMember());
+			try {
+				memberDAO.edit(memberChanged);
+			} catch (ApplicationException e) {
+				showErrorDialog(e);
+				return;
+			}
+			
+		} else {
+			Member member = new Member(Integer.parseInt(memberID.getText()), firstName.getText(),
+					lastName.getText(),
+					new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()),
+					phone.getText());
+			try {
+				memberDAO.save(member);
+			} catch (ApplicationException e) {
+				showErrorDialog(e);
+				return;
+			}
+			memberID.clear();
+		}
+		clearData();
+	}
+
+	private void clearData() {
+		firstName.clear();
+		lastName.clear();
+		stateCb.setValue("");
+		city.clear();
+		zip.clear();
+		street.clear();
+		phone.clear();
+	}
+
+	private void showErrorDialog(ApplicationException e) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error Dialog");
+		alert.setHeaderText("Look, an Error Dialog");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+	}
+
+	private Member setValueChange(Member editMember) {
+		editMember.setFirstName(getFirstNameValue());
+		editMember.setLastName(getLastNameValue());
+		editMember.getAddress().setStreet(getStreetValue());
+		editMember.getAddress().setCity(getCityValue());
+		editMember.getAddress().setState(getStateValue());
+		editMember.getAddress().setZip(getZipValue());
+		editMember.setPhoneNumber(getPhoneNumberValue());
+		return editMember;
+	}
+
+	private void inputValueToEdit(Member editMember) {
+		if (editMember == null) {
+			return;
+		}
+		memberID.setText(String.valueOf(editMember.getMemberId()));
+		memberID.setDisable(true);
+		firstName.setText(editMember.getFirstName());
+		lastName.setText(editMember.getLastName());
+		street.setText(editMember.getAddress().getStreet());
+		city.setText(editMember.getAddress().getCity());
+		zip.setText(editMember.getAddress().getZip());
+		phone.setText(editMember.getPhoneNumber());
+		stateCb.setValue(editMember.getAddress().getState());
+	}
+
 	public String getMemberIdValue() {
 		return memberID.getText();
 	}
-	
+
 	public String getFirstNameValue() {
 		return firstName.getText();
 	}
+
 	public String getLastNameValue() {
 		return lastName.getText();
 	}
+
 	public String getStreetValue() {
 		return street.getText();
 	}
+
 	public String getCityValue() {
 		return city.getText();
 	}
+
 	public String getStateValue() {
 		return stateCb.getValue();
 	}
+
 	public String getZipValue() {
 		return zip.getText();
 	}
+
 	public String getPhoneNumberValue() {
 		return phone.getText();
 	}
-	
+
+	public Member getEditMember() {
+		return editMember;
+	}
+
+	public void setEditMember(Member editMember) {
+		this.editMember = editMember;
+	}
 
 }

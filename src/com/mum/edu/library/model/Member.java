@@ -38,5 +38,15 @@ public class Member extends People implements Serializable {
 	@Override
 	public String toString() {
 		return "Member have memberID:" + memberId;
-	} 
+	}
+
+	public void copyFrom(Member editMember) {
+		this.setFirstName(editMember.getFirstName());
+		this.setLastName(editMember.getLastName());
+		this.getAddress().setCity(editMember.getAddress().getCity());
+		this.getAddress().setStreet(editMember.getAddress().getStreet());
+		this.getAddress().setState(editMember.getAddress().getState());
+		this.getAddress().setZip(editMember.getAddress().getZip());
+		this.setPhoneNumber(editMember.getPhoneNumber());
+	}
 }
