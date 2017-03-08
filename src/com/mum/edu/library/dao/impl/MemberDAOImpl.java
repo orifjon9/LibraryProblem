@@ -1,11 +1,13 @@
 package com.mum.edu.library.dao.impl;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
 import com.mum.edu.library.constant.Constant;
@@ -15,37 +17,37 @@ import com.mum.edu.library.model.Members;
 import com.mum.edu.library.rule.ApplicationException;
 
 public class MemberDAOImpl implements MemberDAO {
+	JAXBContext jaxbContext = null;
+	File file = new File(Constant.MEMBER_FILE);
 
 	@Override
 	public void save(Member memberToSave) throws ApplicationException {
-		JAXBContext jaxbContext = null;
-		Members members = new Members();
 		try {
-			File file = new File(Constant.MEMBER_FILE);
-			jaxbContext = JAXBContext.newInstance(Members.class);
-
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			List<Member> membersLoaded = loadMembers();
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			members = (Members) jaxbUnmarshaller.unmarshal(file);
-			members.getMember().add(memberToSave);
+			membersLoaded.add(memberToSave);
 			
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.marshal(members, file);
-			jaxbMarshaller.marshal(members, System.out);
+			
+			flush(membersLoaded, jaxbMarshaller);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new ApplicationException("Error with database");
 		}
 	}
 
+	private void flush(List<Member> membersLoadeds, Marshaller jaxbMarshaller) throws PropertyException, JAXBException {
+		Members members = new Members();
+		members.getMember().addAll(membersLoadeds);
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		jaxbMarshaller.marshal(members, file);
+		jaxbMarshaller.marshal(members, System.out);
+	}
+
 	@Override
 	public List<Member> loadMembers() throws ApplicationException {
-		JAXBContext jaxbContext = null;
 		Members members = new Members();
 		try {
-			File file = new File(Constant.MEMBER_FILE);
 			jaxbContext = JAXBContext.newInstance(Members.class);
-
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			members = (Members) jaxbUnmarshaller.unmarshal(file);
 
@@ -58,25 +60,38 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public void edit(Member editMember) throws ApplicationException {
-		JAXBContext jaxbContext = null;
-		Members members = new Members();
 		try {
-			File file = new File(Constant.MEMBER_FILE);
-			jaxbContext = JAXBContext.newInstance(Members.class);
-
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			List<Member> members = loadMembers();
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			members = (Members) jaxbUnmarshaller.unmarshal(file);
-			for(Member member : members.getMember()) {
+			for (Member member : members) {
 				if (member.getMemberId() != editMember.getMemberId()) {
 					continue;
 				}
 				member.copyFrom(editMember);
 			}
 
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.marshal(members, file);
-			jaxbMarshaller.marshal(members, System.out);
+			flush(members, jaxbMarshaller);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Error with database");
+		}
+	}
+
+	@Override
+	public void detele(Member memberToDelete) throws ApplicationException {
+		try {
+			List<Member> members = loadMembers();
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			Iterator<Member> iterator = members.iterator();
+			while (iterator.hasNext()) {
+				Member member = iterator.next();
+				if (member.getMemberId() != memberToDelete.getMemberId()) {
+					continue;
+				}
+				iterator.remove();
+			}
+
+			flush(members, jaxbMarshaller);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new ApplicationException("Error with database");
