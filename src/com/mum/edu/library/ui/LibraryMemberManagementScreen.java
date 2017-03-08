@@ -2,11 +2,17 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import com.mum.edu.library.dao.MemberDAO;
+import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Role;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,8 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -28,7 +36,9 @@ import javafx.util.StringConverter;
 
 public class LibraryMemberManagementScreen {
 	public static final LibraryMemberManagementScreen INSTANCE = new LibraryMemberManagementScreen();
-
+	
+	
+	MemberDAO memberDAO;
 	private TableView<Member> table;
 	Stage primaryStage;
 	private Member selected;
@@ -44,7 +54,8 @@ public class LibraryMemberManagementScreen {
 	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
 		primaryStage.setTitle("Member Management");
-
+		
+		memberDAO = new MemberDAOImpl();
 		VBox topContainer = new VBox();
 		topContainer.setSpacing(5);
 
@@ -93,7 +104,7 @@ public class LibraryMemberManagementScreen {
 		table.setPadding(new Insets(20, 20, 20, 20));
 
 		TableColumn<Member, Integer> memberIDColumn = new TableColumn<>("MemberID");
-		memberIDColumn.setMinWidth(180);
+		memberIDColumn.setMinWidth(150);
 		memberIDColumn.setCellValueFactory(new PropertyValueFactory<Member, Integer>("memberId"));
 		memberIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
 
@@ -109,12 +120,12 @@ public class LibraryMemberManagementScreen {
 		}));
 
 		TableColumn<Member, String> firstNameColumn = new TableColumn<>("FirstName");
-		firstNameColumn.setMinWidth(280);
+		firstNameColumn.setMinWidth(255);
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<Member, String>("firstName"));
 		firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
 		TableColumn<Member, String> lastNameColumn = new TableColumn<>("LastName");
-		lastNameColumn.setMinWidth(280);
+		lastNameColumn.setMinWidth(255);
 		lastNameColumn.setCellValueFactory(new PropertyValueFactory<Member, String>("lastName"));
 		lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -122,8 +133,44 @@ public class LibraryMemberManagementScreen {
 		phoneNumberColumn.setMinWidth(180);
 		phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<Member, String>("phoneNumber"));
 		phoneNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		//Insert Button Delete
+        TableColumn<Member, Member> deleteAction = new TableColumn<>("Action");
+        deleteAction.setMinWidth(50);
+        deleteAction.setSortable(false);
+         
+        deleteAction.setCellValueFactory(
+        		param -> new ReadOnlyObjectWrapper<>(param.getValue())
+        );
+ 
+        deleteAction.setCellFactory(param -> new TableCell<Member, Member>() {
+            private final ToggleButton deleteButton = new ToggleButton();
 
-		table.getColumns().addAll(memberIDColumn, firstNameColumn, lastNameColumn, phoneNumberColumn);
+            @Override
+            protected void updateItem(Member member, boolean empty) {
+                super.updateItem(member, empty);
+                
+                if (member == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(deleteButton);
+                deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						getTableView().getItems().remove(member);
+						try {
+							memberDAO.detele(member);
+						} catch (ApplicationException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+            }
+        });
+		
+		table.getColumns().addAll(memberIDColumn, firstNameColumn, lastNameColumn, phoneNumberColumn,deleteAction);
 
 		MenuBar mainMenu = new MenuBar();
 		Menu home = new Menu("Home");
@@ -155,7 +202,7 @@ public class LibraryMemberManagementScreen {
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
 		primaryStage.show();
 	}
-
+	
 	private void setEventForTableView(Button editButton) {
 		if (table.getSelectionModel().getSelectedItem() == null) {
 			editButton.setDisable(true);

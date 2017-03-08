@@ -1,2 +1,3 @@
 http://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file-and-read-load-that-file-to-the
 https://www.mkyong.com/java/jaxb-hello-world-example/
+http://stackoverflow.com/questions/32282230/fxml-javafx-8-tableview-make-a-delete-button-in-each-row-and-delete-the-row-a //delete button

@@ -2,46 +2,24 @@
 <Members>
     <Member memberId="2314">
         <address>
-            <city>FairField</city>
-            <state>Iowa</state>
-            <street>1002 10th North</street>
-            <zip>51277</zip>
-        </address>
-        <firstName>Cao Ha</firstName>
-        <lastName>Tran Le</lastName>
-        <phoneNumber>+1 987 685 432</phoneNumber>
-    </Member>
-    <Member memberId="985696">
-        <address>
-            <city>FairField</city>
-            <state>Iowa</state>
-            <street>1000 4th North </street>
-            <zip>52771</zip>
-        </address>
-        <firstName>Nguyen Hoan Vu 2</firstName>
-        <lastName>Le</lastName>
-        <phoneNumber>+1 985 778 6688</phoneNumber>
-    </Member>
-    <Member memberId="2314">
-        <address>
-            <city>dsfsdfsd</city>
-            <state>Arizona</state>
-            <street>dsfsdf</street>
+            <city>12621436</city>
+            <state>1251265</state>
+            <street>2352356</street>
             <zip>12345</zip>
         </address>
-        <firstName>fsdsdf</firstName>
-        <lastName>sdfdsfsdf</lastName>
-        <phoneNumber>fdsfdsfsdfsd</phoneNumber>
+        <firstName>521512</firstName>
+        <lastName>512165fsdf</lastName>
+        <phoneNumber>1256</phoneNumber>
     </Member>
-    <Member memberId="4535">
+    <Member memberId="34324324">
         <address>
-            <city>fsdfsd</city>
-            <state>Alaska</state>
-            <street>fsdfsdf</street>
+            <city>fdsfsd</city>
+            <state>Connecticut</state>
+            <street>dfsdf</street>
             <zip>12345</zip>
         </address>
-        <firstName>ABC</firstName>
-        <lastName>sdfsd</lastName>
-        <phoneNumber>324432423</phoneNumber>
+        <firstName>Nguyen Hoan Vu Le</firstName>
+        <lastName>123455</lastName>
+        <phoneNumber>frgfd</phoneNumber>
     </Member>
 </Members>

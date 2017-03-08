@@ -138,7 +138,7 @@ public class MainScreen extends Stage {
 			addCopyWindow.setStage(primaryStage);
 		});
 
-		MenuItem libraryMemberManage = new MenuItem("Member");
+		MenuItem libraryMemberManage = new MenuItem("Member Management");
 		
 		libraryMemberManage.setOnAction(evt -> {
 			LibraryMemberManagementScreen manageMember = LibraryMemberManagementScreen.INSTANCE;

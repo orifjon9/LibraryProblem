@@ -35,3 +35,11 @@
 #button-new:hover {
 	-fx-background-color: #286090;
 }
+
+.toggle-button {
+  -fx-graphic: url('delete.png');
+}
+
+.toggle-button:selected {
+  -fx-graphic: url('http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Piece-of-cake-icon.png');
+}

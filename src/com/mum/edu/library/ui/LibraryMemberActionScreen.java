@@ -217,7 +217,7 @@ public class LibraryMemberActionScreen extends Stage {
 				showErrorDialog(e.getMessage());
 				return;
 			}
-			
+			showInformationDialog("Edit Member Successfully");
 		} else {
 			Member member = new Member(Integer.parseInt(memberID.getText()), firstName.getText(),
 					lastName.getText(),
@@ -233,17 +233,18 @@ public class LibraryMemberActionScreen extends Stage {
 				showErrorDialog(e.getMessage());
 				return;
 			}
-			showCreateNewLibraryMemberSuccess(member);
+			String message = "Create New Member Successfuly, Your Member Id is : " +member.getMemberId();
+			showInformationDialog(message);
 			memberID.clear();
 		}
 		clearData();
 	}
 
-	private void showCreateNewLibraryMemberSuccess(Member member) {
+	private void showInformationDialog(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information Dialog");
 		alert.setHeaderText(null);
-		alert.setContentText("Create New Member Successfuly, Your Member Id is : " +member.getMemberId());
+		alert.setContentText(message);
 		alert.showAndWait();
 	}
 

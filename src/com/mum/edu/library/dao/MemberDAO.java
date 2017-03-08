@@ -13,4 +13,6 @@ public interface MemberDAO {
 
 	public void edit(Member editMember) throws ApplicationException;
 
+	public void detele(Member member) throws ApplicationException;
+
 }
