@@ -6,6 +6,7 @@ import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Author;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -58,7 +59,7 @@ public class AddBook extends Stage {
 		grid.add(hbBtnAddBook, 2, 9);
 
 		
-		// Event handle for Search Book by ISBN
+		// Event handle for Save Book
 		btnAddBook.setOnAction(avt -> {
 			// To do something			
 			BookDAO bookDAO = new BookDAOImpl();
@@ -66,12 +67,21 @@ public class AddBook extends Stage {
 			book.getAuthor().add(new Author("Jack","London",new Address("407 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Good"));
 			book.getBookCopies().add(new BookCopy(1001, 7));
-			bookDAO.save(book);
+			try {
+				bookDAO.save(book);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			
 			Book book2 = new Book("To Kill A Mockingbird", "12347", true);
 			book2.getAuthor().add(new Author("Happer","Lee",new Address("409 SD st", "Fairfield", "Iowa", "52556"), 
 					"123456","Certificate","Fair"));
 			book2.getBookCopies().add(new BookCopy(1002, 7));
-			bookDAO.save(book2);
+			try {
+				bookDAO.save(book2);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
 		});
 		
 	

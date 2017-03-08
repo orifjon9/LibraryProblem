@@ -2,9 +2,12 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.MemberDAO;
+import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Member;
+import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.ApplicationException;
 
@@ -138,6 +141,21 @@ public class MainScreen extends Stage {
 			addCopyWindow.setStage(primaryStage);
 		});
 
+		MenuItem bookManagement = new MenuItem("BookManagement");
+		bookManagement.setOnAction(evt -> {
+			BookManagementScreen manageBook = BookManagementScreen.INSTANCE;
+			manageBook.setStage(primaryStage, roles);
+			// we must load data from member xml
+			BookDAO bookDAO = new BookDAOImpl();
+			ObservableList<Book> books = null;
+			try {
+				books = FXCollections.observableArrayList(bookDAO.read());
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			manageBook.setData(books);
+		});
+		
 		MenuItem libraryMemberManage = new MenuItem("Member Management");
 		
 		libraryMemberManage.setOnAction(evt -> {
@@ -154,7 +172,7 @@ public class MainScreen extends Stage {
 			manageMember.setData(members);
 		});
 		
-		adminMenu.getItems().addAll(addBook, addCopy, libraryMemberManage);
+		adminMenu.getItems().addAll(addBook, addCopy, bookManagement, libraryMemberManage);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
 		
 		authority(roles);

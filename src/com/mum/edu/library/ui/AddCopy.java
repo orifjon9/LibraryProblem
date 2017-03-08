@@ -8,6 +8,7 @@ import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -78,31 +79,39 @@ public class AddCopy extends Stage {
 		btnSearch.setOnAction(avt -> {
 			// To do something
 			String inISBN = isbn.getText();
-			Book book = bookDAO.searchBook(inISBN);			
-					
-			bookTitle.setText(book.getTitle());
-			Set<BookCopy> bookCopies = book.getBookCopies();
+			try {
+				Book book = bookDAO.searchBook(inISBN);	
 
-			for(BookCopy bc:bookCopies)
-			{
-					if(bc.getIdCopyNumber() > maxCurrent)
-					{
-						maxCurrent = bc.getIdCopyNumber();
-						borrowAbleDate = bc.getBorrowAbleDate();
-					}
+				bookTitle.setText(book.getTitle());
+				Set<BookCopy> bookCopies = book.getBookCopies();
+			
+				for(BookCopy bc:bookCopies)
+				{
+						if(bc.getIdCopyNumber() > maxCurrent)
+						{
+							maxCurrent = bc.getIdCopyNumber();
+							borrowAbleDate = bc.getBorrowAbleDate();
+						}
+				}
+				currentNum.setText(maxCurrent.toString());
+			} catch (ApplicationException e) {
+				e.printStackTrace();
 			}
-			currentNum.setText(maxCurrent.toString());		
 		});
 		
 		// Event handle Add Book
 		btnAdd.setOnAction(avt -> {
 			// To do something
-			Book book = bookDAO.searchBook(isbn.getText());
-			Set<BookCopy> bookCopies = book.getBookCopies();
-			BookCopy newCopy = new BookCopy(borrowAbleDate, maxCurrent + 1);
-			bookCopies.add(newCopy);
-			book.setBookCopies(bookCopies);
-			bookDAO.addCopy(book);
+			try {
+				Book book = bookDAO.searchBook(isbn.getText());
+				Set<BookCopy> bookCopies = book.getBookCopies();
+				BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate);
+				bookCopies.add(newCopy);
+				book.setBookCopies(bookCopies);
+				bookDAO.addCopy(book);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
 		});
 		
 		primaryStage.setScene(new Scene(grid, 800, 400));

@@ -60,7 +60,7 @@ public class Book implements Serializable  {
 		this.author = author;
 	}
 
-	public boolean isAvailability() {
+	public boolean getAvailability() {
 		return availability;
 	}
 
@@ -76,4 +76,11 @@ public class Book implements Serializable  {
 		this.bookCopies = bookCopies;
 	}
 
+	public void copyFrom(Book editBook) {
+		this.setTitle(editBook.getTitle());
+		this.setIsbnNumber(editBook.getIsbnNumber());
+		this.setAvailability(editBook.getAvailability());		
+		this.setAuthor(editBook.getAuthor());
+		this.setBookCopies(editBook.getBookCopies());		
+	}
 }
