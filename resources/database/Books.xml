@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Books>
+    <Book>
+        <title>The Call of the Wild</title>
+        <isbnNumber>12345</isbnNumber>
+        <availability>true</availability>
+        <Author credentials="Certificate" shortbio="Good">
+            <address>
+                <city>Fairfield</city>
+                <state>Iowa</state>
+                <street>407 SD st</street>
+                <zip>52556</zip>
+            </address>
+            <firstName>Jack</firstName>
+            <lastName>London</lastName>
+            <phoneNumber>123456</phoneNumber>
+        </Author>
+        <BookCopy borrowAbleDate="7" idCopyNumber="1"/>
+    </Book>
+    <Book>
+        <title>To Kill A Mockingbird</title>
+        <isbnNumber>12347</isbnNumber>
+        <availability>true</availability>
+        <Author credentials="Certificate" shortbio="Fair">
+            <address>
+                <city>Fairfield</city>
+                <state>Iowa</state>
+                <street>409 SD st</street>
+                <zip>52556</zip>
+            </address>
+            <firstName>Happer</firstName>
+            <lastName>Lee</lastName>
+            <phoneNumber>123456</phoneNumber>
+        </Author>
+        <BookCopy borrowAbleDate="21" idCopyNumber="1"/>
+    </Book>
+</Books>
