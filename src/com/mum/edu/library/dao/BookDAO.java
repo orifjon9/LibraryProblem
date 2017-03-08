@@ -10,6 +10,6 @@ public interface BookDAO {
 	public List<Book> read() throws ApplicationException;
 	public Book searchBook(String idBook) throws ApplicationException;
 	public List<Book> searchBooks(String isbn) throws ApplicationException;
-	public void addCopy(Book book) throws ApplicationException;
+	public void editCopy(Book book) throws ApplicationException;
 
 }

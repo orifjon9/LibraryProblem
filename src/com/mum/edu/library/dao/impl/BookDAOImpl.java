@@ -89,7 +89,7 @@ public class BookDAOImpl implements BookDAO {
 	}
 	
 	@Override
-	public void addCopy(Book book) throws ApplicationException{
+	public void editCopy(Book book) throws ApplicationException{
 		try {
 			List<Book> lstBook = read();
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();

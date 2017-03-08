@@ -5,9 +5,12 @@ import java.util.Set;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Role;
+import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,14 +22,15 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 public class BookManagementScreen {
 	public static final BookManagementScreen INSTANCE = new BookManagementScreen();
@@ -34,11 +38,16 @@ public class BookManagementScreen {
 	
 	BookDAO bookDAO;
 	private TableView<Book> table;
+	private TableView<BookCopy> tableCopy;
 	Stage primaryStage;
 	private Book selected;
+	private Set<BookCopy> selectedCopies;
+	ObservableList<Book> books_orin = null;
 
 	public void setData(ObservableList<Book> books) {
 		table.setItems(books);
+		books_orin = books;
+		return;
 	}
 
 	private BookManagementScreen() {
@@ -64,75 +73,32 @@ public class BookManagementScreen {
 		HBox hBoxTable = new HBox();
 		hBoxTable.setPadding(new Insets(0, 20, 0, 20));
 
-		HBox buttonBox = new HBox();
-		buttonBox.setSpacing(10);
-		buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
-		buttonBox.setPadding(new Insets(10, 20, 0, 0));
-
+		// ---------------ISBN Input------------
+		
+		HBox hBoxSearch = new HBox();
+		hBoxSearch.setPadding(new Insets(20, 20, 20, 20));
+		hBoxSearch.setAlignment(Pos.TOP_LEFT);
+		Label isbnlbl = new Label("ISBN input");
+		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
+		isbnlbl.setTextFill(javafx.scene.paint.Color.CHARTREUSE);
+		hBoxSearch.setSpacing(10);
+		
+		TextField isbn = new TextField("");
+		isbn.setMinWidth(304);
+		isbn.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+		hBoxSearch.setSpacing(10);
+		
 		Button btnAdd = new Button("Add Copy");
-		btnAdd.setAlignment(Pos.CENTER);
+		//btnAdd.setAlignment(Pos.CENTER);
 		btnAdd.setId("button-add");
 		btnAdd.setPrefWidth(100);
 		
 		Button btnSearch = new Button("Search");
-		btnSearch.setAlignment(Pos.CENTER);
+		//btnSearch.setAlignment(Pos.CENTER);
 		btnSearch.setId("button-search");
 		btnSearch.setPrefWidth(100);
 		
-		buttonBox.getChildren().addAll(btnSearch, btnAdd);
-		
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.TOP_LEFT);
-		grid.setVgap(10);
-		grid.setHgap(10);
-		grid.setPadding(new Insets(10, 10, 0, 10));
-		
-		// ---------------ISBN Input------------
-		
-		HBox hBoxSearch = new HBox();
-		hBoxSearch.setPadding(new Insets(20, 20, 20, 10));
-		hBoxSearch.setAlignment(Pos.TOP_LEFT);
-		Label isbnlbl = new Label("ISBN input:");
-		isbnlbl.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
-		isbnlbl.setTextFill(javafx.scene.paint.Color.WHITE);
-		hBoxSearch.getChildren().add(isbnlbl);
-
-//		TextField isbn = new TextField();
-//		isbn.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
-//		//isbn.setTextFill(javafx.scene.paint.Color.WHITE);
-//		grid.add(isbn, 2, 1);
-//
-//		// ---------------Book's title ------------
-//		Label bookTitlelbl = new Label("Book's title:");
-//		grid.add(bookTitlelbl, 1, 2);
-//
-//		TextField bookTitle = new TextField();
-//		grid.add(bookTitle, 2, 2);
-//		
-//		// ---------------Book's number of Copy ------------
-//		Label currentNumlbl = new Label("Current number:");
-//		grid.add(currentNumlbl, 1, 3);
-//
-//		TextField currentNum = new TextField();
-//		grid.add(currentNum, 2, 3);
-//		
-		
-		btnAdd.setOnAction(evt -> {
-			selected = table.getSelectionModel().getSelectedItem();
-			if (selected != null) {
-				// TODO
-				
-				
-			}
-		});
-		
-
-
-		btnSearch.setOnAction(evt -> {
-			// TODO
-			
-			
-		});
+		hBoxSearch.getChildren().addAll(isbnlbl, isbn, btnSearch, btnAdd);
 
 		table = new TableView<Book>();
 		table.setPrefSize(600, 300);
@@ -148,9 +114,67 @@ public class BookManagementScreen {
 		bookTitleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
 		bookTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-
 		table.getColumns().addAll(bookIDColumn, bookTitleColumn);
+		
+		hBoxTable.setSpacing(20);
 
+		tableCopy = new TableView<BookCopy>();
+		tableCopy.setPrefSize(340, 300);
+		tableCopy.setPadding(new Insets(20, 20, 20, 20));
+
+		TableColumn<BookCopy, Integer> copyNumColumn = new TableColumn<>("Copy Number");
+		copyNumColumn.setMinWidth(120);
+		copyNumColumn.setCellValueFactory(new PropertyValueFactory<BookCopy, Integer>("IdCopyNumber"));
+		copyNumColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+			@Override
+			public Integer fromString(String object) {
+				return Integer.parseInt(object);
+			}
+
+			@Override
+			public String toString(Integer object) {
+				return object.toString();
+			}
+		}));
+		TableColumn<BookCopy, Integer> borrowAbleColumn = new TableColumn<>("Borrow Date");
+		borrowAbleColumn.setMinWidth(80);
+		borrowAbleColumn.setCellValueFactory(new PropertyValueFactory<BookCopy, Integer>("BorrowAbleDate"));
+		borrowAbleColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+			@Override
+			public Integer fromString(String object) {
+				return Integer.parseInt(object);
+			}
+
+			@Override
+			public String toString(Integer object) {
+				return object.toString();
+			}
+		}));
+		
+		TableColumn<BookCopy, Boolean> statusColumn = new TableColumn<>("Available ?");
+		statusColumn.setMinWidth(100);
+		statusColumn.setCellValueFactory(new PropertyValueFactory<BookCopy, Boolean>("availability"));
+		statusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Boolean>() {
+			@Override
+			public Boolean fromString(String object) {
+				if(object.equals("Yes"))
+					return true;
+				else
+					return false;
+			}
+
+			@Override
+			public String toString(Boolean object) {
+				if(object.equals(true))
+					return "Yes";
+				else
+					return "No";
+			}
+		}));
+
+		tableCopy.getColumns().addAll(copyNumColumn, borrowAbleColumn, statusColumn);
+		
+		// Main Menu
 		MenuBar mainMenu = new MenuBar();
 		Menu home = new Menu("Home");
 		MenuItem back = new MenuItem("Back");
@@ -171,9 +195,30 @@ public class BookManagementScreen {
 			login.start(primaryStage);
 		});
 
-		hBoxTable.getChildren().add(table);
+		hBoxTable.getChildren().addAll(table, tableCopy);
 
-		topContainer.getChildren().addAll(mainMenu, hBox, hBoxSearch, hBoxTable, buttonBox);
+		topContainer.getChildren().addAll(mainMenu, hBox, hBoxSearch, hBoxTable);
+		
+		btnAdd.setOnAction(evt -> {
+			selected = table.getSelectionModel().getSelectedItem();
+			if (selected != null) {
+			
+			}
+		});		
+
+
+		btnSearch.setOnAction(evt -> {
+			String inISBN = isbn.getText();
+			try {
+				selected = bookDAO.searchBook(inISBN);
+				//setSelected(b);
+				//table.setSelectionModel(TableViewSelectionModel.);
+				
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			
+		});
 		
 		setEventForTableView(btnAdd);
 
@@ -183,16 +228,22 @@ public class BookManagementScreen {
 		primaryStage.show();
 	}
 	
-	private void setEventForTableView(Button editButton) {
+	private void setEventForTableView(Button btnAdd) {
 		if (table.getSelectionModel().getSelectedItem() == null) {
-			editButton.setDisable(true);
+			btnAdd.setDisable(true);
+			// Todo
+
 		}
 		
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
-		    	editButton.setDisable(false);
+		    	btnAdd.setDisable(false);
+				Set<BookCopy> bookCopiess = null;
+				bookCopiess = newSelection.getBookCopies();
+				ObservableList<BookCopy> bookcopyToAdd = FXCollections.observableArrayList(bookCopiess);
+				tableCopy.setItems(bookcopyToAdd);
 		    } else {
-		    	editButton.setDisable(true);
+		    	btnAdd.setDisable(true);
 		    }
 		});
 	}

@@ -106,7 +106,7 @@ public class AddCopy extends Stage {
 				BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate, true);
 				bookCopies.add(newCopy);
 				book.setBookCopies(bookCopies);
-				bookDAO.addCopy(book);
+				bookDAO.editCopy(book);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
