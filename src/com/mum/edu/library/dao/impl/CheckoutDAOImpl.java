@@ -1,11 +1,6 @@
 package com.mum.edu.library.dao.impl;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -15,8 +10,6 @@ import javax.xml.bind.Unmarshaller;
 
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.ICheckoutDAO;
-import com.mum.edu.library.model.Books;
-import com.mum.edu.library.model.CheckoutEntry;
 import com.mum.edu.library.model.CheckoutRecord;
 import com.mum.edu.library.model.CheckoutRecords;
 
