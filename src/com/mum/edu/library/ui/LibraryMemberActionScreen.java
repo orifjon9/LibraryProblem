@@ -233,9 +233,18 @@ public class LibraryMemberActionScreen extends Stage {
 				showErrorDialog(e.getMessage());
 				return;
 			}
+			showCreateNewLibraryMemberSuccess(member);
 			memberID.clear();
 		}
 		clearData();
+	}
+
+	private void showCreateNewLibraryMemberSuccess(Member member) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText(null);
+		alert.setContentText("Create New Member Successfuly, Your Member Id is : " +member.getMemberId());
+		alert.showAndWait();
 	}
 
 	private boolean checkExist(Member memberToSave) throws ApplicationException {

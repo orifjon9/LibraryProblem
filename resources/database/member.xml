@@ -33,4 +33,15 @@
         <lastName>sdfdsfsdf</lastName>
         <phoneNumber>fdsfdsfsdfsd</phoneNumber>
     </Member>
+    <Member memberId="4535">
+        <address>
+            <city>fsdfsd</city>
+            <state>Alaska</state>
+            <street>fsdfsdf</street>
+            <zip>12345</zip>
+        </address>
+        <firstName>ABC</firstName>
+        <lastName>sdfsd</lastName>
+        <phoneNumber>324432423</phoneNumber>
+    </Member>
 </Members>
