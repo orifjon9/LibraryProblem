@@ -10,6 +10,10 @@
 	-fx-background-color: #167F92;
 }
 
+.table-view .table-column {
+  -fx-alignment: CENTER;
+}
+
 #button-edit {
 	-fx-text-fill: white;
 	-fx-font-family: "Arial Narrow";

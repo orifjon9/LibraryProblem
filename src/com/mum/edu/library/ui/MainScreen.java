@@ -153,7 +153,7 @@ public class MainScreen extends Stage {
 			addCopyWindow.setStage(primaryStage);
 		});
 
-		MenuItem bookManagement = new MenuItem("BookManagement");
+		MenuItem bookManagement = new MenuItem("Book Management");
 		bookManagement.setOnAction(evt -> {
 			BookManagementScreen manageBook = BookManagementScreen.INSTANCE;
 			manageBook.setStage(primaryStage, roles);
