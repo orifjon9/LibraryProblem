@@ -26,4 +26,17 @@
             <phoneNumber>test3</phoneNumber>
         </Member>
     </checkoutRecord>
+    <checkoutRecord>
+        <CheckoutEntry>
+            <dateCheckout>2017-03-08</dateCheckout>
+            <dueDate>2017-03-15</dueDate>
+            <borrowItem borrowAbleDate="0" idCopyNumber="123"/>
+        </CheckoutEntry>
+        <Member memberId="1">
+            <address/>
+            <firstName>test1</firstName>
+            <lastName>test2</lastName>
+            <phoneNumber>test3</phoneNumber>
+        </Member>
+    </checkoutRecord>
 </checkoutRecords>

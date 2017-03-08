@@ -9,6 +9,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
+import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Books;
@@ -16,7 +17,7 @@ import com.mum.edu.library.rule.ApplicationException;
 
 public class BookDAOImpl implements BookDAO {
 	JAXBContext jaxbContext = null;
-	File file = new File("D:\\Java\\Books.xml");
+	File file = new File(getClass().getClassLoader().getResource(Constant.BOOKS_FILE).getFile());
 	
 	@Override
 	public void save(Book bookToSave) throws ApplicationException {

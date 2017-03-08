@@ -30,7 +30,7 @@
                   <TextField id="txbISBN" fx:id="txbISBN" layoutX="383.0" layoutY="41.0" />
                                     <Label layoutX="22.0" layoutY="46.0" text="Member Id" />
                   <Label layoutX="342.0" layoutY="46.0" text="ISBN" />
-                  <Button contentDisplay="RIGHT" layoutX="720.0" layoutY="41.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="102.0" text="Search" />
+                  <Button fx:id="btnSearchBook" contentDisplay="RIGHT" layoutX="720.0" layoutY="41.0" mnemonicParsing="false" onAction="#SearchBookActionButton" prefHeight="31.0" prefWidth="102.0" text="Search" />
    
 <Button id="btnMakeCheckoutRecord" fx:id="btnMakeCheckout" contentDisplay="RIGHT" layoutX="854.0" layoutY="41.0" mnemonicParsing="false" onAction="#MakeCheckoutRecordButtonAction" prefHeight="31.0" prefWidth="102.0" text="Checkout" />
             </children>
@@ -41,7 +41,7 @@
                     <columns>
                       <TableColumn id="title" fx:id="tableColumnTitle" maxWidth="500.0" minWidth="350.0" prefWidth="350.0" text="Title" />
                       <TableColumn fx:id="tableColumnIsbnNumber" maxWidth="250.0" minWidth="200.0" prefWidth="200.0" text="ISBN" />
-                        <TableColumn id="title" fx:id="tableColumnAuthor" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Author" />
+                        <TableColumn id="title" fx:id="tableColumnAuthor" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Authors" />
                         <TableColumn id="title" fx:id="tableColumnIsAvailable" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Available" />
                     </columns>
                   </TableView>

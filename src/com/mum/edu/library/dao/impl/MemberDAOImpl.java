@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.MemberDAO;
+import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Members;
 import com.mum.edu.library.rule.ApplicationException;
@@ -62,6 +63,22 @@ public class MemberDAOImpl implements MemberDAO {
 		return members.getMember();
 	}
 
+	public Member getMember(int memberId) throws ApplicationException{
+		try {
+			List<Member> lstMember = loadMembers();
+			
+			for (Member m : lstMember) {
+				if (m.getMemberId() == memberId) 
+					return m;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Error with database");
+		}
+
+		return null;
+	}
+	
 	@Override
 	public void edit(Member editMember) throws ApplicationException {
 		try {

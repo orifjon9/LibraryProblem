@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.mum.edu.library.ui.LibraryMemberActionScreen;
 import com.mum.edu.library.ui.LoginScreen;
+import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,6 +18,8 @@ public class RuleSetFactory {
 
 	static {
 		maps.put(LoginScreen.class, new LoginRuleSet());
+		maps.put(CheckoutBookWindow.class, new CheckoutRuleSet());
+		
 		mapStages.put(LibraryMemberActionScreen.class, new MemberRuleSet());
 	}
 

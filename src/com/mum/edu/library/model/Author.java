@@ -39,5 +39,10 @@ public class Author extends People  implements Serializable {
 	public void setShortbio(String shortbio) {
 		this.shortbio = shortbio;
 	}
+	
+	@Override
+	public String toString(){
+		return super.getFirstName() + " " + super.getLastName();
+	}
 
 }

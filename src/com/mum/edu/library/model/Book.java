@@ -72,4 +72,14 @@ public class Book implements Serializable  {
 		this.setAuthor(editBook.getAuthor());
 		this.setBookCopies(editBook.getBookCopies());		
 	}
+	
+	public BookCopy getAvailableBookCopy(){
+		for(BookCopy bookCopy: bookCopies){
+			if(bookCopy.getAvailability()){
+				return bookCopy;
+			}
+		}
+		
+		return null;
+	}
 }

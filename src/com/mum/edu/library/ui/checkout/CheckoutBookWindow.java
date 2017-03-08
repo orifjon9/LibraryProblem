@@ -19,7 +19,6 @@ public class CheckoutBookWindow extends Application{
 	
 	@Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("CheckoutBookWindow.fxml"));
         primaryStage.setTitle("Checkout Book");
         primaryStage.setScene(new Scene(root, 990, 664));
@@ -30,4 +29,22 @@ public class CheckoutBookWindow extends Application{
     public static void main(String[] args) {	
         launch(args);
     }
+    
+    public CheckoutBookController getController(){
+    	try
+    	{
+    		FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("CheckoutBookWindow.fxml"));
+			fxmlLoader.load();
+		
+			Object con = fxmlLoader.getController();
+			
+			return (CheckoutBookController)con;
+    	}
+    	catch(Exception ex){
+    		System.out.println(ex.getMessage());
+    		return null;
+    	}
+    }
+    
 }

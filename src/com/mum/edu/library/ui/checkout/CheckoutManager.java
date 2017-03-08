@@ -31,17 +31,17 @@ public class CheckoutManager {
 		return instance;
 	}
 
-	public boolean makeCheckoutRecord(int memberId, String isbn){
+	public boolean makeCheckoutRecord(Member selectedMember, BookCopy bookCopy){
 		
 		//JOptionPane.showMessageDialog(null, memberId + " " + isbn);
-		System.out.println(memberId + " " + isbn);
+		System.out.println(selectedMember.getMemberId());
 		
-		Member selectedMember = new Member(1,"test1","test2", new Address(), "test3");
+		//Member selectedMember = new Member(1,"test1","test2", new Address(), "test3");
 		List<CheckoutEntry> checkoutEntries = new ArrayList<CheckoutEntry>();
-		CheckoutEntry checkoutEntry = new  CheckoutEntry(new BookCopy(123, 0));
-		//CheckoutEntry checkoutEntry = new  CheckoutEntry();
+		CheckoutEntry checkoutEntry = new  CheckoutEntry(bookCopy);
+		
 		checkoutEntry.setDateCheckout(LocalDate.now());
-		checkoutEntry.setDueDate(LocalDate.now().plusDays(7));
+		checkoutEntry.setDueDate(LocalDate.now().plusDays(bookCopy.getBorrowAbleDate()));
 		
 		checkoutEntries.add(checkoutEntry);
 		
