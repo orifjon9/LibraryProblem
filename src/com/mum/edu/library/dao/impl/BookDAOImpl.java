@@ -87,8 +87,7 @@ public class BookDAOImpl implements BookDAO {
 	}
 	
 	@Override
-
-	public List<Book> searchBooks(String isbn){
+	public List<Book> searchBooks(String isbn) throws ApplicationException {
 		List<Book> lstBook = read();
 		for(Book b:lstBook)
 		{
