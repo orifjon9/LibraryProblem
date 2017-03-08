@@ -3,7 +3,6 @@
     <Book>
         <title>The Call of the Wild</title>
         <isbnNumber>12345</isbnNumber>
-        <availability>true</availability>
         <Author credentials="Certificate" shortbio="Good">
             <address>
                 <city>Fairfield</city>
@@ -15,12 +14,11 @@
             <lastName>London</lastName>
             <phoneNumber>123456</phoneNumber>
         </Author>
-        <BookCopy borrowAbleDate="7" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1001"/>
     </Book>
     <Book>
         <title>To Kill A Mockingbird</title>
         <isbnNumber>12347</isbnNumber>
-        <availability>true</availability>
         <Author credentials="Certificate" shortbio="Fair">
             <address>
                 <city>Fairfield</city>
@@ -32,6 +30,8 @@
             <lastName>Lee</lastName>
             <phoneNumber>123456</phoneNumber>
         </Author>
-        <BookCopy borrowAbleDate="21" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1003"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
     </Book>
 </Books>
