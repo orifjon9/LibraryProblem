@@ -11,12 +11,10 @@ import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.rule.ApplicationException;
-import com.mum.edu.library.rule.CheckoutRuleSet;
 import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
-import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

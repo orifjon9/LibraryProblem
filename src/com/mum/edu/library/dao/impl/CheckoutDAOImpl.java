@@ -20,7 +20,6 @@ public class CheckoutDAOImpl implements ICheckoutDAO {
 
 	@Override
 	public void save(CheckoutRecord saveCheckoutRecord) {
-		// TODO Auto-generated method stub
 
 		CheckoutRecords checkoutRecords = new CheckoutRecords();
 
@@ -43,21 +42,15 @@ public class CheckoutDAOImpl implements ICheckoutDAO {
 
 	@Override
 	public List<CheckoutRecord> read() {
-		// TODO Auto-generated method stub
 		CheckoutRecords checkoutRecords = new CheckoutRecords();
 
 		try {
-
 			jaxbContext = JAXBContext.newInstance(CheckoutRecords.class);
-
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
 			checkoutRecords = (CheckoutRecords) jaxbUnmarshaller.unmarshal(file);
-
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-
 		return checkoutRecords.getCheckoutRecords();
 	}
 }
