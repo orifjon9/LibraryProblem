@@ -14,7 +14,7 @@
             <lastName>London</lastName>
             <phoneNumber>123456</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1001"/>
+        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1001"/>
     </Book>
     <Book>
         <title>To Kill A Mockingbird</title>
@@ -30,8 +30,8 @@
             <lastName>Lee</lastName>
             <phoneNumber>123456</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1003"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
+        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1003"/>
+        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1002"/>
+        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1004"/>
     </Book>
 </Books>

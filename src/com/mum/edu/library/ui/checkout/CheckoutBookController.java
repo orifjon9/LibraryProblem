@@ -87,30 +87,30 @@ public class CheckoutBookController {
 			ruleSet.applyRule(this);
 		
 		
-		int memberId = Integer.parseInt(txbMemberId.getText());
+			int memberId = Integer.parseInt(txbMemberId.getText());
 		
-		 			MemberDAOImpl mDao = new MemberDAOImpl();
+		 	MemberDAOImpl mDao = new MemberDAOImpl();
 			Member requiredMember = mDao.getMember(memberId);
+				
+			if(requiredMember == null){
+				throw new RuleException("Member was not found");
+			}
 		
 		
-		if(requiredMember == null){
-			throw new RuleException("Member was not found");
-		}
+			Book book = this.getSelectedItem();
+			BookCopy bookCopy = book.getAvailableBookCopy();
 		
-		//ObservableList selectedItems = tableBook.getSelectionModel().getSelectedCells();
-		Book book = this.getSelectedItem();
-		BookCopy bookCopy = book.getAvailableBookCopy();
+			boolean resultOfCheckout = CheckoutManager.getInstance().makeCheckoutRecord(requiredMember, bookCopy);
 		
-		boolean resultOfCheckout = CheckoutManager.getInstance().makeCheckoutRecord(requiredMember, bookCopy);
-		
-		if(resultOfCheckout){
-			bookCopy.setAvailability(false);
-			book.replaceBookCopy(bookCopy);
+			if(resultOfCheckout){
+				bookCopy.setAvailability(false);
+				book.replaceBookCopy(bookCopy);
 			
 			BookDAO bookDao = new BookDAOImpl();
 			bookDao.editCopy(book);
-		}
+			}
 			
+			loadData();
 		}
 		catch(RuleException ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -125,10 +125,10 @@ public class CheckoutBookController {
 	private void SearchBookActionButton(ActionEvent event) throws ApplicationException{
 		
 		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<Book,String>("title"));
-		tableColumnTitle.setCellFactory(TextFieldTableCell.forTableColumn());
+		//tableColumnTitle.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		tableColumnIsbnNumber.setCellValueFactory(new PropertyValueFactory<Book,String>("isbnNumber"));
-		tableColumnIsbnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+		//tableColumnIsbnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 		//tableColumnAuthor = new TableColumn<Book, String>("author");
 		tableColumnAuthor.setCellValueFactory(new Callback<CellDataFeatures<Book, String>, ObservableValue<String>>() {
@@ -140,13 +140,25 @@ public class CheckoutBookController {
 			}
 		});
 				
-		tableColumnIsAvailable.setCellValueFactory(new PropertyValueFactory<Book, Boolean>("availability"));
+		tableColumnIsAvailable.setCellValueFactory(new Callback<CellDataFeatures<Book, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Book, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getIsAvaliable() ? "Yes" : "No");
+			}
+			
+		});
+		
+		loadData();
+		
+	}
+	
+	private void loadData()  throws ApplicationException{
 		
 		ObservableList<Book> data =
 		        FXCollections.observableArrayList();
 		for(Book book: CheckoutManager.getInstance().getSearchBookByISBN(txbISBN.getText())){
-			if(book.getIsAvaliable())
-				data.add(book);
+			data.add(book);
 		}
 		
 		tableBook.setItems(data);

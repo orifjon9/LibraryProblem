@@ -30,78 +30,6 @@
         <CheckoutEntry>
             <dateCheckout>2017-03-08</dateCheckout>
             <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
-        </CheckoutEntry>
-        <Member memberId="985677">
-            <address>
-                <city>FairField</city>
-                <state>Iowa</state>
-                <street>1000 4th North</street>
-                <zip>52777</zip>
-            </address>
-            <firstName>Cao Ha </firstName>
-            <lastName>Tran</lastName>
-            <phoneNumber>+1 984 838 388</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
-        </CheckoutEntry>
-        <Member memberId="985677">
-            <address>
-                <city>FairField</city>
-                <state>Iowa</state>
-                <street>1000 4th North</street>
-                <zip>52777</zip>
-            </address>
-            <firstName>Cao Ha </firstName>
-            <lastName>Tran</lastName>
-            <phoneNumber>+1 984 838 388</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
-        </CheckoutEntry>
-        <Member memberId="985677">
-            <address>
-                <city>FairField</city>
-                <state>Iowa</state>
-                <street>1000 4th North</street>
-                <zip>52777</zip>
-            </address>
-            <firstName>Cao Ha </firstName>
-            <lastName>Tran</lastName>
-            <phoneNumber>+1 984 838 388</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
-        </CheckoutEntry>
-        <Member memberId="985677">
-            <address>
-                <city>FairField</city>
-                <state>Iowa</state>
-                <street>1000 4th North</street>
-                <zip>52777</zip>
-            </address>
-            <firstName>Cao Ha </firstName>
-            <lastName>Tran</lastName>
-            <phoneNumber>+1 984 838 388</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
             <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1003"/>
         </CheckoutEntry>
         <Member memberId="985677">
@@ -120,7 +48,43 @@
         <CheckoutEntry>
             <dateCheckout>2017-03-08</dateCheckout>
             <dueDate>2017-03-29</dueDate>
+            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
+        </CheckoutEntry>
+        <Member memberId="985677">
+            <address>
+                <city>FairField</city>
+                <state>Iowa</state>
+                <street>1000 4th North</street>
+                <zip>52777</zip>
+            </address>
+            <firstName>Cao Ha </firstName>
+            <lastName>Tran</lastName>
+            <phoneNumber>+1 984 838 388</phoneNumber>
+        </Member>
+    </checkoutRecord>
+    <checkoutRecord>
+        <CheckoutEntry>
+            <dateCheckout>2017-03-08</dateCheckout>
+            <dueDate>2017-03-29</dueDate>
             <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
+        </CheckoutEntry>
+        <Member memberId="985677">
+            <address>
+                <city>FairField</city>
+                <state>Iowa</state>
+                <street>1000 4th North</street>
+                <zip>52777</zip>
+            </address>
+            <firstName>Cao Ha </firstName>
+            <lastName>Tran</lastName>
+            <phoneNumber>+1 984 838 388</phoneNumber>
+        </Member>
+    </checkoutRecord>
+    <checkoutRecord>
+        <CheckoutEntry>
+            <dateCheckout>2017-03-08</dateCheckout>
+            <dueDate>2017-03-15</dueDate>
+            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1001"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>

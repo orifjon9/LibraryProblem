@@ -38,8 +38,13 @@ public class CheckoutRuleSet implements RuleSet {
 		
 		isMemberIdNumber();
 		
-		if(controller.getSelectedItem() == null){
+		Book book = controller.getSelectedItem();
+		if(book == null){
 			throw new RuleException("Book does not select");
+		}
+		
+		if(!book.getIsAvaliable()){
+			throw new RuleException("Book is not available");
 		}
 	}
 

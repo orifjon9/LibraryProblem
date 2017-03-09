@@ -36,4 +36,8 @@ public class CheckoutRecord  implements Serializable {
 		this.checkoutEntries = checkoutEntries;
 	}
 	
+	public Member getMember(){
+		return this.libraryMember;
+	}
+	
 }

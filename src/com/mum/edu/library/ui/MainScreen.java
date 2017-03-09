@@ -13,6 +13,7 @@ import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.ApplicationException;
 import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
+import com.mum.edu.library.ui.checkout.CheckoutOverViewWindow;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -124,12 +125,28 @@ public class MainScreen extends Stage {
 
 		librarianMenu = new Menu("Librarian");
 		MenuItem checkoutBook = new MenuItem("Checkout Book");
-		librarianMenu.getItems().addAll(checkoutBook);
+		MenuItem checkoutRecords = new MenuItem("Checkout Records");
+		librarianMenu.getItems().addAll(checkoutBook, checkoutRecords);
+		
+		
 		checkoutBook.setOnAction(evt -> {
 			// Implement In here.
 			try {
 				
 				CheckoutBookWindow.getInstance().start(primaryStage);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			};
+		});
+		
+		checkoutRecords.setOnAction(evt -> {
+			// Implement In here.
+			try {
+				
+				CheckoutOverViewWindow.getInstance().start(primaryStage);
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
