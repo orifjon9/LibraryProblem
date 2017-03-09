@@ -10,22 +10,17 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
+import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.MemberDAO;
-import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.model.Members;
 import com.mum.edu.library.rule.ApplicationException;
 
 public class MemberDAOImpl implements MemberDAO {
-	private static final String RESOURCES = "resources";
-	private static final String BIN = "bin";
-	JAXBContext jaxbContext = null;
-	private final File file = new File(findExactlyDataBase());
 
-	private String findExactlyDataBase() {
-		return getClass().getClassLoader().getResource(Constant.MEMBER_FILE).getFile().replace(BIN, RESOURCES);
-	}
+	JAXBContext jaxbContext = null;
+	private final File file = new File(CommonAPI.findExactlyDataBase(Constant.MEMBER_FILE));
 
 	@Override
 	public void save(Member memberToSave) throws ApplicationException {

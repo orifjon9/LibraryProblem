@@ -1,4 +1,4 @@
-package com.mum.edu.library.api;
+	package com.mum.edu.library.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,5 +30,10 @@ public class CommonAPI {
 		}
 
 		return result;
+	}
+	
+	public static String findExactlyDataBase(String path) {
+		ClassLoader classLoader = new ClassLoader() {};
+		return classLoader.getResource(path).getFile().replace(Constant.BIN, Constant.RESOURCES);
 	}
 }

@@ -9,6 +9,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
+import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.model.Book;
@@ -17,8 +18,8 @@ import com.mum.edu.library.rule.ApplicationException;
 
 public class BookDAOImpl implements BookDAO {
 	JAXBContext jaxbContext = null;
-	File file = new File(getClass().getClassLoader().getResource(Constant.BOOKS_FILE).getFile());
-	
+	private final File file = new File(CommonAPI.findExactlyDataBase(Constant.BOOKS_FILE));
+
 	@Override
 	public void save(Book bookToSave) throws ApplicationException {
 		try {

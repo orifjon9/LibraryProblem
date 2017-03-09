@@ -5,4 +5,7 @@ public class Constant {
 	public static final String MEMBER_FILE = "database/member.xml";
 	public static final String BOOKS_FILE = "database/Books.xml";
 	public static final String CHECKOUTRECORD_FILE = "database/CheckoutRecords.xml";
+	
+	public static final String RESOURCES = "resources";
+	public static final String BIN = "bin";
 }
