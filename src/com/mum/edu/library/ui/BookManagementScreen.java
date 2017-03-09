@@ -25,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -77,6 +79,7 @@ public class BookManagementScreen {
 		bookHBox.setSpacing(265);
 		bookHBox.setAlignment(Pos.TOP_LEFT);
 		Button btnAddBook = new Button("Add Book");
+		btnAddBook.getStyleClass().add("button-addBook");
 		btnAddBook.setId("button-addBook");
 		btnAddBook.setPrefWidth(100);		
 		bookHBox.getChildren().add(btnAddBook);
@@ -89,7 +92,7 @@ public class BookManagementScreen {
 		HBox hBoxSearch = new HBox();
 		hBoxSearch.setPadding(new Insets(10, 20, 20, 20));
 		hBoxSearch.setAlignment(Pos.TOP_LEFT);
-		Label isbnlbl = new Label("ISBN input");
+		Label isbnlbl = new Label("ISBN");
 		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
 		isbnlbl.setTextFill(javafx.scene.paint.Color.DEEPSKYBLUE);
 		
@@ -103,17 +106,24 @@ public class BookManagementScreen {
 		resultSearch.setStyle("-fx-text-fill: Red");
 		isbnResultHBox.getChildren().add(resultSearch);
 		
-		Button btnSearch = new Button("Search");
+		Button btnSearch = new Button();
+		Image image = new Image(getClass().getResourceAsStream("search.png"));
+		btnSearch.setGraphic(new ImageView(image));
 		btnSearch.setId("button-search");
-		btnSearch.setPrefWidth(100);
+		btnSearch.setPrefWidth(30);
+		btnSearch.setPrefHeight(26);
 		
-		Button btnViewAll = new Button("View All");
+		Button btnViewAll = new Button();
+		Image image2 = new Image(getClass().getResourceAsStream("all.png"));
+		btnViewAll.setGraphic(new ImageView(image2));
 		btnViewAll.setId("button-viewAll");
-		btnViewAll.setPrefWidth(100);
+		btnViewAll.setPrefWidth(26);
+		btnViewAll.setPrefHeight(24);
 		
 		hBoxSearch.setSpacing(20);
 		
 		Button btnAddCopy = new Button("Add Copy");
+		btnAddCopy.getStyleClass().add("button-addBook");
 		btnAddCopy.setId("button-add");
 		btnAddCopy.setPrefWidth(100);
 		bookHBox.getChildren().add(btnAddCopy);

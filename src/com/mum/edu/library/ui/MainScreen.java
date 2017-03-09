@@ -202,7 +202,7 @@ public class MainScreen extends Stage {
 			manageMember.setData(members);
 		});
 		
-		adminMenu.getItems().addAll(addBook, addCopy, bookManagement, libraryMemberManage);
+		adminMenu.getItems().addAll(bookManagement, libraryMemberManage);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
 		
 		authority(roles);

@@ -40,6 +40,19 @@
 	-fx-background-color: #286090;
 }
 
+.button-addBook {
+	-fx-text-fill: white;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-background-color: #5cb85c;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+	-fx-cursor: pointer;
+}
+
+.button-addBook:hover {
+	-fx-background-color: #286090;
+}
+
 .toggle-button {
   -fx-graphic: url('delete.png');
 }
