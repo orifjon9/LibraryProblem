@@ -1,7 +1,5 @@
 package com.mum.edu.library.ui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import com.mum.edu.library.dao.BookDAO;
@@ -14,8 +12,6 @@ import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.ApplicationException;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,17 +20,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 public class AddBookScreen {
 	public static final AddBookScreen INSTANCE = new AddBookScreen();

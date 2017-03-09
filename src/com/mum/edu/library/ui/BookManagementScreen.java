@@ -1,7 +1,5 @@
 package com.mum.edu.library.ui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import com.mum.edu.library.dao.BookDAO;
@@ -43,7 +41,6 @@ public class BookManagementScreen {
 	private TableView<BookCopy> tableCopy;
 	Stage primaryStage;
 	private Book selected;
-	private Set<BookCopy> selectedCopies;
 	ObservableList<Book> books_orin = null;
 
 	public void setData(ObservableList<Book> books) {
@@ -63,21 +60,26 @@ public class BookManagementScreen {
 		VBox topContainer = new VBox();
 		topContainer.setSpacing(5);
 
-		HBox hBox = new HBox();
-		hBox.setPadding(new Insets(10, 20, 10, 10));
-		hBox.setAlignment(Pos.CENTER);
+		HBox titleHBox = new HBox();
+		titleHBox.setPadding(new Insets(10, 20, 10, 10));
+		titleHBox.setAlignment(Pos.CENTER);
 		Label label = new Label("All Book of Library");
 		label.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		label.setTextFill(javafx.scene.paint.Color.WHITE);
-		hBox.getChildren().add(label);
+		titleHBox.getChildren().add(label);
 		
-		HBox hBoxBook = new HBox();
-		hBoxBook.setPadding(new Insets(0, 20, 0, 10));
-		hBoxBook.setAlignment(Pos.TOP_RIGHT);
+		HBox isbnResultHBox = new HBox();
+		isbnResultHBox.setPadding(new Insets(10, 10, 0, 20));
+		isbnResultHBox.setAlignment(Pos.TOP_LEFT);
+		
+		HBox bookHBox = new HBox();
+		bookHBox.setPadding(new Insets(10, 20, 0, 520));
+		bookHBox.setSpacing(265);
+		bookHBox.setAlignment(Pos.TOP_LEFT);
 		Button btnAddBook = new Button("Add Book");
 		btnAddBook.setId("button-addBook");
 		btnAddBook.setPrefWidth(100);		
-		hBoxBook.getChildren().add(btnAddBook);
+		bookHBox.getChildren().add(btnAddBook);
 		
 		HBox hBoxTable = new HBox();
 		hBoxTable.setPadding(new Insets(0, 20, 0, 20));
@@ -85,7 +87,7 @@ public class BookManagementScreen {
 		// ---------------ISBN Input------------
 		
 		HBox hBoxSearch = new HBox();
-		hBoxSearch.setPadding(new Insets(20, 20, 20, 20));
+		hBoxSearch.setPadding(new Insets(10, 20, 20, 20));
 		hBoxSearch.setAlignment(Pos.TOP_LEFT);
 		Label isbnlbl = new Label("ISBN input");
 		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
@@ -95,10 +97,11 @@ public class BookManagementScreen {
 		isbn.setMinWidth(180);
 		isbn.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
 
-		TextField result = new TextField("");
-		result.setMinWidth(314);
-		result.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
-		result.setStyle("-fx-background-color: gray;fx-color: blue;");
+		Label resultSearch = new Label();
+		resultSearch.setMinWidth(314);
+		resultSearch.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+		resultSearch.setStyle("-fx-text-fill: Red");
+		isbnResultHBox.getChildren().add(resultSearch);
 		
 		Button btnSearch = new Button("Search");
 		btnSearch.setId("button-search");
@@ -110,13 +113,12 @@ public class BookManagementScreen {
 		
 		hBoxSearch.setSpacing(20);
 		
-		Button btnAdd = new Button("Add Copy");
-		btnAdd.setAlignment(Pos.TOP_LEFT);
-		btnAdd.setId("button-add");
-		btnAdd.setPrefWidth(100);
-
+		Button btnAddCopy = new Button("Add Copy");
+		btnAddCopy.setId("button-add");
+		btnAddCopy.setPrefWidth(100);
+		bookHBox.getChildren().add(btnAddCopy);
 		
-		hBoxSearch.getChildren().addAll(isbnlbl, isbn, result, btnSearch, btnViewAll, btnAdd);
+		hBoxSearch.getChildren().addAll(isbnlbl, isbn , btnSearch, btnViewAll);
 
 		table = new TableView<Book>();
 		table.setPrefSize(600, 300);
@@ -215,9 +217,9 @@ public class BookManagementScreen {
 
 		hBoxTable.getChildren().addAll(table, tableCopy);
 
-		topContainer.getChildren().addAll(mainMenu, hBox, hBoxBook, hBoxSearch, hBoxTable);
+		topContainer.getChildren().addAll(mainMenu, titleHBox, isbnResultHBox, hBoxSearch, hBoxTable, bookHBox);
 		
-		btnAdd.setOnAction(evt -> {
+		btnAddCopy.setOnAction(evt -> {
 			try {
 				selected = table.getSelectionModel().getSelectedItem();
 				if (selected != null) {
@@ -243,7 +245,7 @@ public class BookManagementScreen {
 					newbooks = FXCollections.observableArrayList(bookDAO.read());
 					setData(newbooks);
 					table.getSelectionModel().clearSelection();
-					result.setText("Add copy of this book completed");
+					resultSearch.setText("Add copy of this book completed");
 				}
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -256,7 +258,7 @@ public class BookManagementScreen {
 				selected = bookDAO.searchBook(inISBN);
 				if(selected !=null)
 				{
-					result.setText("Search completed");
+					resultSearch.setText("Search completed");
 					ObservableList<Book> newbook =  FXCollections.observableArrayList();
 					newbook.add(selected);
 	
@@ -265,7 +267,7 @@ public class BookManagementScreen {
 					table.getSelectionModel().clearSelection();	
 				}
 				else
-					result.setText("This ISBN does not exist");
+					resultSearch.setText("This ISBN does not exist");
 				
 			} catch (ApplicationException e) {
 				e.printStackTrace();
@@ -274,7 +276,7 @@ public class BookManagementScreen {
 		});
 		
 		btnViewAll.setOnAction(evt -> {
-			result.setText("");
+			resultSearch.setText("");
 			setData(books_orin);
 			table.getSelectionModel().clearSelection();			
 		});
@@ -285,9 +287,9 @@ public class BookManagementScreen {
 			addBook.setStage(primaryStage, roles);		
 		});
 		
-		setEventForTableView(btnAdd);
+		setEventForTableView(btnAddCopy);
 
-		Scene newScene = new Scene(topContainer, 1000, 520);
+		Scene newScene = new Scene(topContainer, 1000, 540);
 		primaryStage.setScene(newScene);
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
 		primaryStage.show();
