@@ -25,25 +25,25 @@ public class BookCopy implements Serializable {
 	public int getIdCopyNumber() {
 		return IdCopyNumber;
 	}
-	
+
 	public int getBorrowAbleDate() {
 		return BorrowAbleDate;
 	}
-	
+
 	public boolean getAvailability() {
 		return availability;
 	}
-	
+
 	@XmlAttribute
 	public void setAvailability(boolean availability) {
 		this.availability = availability;
 	}
-	
+
 	@XmlAttribute
 	public void setIdCopyNumber(int idCopyNumber) {
 		IdCopyNumber = idCopyNumber;
 	}
-	
+
 	@XmlAttribute
 	public void setBorrowAbleDate(int borrowAbleDate) {
 		BorrowAbleDate = borrowAbleDate;

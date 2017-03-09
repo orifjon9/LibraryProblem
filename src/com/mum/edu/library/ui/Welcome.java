@@ -4,17 +4,10 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
-
-import com.mum.edu.library.dao.MemberDAO;
-import com.mum.edu.library.dao.impl.MemberDAOImpl;
-import com.mum.edu.library.model.Member;
-
 import com.mum.edu.library.model.Role;
 import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,7 +30,7 @@ public class Welcome extends Stage {
 	private Menu homeMenu;
 	private Menu adminMenu;
 	private Menu librarianMenu;
-	
+
 	private Welcome() {
 	}
 
@@ -52,7 +45,7 @@ public class Welcome extends Stage {
 		Text label = new Text("NEW BOOK");
 		label.setFont(Font.font("700 24px/24px 'Lora',sans-serif", FontWeight.BOLD, 30));
 		label.setId("new-book");
-		
+
 		HBox labelBox = new HBox(10);
 		labelBox.setAlignment(Pos.CENTER);
 		labelBox.getChildren().add(label);
@@ -115,8 +108,8 @@ public class Welcome extends Stage {
 		homeMenu.getItems().addAll(logout, exitApp);
 		exitApp.setOnAction(evt -> Platform.exit());
 		logout.setOnAction(evt -> {
-			//Login login = Login.INSTANCE;
-			//login.start(primaryStage);
+			// Login login = Login.INSTANCE;
+			// login.start(primaryStage);
 		});
 
 		librarianMenu = new Menu("Librarian");
@@ -129,45 +122,45 @@ public class Welcome extends Stage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage());
-			};
+			}
+			;
 		});
 
 		// did not add menu item for menu edit
 		adminMenu = new Menu("Administrator");
 		MenuItem addBook = new MenuItem("Add Book");
 		MenuItem addCopy = new MenuItem("Add Copy");
-		
+
 		addBook.setOnAction(evt -> {
 			AddBook addBookWindow = AddBook.INSTANCE;
 			addBookWindow.setStage(primaryStage);
 		});
 
-		
 		addCopy.setOnAction(evt -> {
 			AddCopy addCopyWindow = AddCopy.INSTANCE;
 			addCopyWindow.setStage(primaryStage);
 		});
 
-		/*MenuItem createLibraryMember = new MenuItem("Create Member");
-		createLibraryMember.setOnAction(evt -> {
-			AddLibraryMember libraryMember = AddLibraryMember.INSTANCE;
-			libraryMember.setStage(primaryStage, roles);
-		});
-
-		MenuItem libraryMemberManage = new MenuItem("Member");
-		
-		libraryMemberManage.setOnAction(evt -> {
-			ManageMemberScreen manageMember = ManageMemberScreen.INSTANCE;
-			manageMember.setStage(primaryStage, roles);
-			// we must load data from member xml
-			MemberDAO memberDAO = new MemberDAOImpl();
-			ObservableList<Member> members = FXCollections.observableArrayList(memberDAO.loadMembers());
-			manageMember.setData(members);
-		});
-		
-		adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember, libraryMemberManage);
-		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
-		*/
+		/*
+		 * MenuItem createLibraryMember = new MenuItem("Create Member");
+		 * createLibraryMember.setOnAction(evt -> { AddLibraryMember
+		 * libraryMember = AddLibraryMember.INSTANCE;
+		 * libraryMember.setStage(primaryStage, roles); });
+		 * 
+		 * MenuItem libraryMemberManage = new MenuItem("Member");
+		 * 
+		 * libraryMemberManage.setOnAction(evt -> { ManageMemberScreen
+		 * manageMember = ManageMemberScreen.INSTANCE;
+		 * manageMember.setStage(primaryStage, roles); // we must load data from
+		 * member xml MemberDAO memberDAO = new MemberDAOImpl();
+		 * ObservableList<Member> members =
+		 * FXCollections.observableArrayList(memberDAO.loadMembers());
+		 * manageMember.setData(members); });
+		 * 
+		 * adminMenu.getItems().addAll(addBook, addCopy, createLibraryMember,
+		 * libraryMemberManage); mainMenu.getMenus().addAll(homeMenu,
+		 * librarianMenu, adminMenu);
+		 */
 		authority(roles);
 		// must have to show
 		Scene scene = new Scene(topContainer, 1000, 520);
@@ -180,7 +173,7 @@ public class Welcome extends Stage {
 		if (roles.size() == 2) {
 			return;
 		}
-		for(Role role : roles) {
+		for (Role role : roles) {
 			if ("LIBRARIAN".equals(role.getRoleName())) {
 				adminMenu.setDisable(true);
 				librarianMenu.setDisable(false);

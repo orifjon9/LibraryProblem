@@ -18,8 +18,7 @@ import com.mum.edu.library.rule.ApplicationException;
 
 public class BookDAOImpl implements BookDAO {
 	JAXBContext jaxbContext = null;
-	//private final File file = new File(CommonAPI.findExactlyDataBase(Constant.BOOKS_FILE));
-	private final File file = new File("D:\\Java\\Books.xml");
+	private final File file = new File(CommonAPI.findExactlyDataBase(Constant.BOOKS_FILE));
 
 	@Override
 	public void save(Book bookToSave) throws ApplicationException {
@@ -63,18 +62,11 @@ public class BookDAOImpl implements BookDAO {
 	
 	@Override
 	public Book searchBook(String idBook) throws ApplicationException {
-		try {
-			List<Book> lstBook = read();
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			for (Book b : lstBook) {
-				if (b.getIsbnNumber().equals(idBook)) 
-					return b;
-			}
-		} catch (JAXBException e) {
-			e.printStackTrace();
-			throw new ApplicationException("Error with database");
+		List<Book> lstBook = read();
+		for (Book b : lstBook) {
+			if (b.getIsbnNumber().equals(idBook)) 
+				return b;
 		}
-
 		return null;
 	}
 	

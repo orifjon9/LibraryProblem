@@ -27,7 +27,7 @@ import com.mum.edu.library.rule.RuleSetFactory;
 
 public class LoginScreen extends Application {
 	public static final LoginScreen INSTANCE = new LoginScreen();
-	
+
 	private TextField userNameTxt;
 	private PasswordField passWordTxt;
 
@@ -49,16 +49,16 @@ public class LoginScreen extends Application {
 		// setting id for CSS styling
 		scenetitle.setId("welcome-text");
 		grid.add(scenetitle, 0, 0, 2, 1);
-		
-		//--------------User Name-------------//
+
+		// --------------User Name-------------//
 		Label userNamelbl = new Label("User Name:");
 		grid.add(userNamelbl, 0, 1);
 
 		userNameTxt = new TextField();
 		userNameTxt.setPrefWidth(250);
 		grid.add(userNameTxt, 1, 1);
-		
-		//--------------Pass Word-------------//
+
+		// --------------Pass Word-------------//
 		Label passwordlbl = new Label("Password:");
 		grid.add(passwordlbl, 0, 2);
 
@@ -71,7 +71,7 @@ public class LoginScreen extends Application {
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(btn);
 		grid.add(hbBtn, 1, 4);
-		
+
 		Label informText = new Label();
 		informText.setId("error-message");
 		HBox hbBtnInform = new HBox(50);
@@ -102,7 +102,7 @@ public class LoginScreen extends Application {
 					if (StringUtils.equals(employee.getPassword(), getPasswordValue())) {
 						notFoundUserNameAndPassWord = "";
 						MainScreen welcome = MainScreen.INSTANCE;
-						welcome.setStage(primaryStage,employee.getRoles());
+						welcome.setStage(primaryStage, employee.getRoles());
 					}
 				}
 				informText.setText(notFoundUserNameAndPassWord);

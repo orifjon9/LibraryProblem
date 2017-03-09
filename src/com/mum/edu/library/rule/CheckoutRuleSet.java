@@ -2,7 +2,6 @@ package com.mum.edu.library.rule;
 
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.ui.checkout.CheckoutBookController;
-import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
