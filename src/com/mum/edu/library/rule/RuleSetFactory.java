@@ -2,6 +2,7 @@ package com.mum.edu.library.rule;
 
 import java.util.HashMap;
 
+import com.mum.edu.library.ui.AddBookScreen;
 import com.mum.edu.library.ui.LibraryMemberActionScreen;
 import com.mum.edu.library.ui.LoginScreen;
 import com.mum.edu.library.ui.checkout.CheckoutBookController;
@@ -23,6 +24,7 @@ public class RuleSetFactory {
 		maps.put(CheckoutBookWindow.class, new CheckoutRuleSet());
 		
 		mapStages.put(LibraryMemberActionScreen.class, new MemberRuleSet());
+		mapStages.put(AddBookScreen.class, new AddBookRuleSet());
 		mapObject.put(CheckoutBookController.class, new CheckoutRuleSet());
 	}
 

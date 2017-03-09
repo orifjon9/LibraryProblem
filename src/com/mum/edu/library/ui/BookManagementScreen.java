@@ -65,7 +65,7 @@ public class BookManagementScreen {
 		HBox titleHBox = new HBox();
 		titleHBox.setPadding(new Insets(10, 20, 10, 10));
 		titleHBox.setAlignment(Pos.CENTER);
-		Label label = new Label("All Book of Library");
+		Label label = new Label("All Book Of Library");
 		label.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		label.setTextFill(javafx.scene.paint.Color.WHITE);
 		titleHBox.getChildren().add(label);
@@ -96,7 +96,7 @@ public class BookManagementScreen {
 		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
 		isbnlbl.setTextFill(javafx.scene.paint.Color.DEEPSKYBLUE);
 		
-		TextField isbn = new TextField("");
+		TextField isbn = new TextField();
 		isbn.setMinWidth(180);
 		isbn.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
 
@@ -120,7 +120,7 @@ public class BookManagementScreen {
 		btnViewAll.setPrefWidth(26);
 		btnViewAll.setPrefHeight(24);
 		
-		hBoxSearch.setSpacing(20);
+		hBoxSearch.setSpacing(10);
 		
 		Button btnAddCopy = new Button("Add Copy");
 		btnAddCopy.getStyleClass().add("button-addBook");
@@ -287,8 +287,14 @@ public class BookManagementScreen {
 		
 		btnViewAll.setOnAction(evt -> {
 			resultSearch.setText("");
-			setData(books_orin);
-			table.getSelectionModel().clearSelection();			
+			try {
+				ObservableList<Book> newbooks = null;
+				newbooks = FXCollections.observableArrayList(bookDAO.read());
+				setData(newbooks);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			table.getSelectionModel().clearSelection();
 		});
 		
 		

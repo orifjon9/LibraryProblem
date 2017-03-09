@@ -10,6 +10,9 @@ import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Role;
 import com.mum.edu.library.rule.ApplicationException;
+import com.mum.edu.library.rule.RuleException;
+import com.mum.edu.library.rule.RuleSet;
+import com.mum.edu.library.rule.RuleSetFactory;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -29,13 +32,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class AddBookScreen {
+public class AddBookScreen extends Stage {
 	public static final AddBookScreen INSTANCE = new AddBookScreen();
 	Stage primaryStage;
 	boolean finishInput = false;
-
+	private TextField isbn;
+	private TextField bookTitle;
+	private TextField borrowAbleDate;
+	private TextField numberOfCopy;
+	private TextField firstName;
+	private TextField lastName;
+	private TextField phone;
+	private TextField credentials;
+	private TextField street;
+	private TextField city;
+	private TextField state;
+	private TextField zip;
+	private TextArea shortBio;
+	
 	private AddBookScreen() {
 	}
+	
 
 	public void setStage(Stage ps, Set<Role> roles) {
 		primaryStage = ps;
@@ -44,10 +61,10 @@ public class AddBookScreen {
 		VBox topContainer = new VBox();
 
 		HBox hbResult = new HBox();
-		hbResult.setPadding(new Insets(0, 20, 10, 10));
+		hbResult.setPadding(new Insets(10, 20, 10, 40));
 		hbResult.setAlignment(Pos.TOP_LEFT);
-		Label result = new Label("");
-		result.setFont(Font.font("Verdana", FontWeight.NORMAL, 14));
+		Label result = new Label();
+		result.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
 		result.setTextFill(javafx.scene.paint.Color.RED);
 		hbResult.getChildren().add(result);
 
@@ -55,7 +72,7 @@ public class AddBookScreen {
 		HBox mainContentHBox = new HBox();
 		mainContentHBox.setSpacing(40);
 		mainContentHBox.setAlignment(Pos.TOP_LEFT);
-		mainContentHBox.setPadding(new Insets(10, 10, 10, 40));
+		mainContentHBox.setPadding(new Insets(20, 10, 10, 40));
 
 		GridPane bookGrid = new GridPane();
 		bookGrid.setHgap(10);
@@ -74,9 +91,10 @@ public class AddBookScreen {
 		Label isbnlbl = new Label("ISBN");
 		isbnlbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		isbnlbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		isbnlbl.getStyleClass().add("book-label");
 		bookGrid.add(isbnlbl, 0, 1);
 
-		TextField isbn = new TextField();
+		isbn = new TextField();
 		isbn.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		isbn.setPrefWidth(220);
 		bookGrid.add(isbn, 1, 1);
@@ -84,27 +102,30 @@ public class AddBookScreen {
 		Label titleLbl = new Label("Title");
 		titleLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		titleLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		titleLbl.getStyleClass().add("book-label");
 		bookGrid.add(titleLbl, 0, 2);
 
-		TextField title = new TextField();
+		bookTitle = new TextField();
 		isbn.setPrefWidth(220);
-		bookGrid.add(title, 1, 2);
+		bookGrid.add(bookTitle, 1, 2);
 
 		Label borrowAbleDateLbl = new Label("Max Checkout");
 		borrowAbleDateLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		borrowAbleDateLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		borrowAbleDateLbl.getStyleClass().add("book-label");
 		bookGrid.add(borrowAbleDateLbl, 0, 3);
 
-		TextField borrowAbleDate = new TextField();
+		borrowAbleDate = new TextField();
 		borrowAbleDate.setPrefWidth(220);
 		bookGrid.add(borrowAbleDate, 1, 3);
 
 		Label numberOfCopyLbl = new Label("Number of Copy");
 		numberOfCopyLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		numberOfCopyLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		numberOfCopyLbl.getStyleClass().add("book-label");
 		bookGrid.add(numberOfCopyLbl, 0, 4);
 
-		TextField numberOfCopy = new TextField();
+		numberOfCopy = new TextField();
 		numberOfCopy.setPrefWidth(220);
 		bookGrid.add(numberOfCopy, 1, 4);
 
@@ -125,9 +146,10 @@ public class AddBookScreen {
 		Label firstNameLbl = new Label("First Name");
 		firstNameLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		firstNameLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		firstNameLbl.getStyleClass().add("book-label");
 		authorGrid.add(firstNameLbl, 0, 1);
 
-		TextField firstName = new TextField();
+		firstName = new TextField();
 		firstName.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		firstName.setPrefWidth(220);
 		authorGrid.add(firstName, 1, 1);
@@ -135,9 +157,10 @@ public class AddBookScreen {
 		Label lastNameLbl = new Label("Last Name");
 		lastNameLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		lastNameLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		lastNameLbl.getStyleClass().add("book-label");
 		authorGrid.add(lastNameLbl, 0, 2);
 
-		TextField lastName = new TextField();
+		lastName = new TextField();
 		lastName.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		lastName.setPrefWidth(220);
 		authorGrid.add(lastName, 1, 2);
@@ -145,27 +168,30 @@ public class AddBookScreen {
 		Label phoneLbl = new Label("Phone");
 		phoneLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		phoneLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		phoneLbl.getStyleClass().add("book-label");
 		authorGrid.add(phoneLbl, 0, 3);
 
-		TextField phone = new TextField();
+		phone = new TextField();
 		phone.setPrefWidth(220);
 		authorGrid.add(phone, 1, 3);
 
 		Label credentialsLbl = new Label("Credentials");
 		credentialsLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
+		credentialsLbl.getStyleClass().add("book-label");
 		credentialsLbl.setTextFill(javafx.scene.paint.Color.WHITE);
 		authorGrid.add(credentialsLbl, 0, 4);
 
-		TextField credentials = new TextField();
+		credentials = new TextField();
 		credentials.setMaxWidth(220);
 		authorGrid.add(credentials, 1, 4);
 
 		Label streetLbl = new Label("Street");
 		streetLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
+		streetLbl.getStyleClass().add("book-label");
 		streetLbl.setTextFill(javafx.scene.paint.Color.WHITE);
 		authorGrid.add(streetLbl, 0, 5);
 
-		TextField street = new TextField();
+		street = new TextField();
 		street.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		street.setMaxWidth(220);
 		authorGrid.add(street, 1, 5);
@@ -178,36 +204,40 @@ public class AddBookScreen {
 		Label cityLbl = new Label("City");
 		cityLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		cityLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		cityLbl.getStyleClass().add("book-label");
 		authorGrid2.add(cityLbl, 0, 1);
 
-		TextField city = new TextField();
+		city = new TextField();
 		city.setMaxWidth(220);
 		authorGrid2.add(city, 1, 1);
 
 		Label stateLbl = new Label("State");
 		stateLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		stateLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		stateLbl.getStyleClass().add("book-label");
 		authorGrid2.add(stateLbl, 0, 2);
 
-		TextField state = new TextField();
+		state = new TextField();
 		state.setMaxWidth(220);
 		authorGrid2.add(state, 1, 2);
 
 		Label zipLbl = new Label("Zip");
 		zipLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		zipLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		zipLbl.getStyleClass().add("book-label");
 		authorGrid2.add(zipLbl, 0, 3);
 
-		TextField zip = new TextField();
+		zip = new TextField();
 		zip.setPrefWidth(220);
 		authorGrid2.add(zip, 1, 3);
 
 		Label shortBioLbl = new Label("Short Bio");
 		shortBioLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
 		shortBioLbl.setTextFill(javafx.scene.paint.Color.WHITE);
+		shortBioLbl.getStyleClass().add("book-label");
 		authorGrid2.add(shortBioLbl, 0, 4);
 
-		TextArea shortBio = new TextArea();
+		shortBio = new TextArea();
 		shortBio.setPrefWidth(220);
 		shortBio.setPrefHeight(80);
 		authorGrid2.add(shortBio, 1, 4);
@@ -232,8 +262,8 @@ public class AddBookScreen {
 		mainMenu.getMenus().addAll(home);
 
 		back.setOnAction(evt -> {
-			MainScreen welcome = MainScreen.INSTANCE;
-			welcome.setStage(primaryStage, roles);
+			BookManagementScreen bookManagementScreen = BookManagementScreen.INSTANCE;
+			bookManagementScreen.setStage(primaryStage, roles);
 		});
 
 		exit.setOnAction(evt -> Platform.exit());
@@ -249,31 +279,37 @@ public class AddBookScreen {
 		hbBtn.setSpacing(20);
 		Button btnSubmit = new Button("Submit");
 		btnSubmit.setId("button-add");
+		btnSubmit.getStyleClass().add("button-addBook");
 		btnSubmit.setPrefWidth(100);
 		hbBtn.getChildren().addAll(btnSubmit);
 
 		topContainer.getChildren().addAll(mainMenu, hBox, hbResult, mainContentHBox, hbBtn);
 
 		btnSubmit.setOnAction(evt -> {
-			if (title.getText().length() == 0 || isbn.getText().length() == 0)
-				result.setText("Please input all fields");
-			else {
-				BookDAO bookDAO = new BookDAOImpl();
-				Book book = new Book(title.getText(), isbn.getText());
-				book.getAuthor()
-						.add(new Author(firstName.getText(), lastName.getText(),
-								new Address(street.getText(), city.getText(), state.getText(), zip.getText()),
-								phone.getText(), credentials.getText(), shortBio.getText()));
-				for (Integer i = 1; i <= Integer.parseInt(numberOfCopy.getText()); i++) {
-					book.getBookCopies().add(new BookCopy(i, Integer.parseInt(borrowAbleDate.getText()), true));
-				}
-
-				try {
-					bookDAO.save(book);
-				} catch (ApplicationException e) {
-					e.printStackTrace();
-				}
+			RuleSet ruleSet = RuleSetFactory.getRuleSet(AddBookScreen.this);
+			try {
+				ruleSet.applyRule(AddBookScreen.this);
+			} catch (RuleException e) {
+				result.setText(e.getMessage());
+				return;
 			}
+			
+			BookDAO bookDAO = new BookDAOImpl();
+			Book book = new Book(bookTitle.getText(), isbn.getText());
+			book.getAuthor()
+					.add(new Author(firstName.getText(), lastName.getText(),
+							new Address(street.getText(), city.getText(), state.getText(), zip.getText()),
+							phone.getText(), credentials.getText(), shortBio.getText()));
+			for (Integer i = 1; i <= Integer.parseInt(numberOfCopy.getText()); i++) {
+				book.getBookCopies().add(new BookCopy(i, Integer.parseInt(borrowAbleDate.getText()), true));
+			}
+
+			try {
+				bookDAO.save(book);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			
 		});
 
 		Scene newScene = new Scene(topContainer, 1100, 520);
@@ -281,4 +317,109 @@ public class AddBookScreen {
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
 		primaryStage.show();
 	}
+
+	public TextField getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(TextField isbn) {
+		this.isbn = isbn;
+	}
+
+	public TextField getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(TextField bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public TextField getBorrowAbleDate() {
+		return borrowAbleDate;
+	}
+
+	public void setBorrowAbleDate(TextField borrowAbleDate) {
+		this.borrowAbleDate = borrowAbleDate;
+	}
+
+	public TextField getNumberOfCopy() {
+		return numberOfCopy;
+	}
+
+	public void setNumberOfCopy(TextField numberOfCopy) {
+		this.numberOfCopy = numberOfCopy;
+	}
+
+	public TextField getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(TextField firstName) {
+		this.firstName = firstName;
+	}
+
+	public TextField getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(TextField lastName) {
+		this.lastName = lastName;
+	}
+
+	public TextField getPhone() {
+		return phone;
+	}
+
+	public void setPhone(TextField phone) {
+		this.phone = phone;
+	}
+
+	public TextField getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(TextField credentials) {
+		this.credentials = credentials;
+	}
+
+	public TextField getStreet() {
+		return street;
+	}
+
+	public void setStreet(TextField street) {
+		this.street = street;
+	}
+
+	public TextField getCity() {
+		return city;
+	}
+
+	public void setCity(TextField city) {
+		this.city = city;
+	}
+
+	public TextField getState() {
+		return state;
+	}
+
+	public void setState(TextField state) {
+		this.state = state;
+	}
+
+	public TextField getZip() {
+		return zip;
+	}
+
+	public void setZip(TextField zip) {
+		this.zip = zip;
+	}
+
+	public TextArea getShortBio() {
+		return shortBio;
+	}
+
+	public void setShortBio(TextArea shortBio) {
+		this.shortBio = shortBio;
+	}
+
 }
