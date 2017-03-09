@@ -64,12 +64,20 @@ public class BookManagementScreen {
 		topContainer.setSpacing(5);
 
 		HBox hBox = new HBox();
-		hBox.setPadding(new Insets(20, 20, 20, 10));
+		hBox.setPadding(new Insets(10, 20, 10, 10));
 		hBox.setAlignment(Pos.CENTER);
 		Label label = new Label("All Book of Library");
 		label.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 		label.setTextFill(javafx.scene.paint.Color.WHITE);
 		hBox.getChildren().add(label);
+		
+		HBox hBoxBook = new HBox();
+		hBoxBook.setPadding(new Insets(0, 20, 0, 10));
+		hBoxBook.setAlignment(Pos.TOP_RIGHT);
+		Button btnAddBook = new Button("Add Book");
+		btnAddBook.setId("button-addBook");
+		btnAddBook.setPrefWidth(100);		
+		hBoxBook.getChildren().add(btnAddBook);
 		
 		HBox hBoxTable = new HBox();
 		hBoxTable.setPadding(new Insets(0, 20, 0, 20));
@@ -81,7 +89,7 @@ public class BookManagementScreen {
 		hBoxSearch.setAlignment(Pos.TOP_LEFT);
 		Label isbnlbl = new Label("ISBN input");
 		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-		isbnlbl.setTextFill(javafx.scene.paint.Color.CHARTREUSE);
+		isbnlbl.setTextFill(javafx.scene.paint.Color.DEEPSKYBLUE);
 		
 		TextField isbn = new TextField("");
 		isbn.setMinWidth(180);
@@ -93,12 +101,10 @@ public class BookManagementScreen {
 		result.setStyle("-fx-background-color: gray;fx-color: blue;");
 		
 		Button btnSearch = new Button("Search");
-		//btnSearch.setAlignment(Pos.CENTER);
 		btnSearch.setId("button-search");
 		btnSearch.setPrefWidth(100);
 		
 		Button btnViewAll = new Button("View All");
-		//btnSearch.setAlignment(Pos.CENTER);
 		btnViewAll.setId("button-viewAll");
 		btnViewAll.setPrefWidth(100);
 		
@@ -209,7 +215,7 @@ public class BookManagementScreen {
 
 		hBoxTable.getChildren().addAll(table, tableCopy);
 
-		topContainer.getChildren().addAll(mainMenu, hBox, hBoxSearch, hBoxTable);
+		topContainer.getChildren().addAll(mainMenu, hBox, hBoxBook, hBoxSearch, hBoxTable);
 		
 		btnAdd.setOnAction(evt -> {
 			try {
@@ -271,6 +277,12 @@ public class BookManagementScreen {
 			result.setText("");
 			setData(books_orin);
 			table.getSelectionModel().clearSelection();			
+		});
+		
+		
+		btnAddBook.setOnAction(evt -> {
+			AddBookScreen addBook = AddBookScreen.INSTANCE;
+			addBook.setStage(primaryStage, roles);		
 		});
 		
 		setEventForTableView(btnAdd);
