@@ -18,7 +18,8 @@ import com.mum.edu.library.rule.ApplicationException;
 
 public class BookDAOImpl implements BookDAO {
 	JAXBContext jaxbContext = null;
-	private final File file = new File(CommonAPI.findExactlyDataBase(Constant.BOOKS_FILE));
+	//private final File file = new File(CommonAPI.findExactlyDataBase(Constant.BOOKS_FILE));
+	private final File file = new File("D:\\Java\\Books.xml");
 
 	@Override
 	public void save(Book bookToSave) throws ApplicationException {

@@ -1,5 +1,7 @@
 package com.mum.edu.library.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.mum.edu.library.dao.BookDAO;
@@ -46,8 +48,7 @@ public class BookManagementScreen {
 
 	public void setData(ObservableList<Book> books) {
 		table.setItems(books);
-		books_orin = books;
-		return;
+		books_orin = FXCollections.observableArrayList(books);
 	}
 
 	private BookManagementScreen() {
@@ -81,24 +82,35 @@ public class BookManagementScreen {
 		Label isbnlbl = new Label("ISBN input");
 		isbnlbl.setFont(Font.font("Arial", FontWeight.BOLD, 13));
 		isbnlbl.setTextFill(javafx.scene.paint.Color.CHARTREUSE);
-		hBoxSearch.setSpacing(10);
 		
 		TextField isbn = new TextField("");
-		isbn.setMinWidth(304);
+		isbn.setMinWidth(180);
 		isbn.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
-		hBoxSearch.setSpacing(10);
-		
-		Button btnAdd = new Button("Add Copy");
-		//btnAdd.setAlignment(Pos.CENTER);
-		btnAdd.setId("button-add");
-		btnAdd.setPrefWidth(100);
+
+		TextField result = new TextField("");
+		result.setMinWidth(314);
+		result.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+		result.setStyle("-fx-background-color: gray;fx-color: blue;");
 		
 		Button btnSearch = new Button("Search");
 		//btnSearch.setAlignment(Pos.CENTER);
 		btnSearch.setId("button-search");
 		btnSearch.setPrefWidth(100);
 		
-		hBoxSearch.getChildren().addAll(isbnlbl, isbn, btnSearch, btnAdd);
+		Button btnViewAll = new Button("View All");
+		//btnSearch.setAlignment(Pos.CENTER);
+		btnViewAll.setId("button-viewAll");
+		btnViewAll.setPrefWidth(100);
+		
+		hBoxSearch.setSpacing(20);
+		
+		Button btnAdd = new Button("Add Copy");
+		btnAdd.setAlignment(Pos.TOP_LEFT);
+		btnAdd.setId("button-add");
+		btnAdd.setPrefWidth(100);
+
+		
+		hBoxSearch.getChildren().addAll(isbnlbl, isbn, result, btnSearch, btnViewAll, btnAdd);
 
 		table = new TableView<Book>();
 		table.setPrefSize(600, 300);
@@ -200,24 +212,65 @@ public class BookManagementScreen {
 		topContainer.getChildren().addAll(mainMenu, hBox, hBoxSearch, hBoxTable);
 		
 		btnAdd.setOnAction(evt -> {
-			selected = table.getSelectionModel().getSelectedItem();
-			if (selected != null) {
-			
+			try {
+				selected = table.getSelectionModel().getSelectedItem();
+				if (selected != null) {
+					Set<BookCopy> bookCopies = selected.getBookCopies();
+					Integer maxCurrent = 0;
+					Integer borrowAbleDate = 0;
+					
+					for(BookCopy bc:bookCopies)
+					{
+							if(bc.getIdCopyNumber() > maxCurrent)
+							{
+								maxCurrent = bc.getIdCopyNumber();
+								borrowAbleDate = bc.getBorrowAbleDate();
+							}
+					}
+					
+					BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate, true);
+					bookCopies.add(newCopy);
+					selected.setBookCopies(bookCopies);
+					bookDAO.editCopy(selected);
+					
+					ObservableList<Book> newbooks = null;
+					newbooks = FXCollections.observableArrayList(bookDAO.read());
+					setData(newbooks);
+					table.getSelectionModel().clearSelection();
+					result.setText("Add copy of this book completed");
+				}
+			} catch (ApplicationException e) {
+				e.printStackTrace();
 			}
 		});		
-
 
 		btnSearch.setOnAction(evt -> {
 			String inISBN = isbn.getText();
 			try {
 				selected = bookDAO.searchBook(inISBN);
-				//setSelected(b);
-				//table.setSelectionModel(TableViewSelectionModel.);
+				if(selected !=null)
+				{
+					result.setText("Search completed");
+					ObservableList<Book> newbook =  FXCollections.observableArrayList();
+					newbook.add(selected);
+	
+					table.setItems(newbook);
+					// clear the selection
+					table.getSelectionModel().clearSelection();	
+				}
+				else
+					result.setText("This ISBN does not exist");
 				
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
 			
+		});
+		
+		btnViewAll.setOnAction(evt -> {
+			result.setText("");
+			setData(books_orin);
+			table.getSelectionModel().clearSelection();			
 		});
 		
 		setEventForTableView(btnAdd);
@@ -231,8 +284,6 @@ public class BookManagementScreen {
 	private void setEventForTableView(Button btnAdd) {
 		if (table.getSelectionModel().getSelectedItem() == null) {
 			btnAdd.setDisable(true);
-			// Todo
-
 		}
 		
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
