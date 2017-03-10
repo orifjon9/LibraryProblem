@@ -34,7 +34,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class LibraryMemberManagementScreen {
+public class LibraryMemberManagementScreen extends Stage {
 	public static final LibraryMemberManagementScreen INSTANCE = new LibraryMemberManagementScreen();
 	
 	
@@ -85,6 +85,8 @@ public class LibraryMemberManagementScreen {
 			if (selected != null) {
 				LibraryMemberActionScreen libraryMember = LibraryMemberActionScreen.INSTANCE;
 				libraryMember.setStage(ps, roles, selected);
+				libraryMember.show();
+				hide();
 			}
 		});
 		
@@ -97,6 +99,8 @@ public class LibraryMemberManagementScreen {
 		newButton.setOnAction(evt -> {
 			LibraryMemberActionScreen libraryMember = LibraryMemberActionScreen.INSTANCE;
 			libraryMember.setStage(primaryStage, roles, null);
+			libraryMember.show();
+			hide();
 		});
 
 		table = new TableView<Member>();
@@ -183,6 +187,8 @@ public class LibraryMemberManagementScreen {
 		back.setOnAction(evt -> {
 			MainScreen welcome = MainScreen.INSTANCE;
 			welcome.setStage(primaryStage, roles);
+			primaryStage.show();
+			hide();
 		});
 
 		exit.setOnAction(evt -> Platform.exit());
@@ -197,10 +203,9 @@ public class LibraryMemberManagementScreen {
 		topContainer.getChildren().addAll(mainMenu, hBox, hBoxTable, buttonBox);
 		
 		setEventForTableView(editButton);
-
-		primaryStage.setScene(new Scene(topContainer, 1000, 520));
-		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
-		primaryStage.show();
+		Scene scene = new Scene(topContainer, 1000, 520);
+		scene.getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
+		setScene(scene);
 	}
 	
 	private void setEventForTableView(Button editButton) {

@@ -174,6 +174,8 @@ public class MainScreen extends Stage {
 				e.printStackTrace();
 			}
 			manageBook.setData(books);
+			manageBook.show();
+			primaryStage.hide();
 		});
 
 		MenuItem libraryMemberManage = new MenuItem("Member Management");
@@ -190,6 +192,8 @@ public class MainScreen extends Stage {
 				e.printStackTrace();
 			}
 			manageMember.setData(members);
+			manageMember.show();
+			primaryStage.hide();
 		});
 
 		adminMenu.getItems().addAll(bookManagement, libraryMemberManage);

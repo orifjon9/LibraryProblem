@@ -179,11 +179,11 @@ public class LibraryMemberActionScreen extends Stage {
 			login.start(primaryStage);
 		});
 		topContainer.getChildren().addAll(mainMenu, grid);
-
-		primaryStage.setScene(new Scene(topContainer, 1000, 520));
+		
+		Scene scene = new Scene(topContainer, 1000, 520);
 		inputValueToEdit(getEditMember());
-		primaryStage.getScene().getStylesheets().add(getClass().getResource("addMember.css").toExternalForm());
-		primaryStage.show();
+		scene.getStylesheets().add(getClass().getResource("addMember.css").toExternalForm());
+		setScene(scene);
 	}
 
 	private void processBackAction(Set<Role> roles) {
@@ -198,6 +198,8 @@ public class LibraryMemberActionScreen extends Stage {
 			e.printStackTrace();
 		}
 		libraryMemberManagementScreen.setData(members);
+		libraryMemberManagementScreen.show();
+		hide();
 	}
 
 	private void processSubmitAction(Label errorMessage) {

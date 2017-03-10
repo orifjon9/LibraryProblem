@@ -34,7 +34,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class BookManagementScreen {
+public class BookManagementScreen extends Stage {
 	public static final BookManagementScreen INSTANCE = new BookManagementScreen();
 	
 	
@@ -216,6 +216,7 @@ public class BookManagementScreen {
 		back.setOnAction(evt -> {
 			MainScreen welcome = MainScreen.INSTANCE;
 			welcome.setStage(primaryStage, roles);
+			hide();
 		});
 
 		exit.setOnAction(evt -> Platform.exit());
@@ -301,15 +302,16 @@ public class BookManagementScreen {
 		
 		btnAddBook.setOnAction(evt -> {
 			AddBookScreen addBook = AddBookScreen.INSTANCE;
-			addBook.setStage(primaryStage, roles);		
+			addBook.setStage(primaryStage, roles);	
+			addBook.show();
+			hide();
 		});
 		
 		setEventForTableView(btnAddCopy);
 
 		Scene newScene = new Scene(topContainer, 1000, 540);
-		primaryStage.setScene(newScene);
-		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
-		primaryStage.show();
+		newScene.getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
+		setScene(newScene);
 	}
 	
 	private void setEventForTableView(Button btnAdd) {

@@ -281,6 +281,8 @@ public class AddBookScreen extends Stage {
 				e.printStackTrace();
 			}
 			bookManagementScreen.setData(books);
+			bookManagementScreen.show();
+			hide();
 		});
 
 		exit.setOnAction(evt -> Platform.exit());
@@ -332,9 +334,8 @@ public class AddBookScreen extends Stage {
 		});
 
 		Scene newScene = new Scene(topContainer, 1075, 520);
-		primaryStage.setScene(newScene);
-		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
-		primaryStage.show();
+		newScene.getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
+		setScene(newScene);
 	}
 	
 	private void clearAllData() {
