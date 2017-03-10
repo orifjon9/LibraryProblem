@@ -222,12 +222,12 @@ public class CheckoutOverViewController {
 	
 		tableCheckoutRecord.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
-		    					
+		    				/*	
 		    	tableColumnCity.setCellValueFactory(new PropertyValueFactory<Address,String>("city"));
 		    	tableColumnState.setCellValueFactory(new PropertyValueFactory<Address,String>("state"));
 		    	tableColumnStreet.setCellValueFactory(new PropertyValueFactory<Address,String>("street"));
 		    	tableColumnZip.setCellValueFactory(new PropertyValueFactory<Address,String>("zip"));
-		    	
+		    	*/
 		    	
 		    	tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Book,String>("isbnNumber"));
 		    	tableColumnCopyNumber.setCellValueFactory(new Callback<CellDataFeatures<Book, String>, ObservableValue<String>>() {
@@ -241,12 +241,12 @@ public class CheckoutOverViewController {
 					}
 					
 				});
-		    	
+		    	/*
 		    	Address address = ((CheckoutRecord)newSelection).getMember().getAddress();
 				
 				ObservableList<Address> addressTable = FXCollections.observableArrayList();
 				addressTable.add(address);
-				tableAddress.setItems(addressTable);
+				tableAddress.setItems(addressTable);*/
 				
 				try
 				{
