@@ -2,7 +2,6 @@ package com.mum.edu.library.dao.impl;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,7 +13,6 @@ import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.model.Book;
-import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Books;
 import com.mum.edu.library.rule.ApplicationException;
 

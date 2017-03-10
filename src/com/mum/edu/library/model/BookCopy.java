@@ -48,8 +48,4 @@ public class BookCopy implements Serializable {
 	public void setBorrowAbleDate(int borrowAbleDate) {
 		BorrowAbleDate = borrowAbleDate;
 	}
-	
-	private boolean equals(BookCopy aBookCopy){
-		return this.getIdCopyNumber() == aBookCopy.getIdCopyNumber();
-	}
 }

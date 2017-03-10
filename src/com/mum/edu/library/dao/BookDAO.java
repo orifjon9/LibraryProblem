@@ -1,8 +1,8 @@
 package com.mum.edu.library.dao;
 
-import java.util.*;
+import java.util.List;
+
 import com.mum.edu.library.model.Book;
-import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.rule.ApplicationException;
 
 public interface BookDAO {
