@@ -22,4 +22,48 @@
         <lastName>Tran</lastName>
         <phoneNumber>+1 984 838 388</phoneNumber>
     </Member>
+    <Member memberId="985147">
+        <address>
+            <city>FairField</city>
+            <state>Iowa</state>
+            <street>1000 4th North</street>
+            <zip>51232</zip>
+        </address>
+        <firstName>Chi Cuong</firstName>
+        <lastName>Nguyen</lastName>
+        <phoneNumber>+1 984 838 6688</phoneNumber>
+    </Member>
+    <Member memberId="985688">
+        <address>
+            <city>Read Mardrid</city>
+            <state>Alabama</state>
+            <street>101 BurlingWay St</street>
+            <zip>52777</zip>
+        </address>
+        <firstName>Cristiano </firstName>
+        <lastName>Ronaldo</lastName>
+        <phoneNumber>+8 737 377 377</phoneNumber>
+    </Member>
+    <Member memberId="985999">
+        <address>
+            <city>Oregon</city>
+            <state>New Jersey</state>
+            <street>123 Waleey</street>
+            <zip>53434</zip>
+        </address>
+        <firstName>Zlatan</firstName>
+        <lastName>Imbrahimovic</lastName>
+        <phoneNumber>+1 399 939 399</phoneNumber>
+    </Member>
+    <Member memberId="939388">
+        <address>
+            <city>Wasington</city>
+            <state>Washington</state>
+            <street>123 Wasington</street>
+            <zip>53433</zip>
+        </address>
+        <firstName>Obama</firstName>
+        <lastName>Barack</lastName>
+        <phoneNumber>+1 838 838 388</phoneNumber>
+    </Member>
 </Members>

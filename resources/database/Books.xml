@@ -1,37 +1,113 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Books>
     <Book>
-        <title>The Call of the Wild</title>
-        <isbnNumber>12345</isbnNumber>
-        <Author credentials="Certificate" shortbio="Good">
+        <title>The Habit</title>
+        <isbnNumber>11111</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
             <address>
-                <city>Fairfield</city>
+                <city>FairField</city>
                 <state>Iowa</state>
-                <street>407 SD st</street>
-                <zip>52556</zip>
+                <street>123 FairField</street>
+                <zip>52777</zip>
             </address>
-            <firstName>Jack</firstName>
-            <lastName>London</lastName>
-            <phoneNumber>123456</phoneNumber>
+            <firstName>Rooney</firstName>
+            <lastName>Wayne</lastName>
+            <phoneNumber>+ 123 456 789</phoneNumber>
         </Author>
-        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1001"/>
+        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1"/>
     </Book>
     <Book>
-        <title>To Kill A Mockingbird</title>
-        <isbnNumber>12347</isbnNumber>
-        <Author credentials="Certificate" shortbio="Fair">
+        <title>Fahrenheit</title>
+        <isbnNumber>22222</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
             <address>
-                <city>Fairfield</city>
-                <state>Iowa</state>
-                <street>409 SD st</street>
-                <zip>52556</zip>
+                <city>FairField</city>
+                <state>Kentucky</state>
+                <street>123 FairField</street>
+                <zip>51233</zip>
             </address>
-            <firstName>Happer</firstName>
-            <lastName>Lee</lastName>
-            <phoneNumber>123456</phoneNumber>
+            <firstName>Benzema</firstName>
+            <lastName>Karim</lastName>
+            <phoneNumber>+1 838 8383 838</phoneNumber>
         </Author>
-        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1003"/>
-        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1002"/>
-        <BookCopy availability="false" borrowAbleDate="21" idCopyNumber="1004"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="3"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="2"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="4"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1"/>
+    </Book>
+    <Book>
+        <title>The Ocean At The End</title>
+        <isbnNumber>33333</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
+            <address>
+                <city>Quang Trung</city>
+                <state>Louisiana</state>
+                <street>123 Quang Ngai</street>
+                <zip>53773</zip>
+            </address>
+            <firstName>Ramos</firstName>
+            <lastName>Segio</lastName>
+            <phoneNumber>+1 377 377 373</phoneNumber>
+        </Author>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="5"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="6"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="2"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="3"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="7"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="4"/>
+    </Book>
+    <Book>
+        <title>The Fault in our stars</title>
+        <isbnNumber>44444</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
+            <address>
+                <city>Ha Noi</city>
+                <state>Montana</state>
+                <street>123 Ha Noi</street>
+                <zip>53773</zip>
+            </address>
+            <firstName>Nhat Anh</firstName>
+            <lastName>Nguyen</lastName>
+            <phoneNumber>+84 123838838</phoneNumber>
+        </Author>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="3"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="2"/>
+    </Book>
+    <Book>
+        <title>Quiet Influence</title>
+        <isbnNumber>55555</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
+            <address>
+                <city>FairField</city>
+                <state>North Dakota</state>
+                <street>123</street>
+                <zip>52777</zip>
+            </address>
+            <firstName>Con</firstName>
+            <lastName>Ga Vang</lastName>
+            <phoneNumber>+1 737 737 7373</phoneNumber>
+        </Author>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="4"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="3"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="2"/>
+    </Book>
+    <Book>
+        <title>The Four Agreements</title>
+        <isbnNumber>66666</isbnNumber>
+        <Author credentials="(empty)" shortbio="Very Good">
+            <address>
+                <city>FairField</city>
+                <state>Oklahoma</state>
+                <street>123 Quang Ngai</street>
+                <zip>52777</zip>
+            </address>
+            <firstName>Aguero</firstName>
+            <lastName>Sergio</lastName>
+            <phoneNumber>+1 838 388 383</phoneNumber>
+        </Author>
+        <BookCopy availability="true" borrowAbleDate="3" idCopyNumber="1"/>
     </Book>
 </Books>
