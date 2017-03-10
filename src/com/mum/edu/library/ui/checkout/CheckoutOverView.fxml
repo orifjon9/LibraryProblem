@@ -25,7 +25,8 @@
                <children>
                   <TextField fx:id="txbMemberId" layoutX="111.0" layoutY="21.0" />
                                     <Label layoutX="27.0" layoutY="26.0" text="Member Id" textFill="#f8f0f0" />
-                  <Button fx:id="btnSearch" contentDisplay="RIGHT" layoutX="870.0" layoutY="21.0" mnemonicParsing="false" onAction="#SearchCheckoutRecordButtonAction" prefHeight="31.0" prefWidth="102.0" text="Search" />
+                  <Button fx:id="btnSearch" contentDisplay="RIGHT" layoutX="748.0" layoutY="21.0" mnemonicParsing="false" onAction="#SearchCheckoutRecordButtonAction" prefHeight="31.0" prefWidth="102.0" text="Search" />
+                  <Button fx:id="btnPrint" contentDisplay="RIGHT" layoutX="868.0" layoutY="21.0" mnemonicParsing="false" onAction="#PrintCheckoutRecordButtonAction" prefHeight="31.0" prefWidth="102.0" text="Print" />
             </children>
             </AnchorPane>
           <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

@@ -103,6 +103,11 @@ public class CheckoutOverViewController {
 		loadData();
 	}
 	
+	@FXML
+	private void PrintCheckoutRecordButtonAction(ActionEvent event) {
+		
+	}
+	
 	private Stage getStage(){
 		return (Stage)btnSearch.getScene().getWindow();
 	}
