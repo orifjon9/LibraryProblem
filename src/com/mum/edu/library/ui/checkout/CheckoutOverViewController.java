@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
@@ -107,6 +110,10 @@ public class CheckoutOverViewController {
 	}
 
 	private void printCheckoutRecord(String memberId) {
+		if (StringUtils.isBlank(memberId)) {
+			JOptionPane.showMessageDialog(null, "You must input memberId to print");
+			return;
+		}
 		List<CheckoutRecord> allCheckoutRecord = CheckoutManager.getInstance().getAllCheckoutRecord();
 		for(CheckoutRecord checkoutRecord : allCheckoutRecord) {
 			if (checkoutRecord.getMember().getMemberId() == Integer.parseInt(memberId)) {

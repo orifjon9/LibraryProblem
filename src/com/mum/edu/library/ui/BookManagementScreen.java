@@ -278,8 +278,10 @@ public class BookManagementScreen extends Stage {
 					// clear the selection
 					table.getSelectionModel().clearSelection();	
 				}
-				else
+				else {
 					resultSearch.setText("This ISBN does not exist");
+					table.getItems().clear();
+				}
 				
 			} catch (ApplicationException e) {
 				e.printStackTrace();

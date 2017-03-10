@@ -79,7 +79,6 @@ public class Book implements Serializable  {
 				return bookCopy;
 			}
 		}
-		
 		return null;
 	}
 	
