@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.model.Address;
@@ -13,6 +15,8 @@ import com.mum.edu.library.model.CheckoutEntry;
 import com.mum.edu.library.model.CheckoutRecord;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.rule.ApplicationException;
+import com.mum.edu.library.rule.RuleException;
+import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 import com.mum.edu.library.ui.LoginScreen;
 import com.mum.edu.library.ui.MainScreen;
@@ -32,6 +36,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -89,6 +94,8 @@ public class CheckoutOverViewController {
 	
 	@FXML
 	private Button btnSearch;
+	@FXML
+	private TextField txbMemberId;
 	
 	@FXML
 	private void SearchCheckoutRecordButtonAction(ActionEvent event) {
@@ -248,14 +255,14 @@ public class CheckoutOverViewController {
 					for(Book book: books){
 						for(BookCopy tmpBookCopy: book.getBookCopies()){
 							if(tmpBookCopy.getIdCopyNumber() == bookCopy.getIdCopyNumber()){
-							Book newBook = new Book();
-							newBook.setIsbnNumber(book.getIsbnNumber());
+								Book newBook = new Book();
+								newBook.setIsbnNumber(book.getIsbnNumber());
 							
-							Set<BookCopy> bookCopies = new HashSet<BookCopy>();
-							bookCopies.add(bookCopy);
+								Set<BookCopy> bookCopies = new HashSet<BookCopy>();
+								bookCopies.add(bookCopy);
 							
-							newBook.setBookCopies(bookCopies);
-							bookTable.add(newBook);
+								newBook.setBookCopies(bookCopies);
+								bookTable.add(newBook);
 							}
 						}
 					}
@@ -273,13 +280,47 @@ public class CheckoutOverViewController {
 	}
 	
 	private void loadData(){
+		
+		RuleSet ruleSet = RuleSetFactory.getRuleSet(CheckoutOverViewController.this);
+		try {
+			ruleSet.applyRule(this);
+		} catch (RuleException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return;
+		}
+		
 		ObservableList<CheckoutRecord> data = FXCollections.observableArrayList();
 		
 		for(CheckoutRecord checkoutRecord: CheckoutManager.getInstance().getAllCheckoutRecord()){
-			data.add(checkoutRecord);
+			int selectedMemberId = getMemberId();
+			if(selectedMemberId == 0){
+				data.add(checkoutRecord);
+			}
+			else
+			{
+				Member member = checkoutRecord.getMember();
+				if(member.getMemberId() == selectedMemberId){
+					data.add(checkoutRecord);
+				}
+			}
 		}
 		
 		tableCheckoutRecord.setItems(data);
+	}
+	
+	public String getMemberIdValue(){
+		return txbMemberId.getText();
+	}
+	
+	private int getMemberId(){
+		try{
+			
+			return	Integer.parseInt(getMemberIdValue());
+		}
+		catch(Exception ex){
+			return 0;
+		}
 	}
 	
 }

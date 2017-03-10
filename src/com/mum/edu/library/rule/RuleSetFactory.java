@@ -7,6 +7,7 @@ import com.mum.edu.library.ui.LibraryMemberActionScreen;
 import com.mum.edu.library.ui.LoginScreen;
 import com.mum.edu.library.ui.checkout.CheckoutBookController;
 import com.mum.edu.library.ui.checkout.CheckoutBookWindow;
+import com.mum.edu.library.ui.checkout.CheckoutOverViewController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,6 +27,8 @@ public class RuleSetFactory {
 		mapStages.put(LibraryMemberActionScreen.class, new MemberRuleSet());
 		mapStages.put(AddBookScreen.class, new AddBookRuleSet());
 		mapObject.put(CheckoutBookController.class, new CheckoutRuleSet());
+		mapObject.put(CheckoutOverViewController.class, new CheckoutOverViewRuleSet());
+		
 	}
 
 	public static RuleSet getRuleSet(Application app) {

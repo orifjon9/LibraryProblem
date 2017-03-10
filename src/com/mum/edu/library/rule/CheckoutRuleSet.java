@@ -23,7 +23,7 @@ public class CheckoutRuleSet implements RuleSet {
 		}
 		catch(Exception ex){
 			///throw new RuleException(ex.getMessage());
-			throw new RuleException("MemberId id not number");
+			throw new RuleException("MemberId is not number");
 		}
 	}
 	
