@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
-import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.CheckoutEntry;
@@ -22,14 +21,12 @@ import com.mum.edu.library.ui.LoginScreen;
 import com.mum.edu.library.ui.MainScreen;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -105,9 +102,19 @@ public class CheckoutOverViewController {
 	
 	@FXML
 	private void PrintCheckoutRecordButtonAction(ActionEvent event) {
-		
+		String memberId = txbMemberId.getText();
+		printCheckoutRecord(memberId);
 	}
-	
+
+	private void printCheckoutRecord(String memberId) {
+		List<CheckoutRecord> allCheckoutRecord = CheckoutManager.getInstance().getAllCheckoutRecord();
+		for(CheckoutRecord checkoutRecord : allCheckoutRecord) {
+			if (checkoutRecord.getMember().getMemberId() == Integer.parseInt(memberId)) {
+				System.out.println(checkoutRecord);
+			}
+		}
+	}
+
 	private Stage getStage(){
 		return (Stage)btnSearch.getScene().getWindow();
 	}

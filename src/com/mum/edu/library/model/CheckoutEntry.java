@@ -60,5 +60,10 @@ public class CheckoutEntry implements Serializable {
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
+	
+	@Override
+	public String toString() {
+		return borrowItem.toString() + " dueDate: " + dueDate.toString() + " dateCheckout: " + dateCheckout.toString();
+	}
 
 }

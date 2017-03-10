@@ -48,4 +48,10 @@ public class BookCopy implements Serializable {
 	public void setBorrowAbleDate(int borrowAbleDate) {
 		BorrowAbleDate = borrowAbleDate;
 	}
+
+	@Override
+	public String toString() {
+		return "This is information of Book [IdCopyNumber: " + IdCopyNumber + " ][BorrowAbleDate: " + BorrowAbleDate
+				+ " ][availability: " + availability + "]";
+	}
 }

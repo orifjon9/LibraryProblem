@@ -8,6 +8,7 @@ import com.mum.edu.library.model.Employee;
 import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
+import com.mum.edu.library.ui.checkout.RoleFactory;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,16 +25,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-
-import com.mum.edu.library.ui.checkout.RoleFactory;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.mum.edu.library.model.Employee;
-import com.mum.edu.library.rule.RuleException;
-import com.mum.edu.library.rule.RuleSet;
-import com.mum.edu.library.rule.RuleSetFactory;
 
 
 public class LoginScreen extends Application {

@@ -37,7 +37,7 @@ public class Member extends People implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Member have memberID:" + memberId;
+		return " Member have [memberID: " + memberId.get() + "]" + super.toString();
 	}
 
 	public void copyFrom(Member editMember) {
