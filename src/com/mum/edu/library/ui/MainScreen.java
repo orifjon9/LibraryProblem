@@ -40,7 +40,7 @@ public class MainScreen extends Stage {
 	private Menu homeMenu;
 	private Menu adminMenu;
 	private Menu librarianMenu;
-	
+
 	private MainScreen() {
 	}
 
@@ -51,11 +51,11 @@ public class MainScreen extends Stage {
 		VBox topContainer = new VBox();
 
 		MenuBar mainMenu = new MenuBar();
-		
+
 		Text label = new Text("NEW BOOK");
 		label.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		label.setId("new-book");
-		
+
 		HBox labelBox = new HBox(10);
 		labelBox.setPadding(new Insets(10, 0, 0, 0));
 		labelBox.setAlignment(Pos.CENTER);
@@ -127,45 +127,35 @@ public class MainScreen extends Stage {
 		MenuItem checkoutBook = new MenuItem("Checkout Book");
 		MenuItem checkoutRecords = new MenuItem("Checkout Records");
 		librarianMenu.getItems().addAll(checkoutBook, checkoutRecords);
-		
-		
+
 		checkoutBook.setOnAction(evt -> {
-			// Implement In here.
 			try {
-				
 				CheckoutBookWindow.getInstance().start(primaryStage);
-				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage());
-			};
+			}
 		});
-		
+
 		checkoutRecords.setOnAction(evt -> {
-			// Implement In here.
 			try {
-				
 				CheckoutOverViewWindow.getInstance().start(primaryStage);
-				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage());
-			};
+			}
 		});
 
 		// did not add menu item for menu edit
 		adminMenu = new Menu("Administrator");
 		MenuItem addBook = new MenuItem("Add Book");
 		MenuItem addCopy = new MenuItem("Add Copy");
-		
+
 		addBook.setOnAction(evt -> {
 			AddBook addBookWindow = AddBook.INSTANCE;
 			addBookWindow.setStage(primaryStage);
 		});
 
-		
 		addCopy.setOnAction(evt -> {
 			AddCopy addCopyWindow = AddCopy.INSTANCE;
 			addCopyWindow.setStage(primaryStage);
@@ -185,9 +175,9 @@ public class MainScreen extends Stage {
 			}
 			manageBook.setData(books);
 		});
-		
+
 		MenuItem libraryMemberManage = new MenuItem("Member Management");
-		
+
 		libraryMemberManage.setOnAction(evt -> {
 			LibraryMemberManagementScreen manageMember = LibraryMemberManagementScreen.INSTANCE;
 			manageMember.setStage(primaryStage, roles);
@@ -201,10 +191,10 @@ public class MainScreen extends Stage {
 			}
 			manageMember.setData(members);
 		});
-		
+
 		adminMenu.getItems().addAll(bookManagement, libraryMemberManage);
 		mainMenu.getMenus().addAll(homeMenu, librarianMenu, adminMenu);
-		
+
 		authority(roles);
 		// must have to show
 		Scene scene = new Scene(topContainer, 1000, 520);
@@ -217,7 +207,7 @@ public class MainScreen extends Stage {
 		if (roles.size() == 2) {
 			return;
 		}
-		for(Role role : roles) {
+		for (Role role : roles) {
 			if ("LIBRARIAN".equals(role.getRoleName())) {
 				adminMenu.setDisable(true);
 				librarianMenu.setDisable(false);

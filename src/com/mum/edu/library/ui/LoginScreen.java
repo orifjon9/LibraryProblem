@@ -2,6 +2,13 @@ package com.mum.edu.library.ui;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.mum.edu.library.model.Employee;
+import com.mum.edu.library.rule.RuleException;
+import com.mum.edu.library.rule.RuleSet;
+import com.mum.edu.library.rule.RuleSetFactory;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,13 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.mum.edu.library.model.Employee;
-import com.mum.edu.library.rule.RuleException;
-import com.mum.edu.library.rule.RuleSet;
-import com.mum.edu.library.rule.RuleSetFactory;
-
 public class LoginScreen extends Application {
 	public static final LoginScreen INSTANCE = new LoginScreen();
 
@@ -39,6 +39,7 @@ public class LoginScreen extends Application {
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Helios Team");
 		primaryStage.getIcons().add(new Image(LoginScreen.class.getResourceAsStream("helios.png")));
+		primaryStage.setResizable(false);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -109,7 +110,7 @@ public class LoginScreen extends Application {
 			}
 		});
 
-		Scene scene = new Scene(grid, 1000, 400);
+		Scene scene = new Scene(grid, 1000, 500);
 		primaryStage.setScene(scene);
 
 		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());

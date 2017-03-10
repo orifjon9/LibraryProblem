@@ -232,7 +232,8 @@ public class BookManagementScreen {
 		btnAddCopy.setOnAction(evt -> {
 			try {
 				selected = table.getSelectionModel().getSelectedItem();
-				if (selected != null) {
+				int currentIndex = table.getSelectionModel().getSelectedIndex();
+				if (selected != null && currentIndex > -1) {
 					Set<BookCopy> bookCopies = selected.getBookCopies();
 					Integer maxCurrent = 0;
 					Integer borrowAbleDate = 0;
@@ -254,7 +255,7 @@ public class BookManagementScreen {
 					ObservableList<Book> newbooks = null;
 					newbooks = FXCollections.observableArrayList(bookDAO.read());
 					setData(newbooks);
-					table.getSelectionModel().clearSelection();
+					table.getSelectionModel().select(currentIndex);
 					resultSearch.setText("Add copy of this book completed");
 				}
 			} catch (ApplicationException e) {

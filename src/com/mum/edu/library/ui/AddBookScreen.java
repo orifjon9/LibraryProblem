@@ -2,6 +2,7 @@ package com.mum.edu.library.ui;
 
 import java.util.Set;
 
+import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.model.Address;
@@ -15,16 +16,21 @@ import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -46,9 +52,11 @@ public class AddBookScreen extends Stage {
 	private TextField credentials;
 	private TextField street;
 	private TextField city;
-	private TextField state;
 	private TextField zip;
 	private TextArea shortBio;
+	BookDAO bookDAO = new BookDAOImpl();
+	
+	private ComboBox<String> stateCb;
 	
 	private AddBookScreen() {
 	}
@@ -61,7 +69,7 @@ public class AddBookScreen extends Stage {
 		VBox topContainer = new VBox();
 
 		HBox hbResult = new HBox();
-		hbResult.setPadding(new Insets(10, 20, 10, 40));
+		hbResult.setPadding(new Insets(20, 20, 10, 40));
 		hbResult.setAlignment(Pos.TOP_LEFT);
 		Label result = new Label();
 		result.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
@@ -72,7 +80,7 @@ public class AddBookScreen extends Stage {
 		HBox mainContentHBox = new HBox();
 		mainContentHBox.setSpacing(40);
 		mainContentHBox.setAlignment(Pos.TOP_LEFT);
-		mainContentHBox.setPadding(new Insets(20, 10, 10, 40));
+		mainContentHBox.setPadding(new Insets(10, 10, 10, 40));
 
 		GridPane bookGrid = new GridPane();
 		bookGrid.setHgap(10);
@@ -217,9 +225,10 @@ public class AddBookScreen extends Stage {
 		stateLbl.getStyleClass().add("book-label");
 		authorGrid2.add(stateLbl, 0, 2);
 
-		state = new TextField();
-		state.setMaxWidth(220);
-		authorGrid2.add(state, 1, 2);
+		ObservableList<String> options = FXCollections.observableArrayList(CommonAPI.getUSState());
+		stateCb = new ComboBox<>(options);
+		stateCb.setMaxWidth(220);
+		authorGrid2.add(stateCb, 1, 2);
 
 		Label zipLbl = new Label("Zip");
 		zipLbl.setFont(Font.font("Verdana", FontWeight.NORMAL, 13));
@@ -264,6 +273,14 @@ public class AddBookScreen extends Stage {
 		back.setOnAction(evt -> {
 			BookManagementScreen bookManagementScreen = BookManagementScreen.INSTANCE;
 			bookManagementScreen.setStage(primaryStage, roles);
+			
+			ObservableList<Book> books = null;
+			try {
+				books = FXCollections.observableArrayList(bookDAO.read());
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+			bookManagementScreen.setData(books);
 		});
 
 		exit.setOnAction(evt -> Platform.exit());
@@ -294,11 +311,10 @@ public class AddBookScreen extends Stage {
 				return;
 			}
 			
-			BookDAO bookDAO = new BookDAOImpl();
 			Book book = new Book(bookTitle.getText(), isbn.getText());
 			book.getAuthor()
 					.add(new Author(firstName.getText(), lastName.getText(),
-							new Address(street.getText(), city.getText(), state.getText(), zip.getText()),
+							new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()),
 							phone.getText(), credentials.getText(), shortBio.getText()));
 			for (Integer i = 1; i <= Integer.parseInt(numberOfCopy.getText()); i++) {
 				book.getBookCopies().add(new BookCopy(i, Integer.parseInt(borrowAbleDate.getText()), true));
@@ -307,16 +323,53 @@ public class AddBookScreen extends Stage {
 			try {
 				bookDAO.save(book);
 			} catch (ApplicationException e) {
-				e.printStackTrace();
+				showErrorDialog(e.getMessage());
+				return;
 			}
-			
+			String message = "Create New Book Successfuly, ISBN is : " +book.getIsbnNumber();
+			showInformationDialog(message);
+			clearAllData();
 		});
 
-		Scene newScene = new Scene(topContainer, 1100, 520);
+		Scene newScene = new Scene(topContainer, 1075, 520);
 		primaryStage.setScene(newScene);
 		primaryStage.getScene().getStylesheets().add(getClass().getResource("manageMember.css").toExternalForm());
 		primaryStage.show();
 	}
+	
+	private void clearAllData() {
+		isbn.clear();
+		bookTitle.clear();
+		borrowAbleDate.clear();
+		numberOfCopy.clear();
+		firstName.clear();
+		lastName.clear();
+		phone.clear();
+		credentials.clear();
+		street.clear();
+		city.clear();
+		stateCb.setValue("");;
+		zip.clear();
+		shortBio.clear();
+	}
+
+
+	private void showErrorDialog(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error Dialog");
+		alert.setHeaderText("Look, an Error Dialog");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+	
+	private void showInformationDialog(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+
 
 	public TextField getIsbn() {
 		return isbn;
@@ -398,12 +451,13 @@ public class AddBookScreen extends Stage {
 		this.city = city;
 	}
 
-	public TextField getState() {
-		return state;
+	
+	public ComboBox<String> getStateCb() {
+		return stateCb;
 	}
 
-	public void setState(TextField state) {
-		this.state = state;
+	public void setStateCb(ComboBox<String> stateCb) {
+		this.stateCb = stateCb;
 	}
 
 	public TextField getZip() {
