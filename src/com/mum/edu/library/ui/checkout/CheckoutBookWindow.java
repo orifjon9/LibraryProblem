@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class CheckoutBookWindow extends Application{
 	private static CheckoutBookWindow instance;
@@ -21,7 +22,8 @@ public class CheckoutBookWindow extends Application{
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("CheckoutBookWindow.fxml"));
         primaryStage.setTitle("Checkout Book");
-        primaryStage.setScene(new Scene(root, 990, 664));
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, 1000, 520));
         primaryStage.show();
     }
 

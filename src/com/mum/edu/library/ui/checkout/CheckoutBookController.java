@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.dao.impl.MemberDAOImpl;
@@ -14,13 +15,17 @@ import com.mum.edu.library.rule.ApplicationException;
 import com.mum.edu.library.rule.RuleException;
 import com.mum.edu.library.rule.RuleSet;
 import com.mum.edu.library.rule.RuleSetFactory;
+import com.mum.edu.library.ui.LoginScreen;
+import com.mum.edu.library.ui.MainScreen;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -28,11 +33,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
 public class CheckoutBookController {
 	
+	@FXML
+	private GridPane topGrid;
 	@FXML
 	private TextField txbMemberId;
 	@FXML
@@ -58,6 +67,54 @@ public class CheckoutBookController {
 	private TableColumn tableColumnIsAvailable;
 	
 	
+	private Stage getStage(){
+		return (Stage)btnSearchBook.getScene().getWindow();
+	}
+	
+	private void showWindow(Stage primaryStage) {
+		Scene newScene = new Scene(topGrid, 1000, 540);
+		primaryStage.setScene(newScene);
+		primaryStage.getScene().getStylesheets().add(getClass().getResource(Constant.RESOURCE_MEMBER_CSS).toExternalForm());
+		primaryStage.show();
+	}
+	
+	@FXML
+	private void MenuBackButtonAction(ActionEvent event){
+		try
+		{
+			Stage primaryStage = getStage();
+		
+			MainScreen welcome = MainScreen.INSTANCE;
+			welcome.setStage(primaryStage, RoleFactory.getInstance().getRoles());
+	   
+			showWindow(primaryStage);
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	@FXML
+	private void MenuLogoutButtonAction(ActionEvent event){
+		try
+		{
+			Stage primaryStage = getStage();
+		
+			LoginScreen login = LoginScreen.INSTANCE;
+			login.start(primaryStage);
+		
+			showWindow(primaryStage);
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	@FXML
+	private void MenuExitButtonAction(ActionEvent event){
+		Platform.exit();
+	}
+	
 	public String getMemberIdValue(){
 		return txbMemberId.getText();
 	}
@@ -82,19 +139,15 @@ public class CheckoutBookController {
 		{
 			RuleSet ruleSet = RuleSetFactory.getRuleSet(CheckoutBookController.this);
 		
+			
 			ruleSet.applyRule(this);
 		
 		
 			int memberId = Integer.parseInt(txbMemberId.getText());
 		
-		 	MemberDAOImpl mDao = new MemberDAOImpl();
+			MemberDAOImpl mDao = new MemberDAOImpl();
 			Member requiredMember = mDao.getMember(memberId);
-				
-			if(requiredMember == null){
-				throw new RuleException("Member was not found");
-			}
-		
-		
+								
 			Book book = this.getSelectedItem();
 			BookCopy bookCopy = book.getAvailableBookCopy();
 		

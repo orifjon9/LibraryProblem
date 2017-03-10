@@ -25,6 +25,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+import com.mum.edu.library.ui.checkout.RoleFactory;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.mum.edu.library.model.Employee;
+import com.mum.edu.library.rule.RuleException;
+import com.mum.edu.library.rule.RuleSet;
+import com.mum.edu.library.rule.RuleSetFactory;
+
+
 public class LoginScreen extends Application {
 	public static final LoginScreen INSTANCE = new LoginScreen();
 
@@ -104,6 +115,8 @@ public class LoginScreen extends Application {
 						notFoundUserNameAndPassWord = "";
 						MainScreen welcome = MainScreen.INSTANCE;
 						welcome.setStage(primaryStage, employee.getRoles());
+						
+						RoleFactory.getInstance().setRoles(employee.getRoles());
 					}
 				}
 				informText.setText(notFoundUserNameAndPassWord);

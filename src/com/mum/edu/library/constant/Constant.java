@@ -8,4 +8,6 @@ public class Constant {
 	
 	public static final String RESOURCES = "resources";
 	public static final String BIN = "bin";
+	
+	public static final String RESOURCE_MEMBER_CSS="manageMember.css";
 }

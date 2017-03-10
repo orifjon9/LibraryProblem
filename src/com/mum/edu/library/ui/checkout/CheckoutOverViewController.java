@@ -1,7 +1,11 @@
 package com.mum.edu.library.ui.checkout;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.mum.edu.library.constant.Constant;
+import com.mum.edu.library.dao.impl.BookDAOImpl;
 import com.mum.edu.library.model.Address;
 import com.mum.edu.library.model.Book;
 import com.mum.edu.library.model.BookCopy;
@@ -9,7 +13,11 @@ import com.mum.edu.library.model.CheckoutEntry;
 import com.mum.edu.library.model.CheckoutRecord;
 import com.mum.edu.library.model.Member;
 import com.mum.edu.library.rule.ApplicationException;
+import com.mum.edu.library.rule.RuleSetFactory;
+import com.mum.edu.library.ui.LoginScreen;
+import com.mum.edu.library.ui.MainScreen;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,14 +25,31 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class CheckoutOverViewController {
+	
+	@FXML
+	private VBox topPanel;
+	@FXML
+	private GridPane topGrid;
+	@FXML 
+	private MenuItem menuBack;
+	@FXML 
+	private MenuItem menuLogout;
+	@FXML 
+	private MenuItem menuExit;
 	
 	@FXML
 	private TableView tableCheckoutRecord;
@@ -71,8 +96,55 @@ public class CheckoutOverViewController {
 		loadData();
 	}
 	
-	private void applySettings(){
+	private Stage getStage(){
+		return (Stage)btnSearch.getScene().getWindow();
+	}
+	
+	private void showWindow(Stage primaryStage) {
+		Scene newScene = new Scene(topGrid, 1000, 540);
+		primaryStage.setScene(newScene);
+		primaryStage.getScene().getStylesheets().add(getClass().getResource(Constant.RESOURCE_MEMBER_CSS).toExternalForm());
+		primaryStage.show();
+	}
+	
+	@FXML
+	private void MenuBackButtonAction(ActionEvent event){
+		try
+		{
+			Stage primaryStage = getStage();
 		
+			MainScreen welcome = MainScreen.INSTANCE;
+			welcome.setStage(primaryStage, RoleFactory.getInstance().getRoles());
+	   
+			showWindow(primaryStage);
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	@FXML
+	private void MenuLogoutButtonAction(ActionEvent event){
+		try
+		{
+			Stage primaryStage = getStage();
+		
+			LoginScreen login = LoginScreen.INSTANCE;
+			login.start(primaryStage);
+		
+			showWindow(primaryStage);
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	@FXML
+	private void MenuExitButtonAction(ActionEvent event){
+		Platform.exit();
+	}
+	
+	private void applySettings(){
 		tableColumnMemberId.setCellValueFactory(new Callback<CellDataFeatures<CheckoutRecord, String>, ObservableValue<String>>() {
 
 			@Override
@@ -144,12 +216,57 @@ public class CheckoutOverViewController {
 		    	tableColumnStreet.setCellValueFactory(new PropertyValueFactory<Address,String>("street"));
 		    	tableColumnZip.setCellValueFactory(new PropertyValueFactory<Address,String>("zip"));
 		    	
+		    	
+		    	tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Book,String>("isbnNumber"));
+		    	tableColumnCopyNumber.setCellValueFactory(new Callback<CellDataFeatures<Book, String>, ObservableValue<String>>() {
+
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<Book, String> param) {
+						// TODO Auto-generated method stub
+						BookCopy bookCopy = param.getValue().getBookCopies().iterator().next();
+						
+						return new SimpleStringProperty("" + bookCopy.getIdCopyNumber());
+					}
+					
+				});
+		    	
 		    	Address address = ((CheckoutRecord)newSelection).getMember().getAddress();
 				
 				ObservableList<Address> addressTable = FXCollections.observableArrayList();
 				addressTable.add(address);
+				tableAddress.setItems(addressTable);
 				
-				tableAddress.setItems(addressTable);				
+				try
+				{
+				
+				List<Book> books = new BookDAOImpl().read();
+				ObservableList<Book> bookTable = FXCollections.observableArrayList();
+				
+				for(CheckoutEntry checkoutEntry :  ((CheckoutRecord)newSelection).getCheckoutEntries()){
+					BookCopy bookCopy = checkoutEntry.getBorrowItem();
+					
+					for(Book book: books){
+						for(BookCopy tmpBookCopy: book.getBookCopies()){
+							if(tmpBookCopy.getIdCopyNumber() == bookCopy.getIdCopyNumber()){
+							Book newBook = new Book();
+							newBook.setIsbnNumber(book.getIsbnNumber());
+							
+							Set<BookCopy> bookCopies = new HashSet<BookCopy>();
+							bookCopies.add(bookCopy);
+							
+							newBook.setBookCopies(bookCopies);
+							bookTable.add(newBook);
+							}
+						}
+					}
+					
+					//bookTable.add(address);
+					tableCheckoutBookCopy.setItems(bookTable);
+				}
+				}
+				catch(ApplicationException ex){
+					System.out.print(ex.getMessage());
+				}
 		    } 
 		});
 	

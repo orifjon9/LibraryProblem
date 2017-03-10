@@ -1,6 +1,8 @@
 package com.mum.edu.library.rule;
 
+import com.mum.edu.library.dao.impl.MemberDAOImpl;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.Member;
 import com.mum.edu.library.ui.checkout.CheckoutBookController;
 
 import javafx.application.Application;
@@ -25,6 +27,21 @@ public class CheckoutRuleSet implements RuleSet {
 		}
 	}
 	
+	private void checkMember()  throws RuleException {
+		try
+		{
+			MemberDAOImpl mDao = new MemberDAOImpl();
+			Member requiredMember = mDao.getMember(Integer.parseInt(controller.getMemberIdValue()));
+			
+			if(requiredMember == null){
+				throw new RuleException("Member was not found");
+			}
+		}
+		catch(ApplicationException ex){
+			throw new RuleException(ex.getMessage());
+		}
+	}
+	
 	@Override
 	public void applyRule(Stage stage) throws RuleException {
 		
@@ -36,6 +53,7 @@ public class CheckoutRuleSet implements RuleSet {
 		controller =  (CheckoutBookController)object;
 		
 		isMemberIdNumber();
+		checkMember();
 		
 		Book book = controller.getSelectedItem();
 		if(book == null){
