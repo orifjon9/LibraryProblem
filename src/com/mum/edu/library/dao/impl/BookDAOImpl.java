@@ -1,6 +1,7 @@
 package com.mum.edu.library.dao.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -72,11 +73,11 @@ public class BookDAOImpl implements BookDAO {
 	
 	@Override
 	public List<Book> searchBooks(String isbn) throws ApplicationException {
-		List<Book> lstBook = read();
-		for(Book b:lstBook)
+		List<Book> lstBook = new ArrayList<Book>();
+		for(Book b:read())
 		{
-			if(b.getIsbnNumber().indexOf(isbn) < 0)
-				lstBook.remove(b);
+			if(b.getIsbnNumber().indexOf(isbn) > -1)
+				lstBook.add(b);
 		}
 		
 		return lstBook;
