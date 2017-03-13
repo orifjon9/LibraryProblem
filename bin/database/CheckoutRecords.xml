@@ -2,35 +2,9 @@
 <checkoutRecords>
     <checkoutRecord>
         <CheckoutEntry>
-            <dateCheckout>2017-03-07</dateCheckout>
-            <dueDate>2017-03-14</dueDate>
-            <borrowItem availability="false" borrowAbleDate="0" idCopyNumber="123"/>
-        </CheckoutEntry>
-        <Member memberId="1">
-            <address/>
-            <firstName>test1</firstName>
-            <lastName>test2</lastName>
-            <phoneNumber>test3</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-07</dateCheckout>
-            <dueDate>2017-03-14</dueDate>
-            <borrowItem availability="false" borrowAbleDate="0" idCopyNumber="123"/>
-        </CheckoutEntry>
-        <Member memberId="1">
-            <address/>
-            <firstName>test1</firstName>
-            <lastName>test2</lastName>
-            <phoneNumber>test3</phoneNumber>
-        </Member>
-    </checkoutRecord>
-    <checkoutRecord>
-        <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1003"/>
+            <dateCheckout>2017-03-10</dateCheckout>
+            <dueDate>2017-03-13</dueDate>
+            <borrowItem availability="true" borrowAbleDate="3" idCopyNumber="6001"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>
@@ -46,9 +20,9 @@
     </checkoutRecord>
     <checkoutRecord>
         <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1002"/>
+            <dateCheckout>2017-03-10</dateCheckout>
+            <dueDate>2017-03-31</dueDate>
+            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="2001"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>
@@ -64,9 +38,9 @@
     </checkoutRecord>
     <checkoutRecord>
         <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-29</dueDate>
-            <borrowItem availability="true" borrowAbleDate="21" idCopyNumber="1004"/>
+            <dateCheckout>2017-03-10</dateCheckout>
+            <dueDate>2017-03-17</dueDate>
+            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1004"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>
@@ -82,9 +56,9 @@
     </checkoutRecord>
     <checkoutRecord>
         <CheckoutEntry>
-            <dateCheckout>2017-03-08</dateCheckout>
-            <dueDate>2017-03-15</dueDate>
-            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1001"/>
+            <dateCheckout>2017-03-10</dateCheckout>
+            <dueDate>2017-03-17</dueDate>
+            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="7002"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>

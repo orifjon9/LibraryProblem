@@ -105,4 +105,15 @@ public class Book implements Serializable  {
 		
 		return false;
 	}
+	
+	public int getBorrowAbleDate(){
+		int borrowAbleDate = 0;
+		for(BookCopy bc:bookCopies)
+		{
+			borrowAbleDate = bc.getBorrowAbleDate();
+			break;
+		}
+		return borrowAbleDate;
+		
+	}
 }

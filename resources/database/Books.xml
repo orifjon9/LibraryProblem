@@ -14,7 +14,7 @@
             <lastName>Wayne</lastName>
             <phoneNumber>+ 123 456 789</phoneNumber>
         </Author>
-        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1"/>
+        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1001"/>
     </Book>
     <Book>
         <title>Fahrenheit</title>
@@ -30,10 +30,10 @@
             <lastName>Karim</lastName>
             <phoneNumber>+1 838 8383 838</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="3"/>
-        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="2"/>
-        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="4"/>
-        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1004"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1003"/>
+        <BookCopy availability="false" borrowAbleDate="7" idCopyNumber="1002"/>
+        <BookCopy availability="true" borrowAbleDate="7" idCopyNumber="1005"/>
     </Book>
     <Book>
         <title>The Ocean At The End</title>
@@ -49,13 +49,13 @@
             <lastName>Segio</lastName>
             <phoneNumber>+1 377 377 373</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="5"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="6"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="2"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="3"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="7"/>
-        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="4"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1008"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1011"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1006"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1010"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1007"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1009"/>
+        <BookCopy availability="true" borrowAbleDate="21" idCopyNumber="1012"/>
     </Book>
     <Book>
         <title>The Fault in our stars</title>
@@ -71,9 +71,9 @@
             <lastName>Nguyen</lastName>
             <phoneNumber>+84 123838838</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="3"/>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1"/>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="2"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1014"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1013"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1015"/>
     </Book>
     <Book>
         <title>Quiet Influence</title>
@@ -89,10 +89,10 @@
             <lastName>Ga Vang</lastName>
             <phoneNumber>+1 737 737 7373</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="4"/>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1"/>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="3"/>
-        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="2"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1019"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1018"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1017"/>
+        <BookCopy availability="true" borrowAbleDate="10" idCopyNumber="1016"/>
     </Book>
     <Book>
         <title>The Four Agreements</title>
@@ -108,6 +108,6 @@
             <lastName>Sergio</lastName>
             <phoneNumber>+1 838 388 383</phoneNumber>
         </Author>
-        <BookCopy availability="true" borrowAbleDate="3" idCopyNumber="1"/>
+        <BookCopy availability="true" borrowAbleDate="3" idCopyNumber="1020"/>
     </Book>
 </Books>

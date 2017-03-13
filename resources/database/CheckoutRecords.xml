@@ -4,7 +4,25 @@
         <CheckoutEntry>
             <dateCheckout>2017-03-09</dateCheckout>
             <dueDate>2017-03-16</dueDate>
-            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1"/>
+            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1002"/>
+        </CheckoutEntry>
+        <Member memberId="985677">
+            <address>
+                <city>FairField</city>
+                <state>Iowa</state>
+                <street>1000 4th North</street>
+                <zip>52777</zip>
+            </address>
+            <firstName>Cao Ha </firstName>
+            <lastName>Tran</lastName>
+            <phoneNumber>+1 984 838 388</phoneNumber>
+        </Member>
+    </checkoutRecord>
+    <checkoutRecord>
+        <CheckoutEntry>
+            <dateCheckout>2017-03-12</dateCheckout>
+            <dueDate>2017-03-19</dueDate>
+            <borrowItem availability="true" borrowAbleDate="7" idCopyNumber="1001"/>
         </CheckoutEntry>
         <Member memberId="985677">
             <address>

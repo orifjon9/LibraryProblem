@@ -3,6 +3,7 @@ package com.mum.edu.library.dao.impl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,6 +15,7 @@ import com.mum.edu.library.api.CommonAPI;
 import com.mum.edu.library.constant.Constant;
 import com.mum.edu.library.dao.BookDAO;
 import com.mum.edu.library.model.Book;
+import com.mum.edu.library.model.BookCopy;
 import com.mum.edu.library.model.Books;
 import com.mum.edu.library.rule.ApplicationException;
 
@@ -101,5 +103,25 @@ public class BookDAOImpl implements BookDAO {
 			throw new ApplicationException("Error with database");
 		}	
 
+	}
+	
+	@Override
+	public int getCurrentCopyIDMax() throws ApplicationException{
+			Integer maxCurrent = 0;
+			Set<BookCopy> bookCopies;
+			List<Book> lstBook = read();
+			for(Book b:lstBook)
+			{
+				bookCopies = b.getBookCopies();
+				for(BookCopy bc:bookCopies)
+				{
+						if(bc.getIdCopyNumber() > maxCurrent)
+						{
+							maxCurrent = bc.getIdCopyNumber();
+						}
+				}						
+				
+			}
+			return maxCurrent;
 	}
 }

@@ -12,5 +12,6 @@ public interface BookDAO {
 	public Book searchBook(String idBook) throws ApplicationException;
 	public List<Book> searchBooks(String isbn) throws ApplicationException;
 	public void editCopy(Book book) throws ApplicationException;
+	int getCurrentCopyIDMax() throws ApplicationException;
 	
 }

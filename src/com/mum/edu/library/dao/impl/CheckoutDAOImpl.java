@@ -17,6 +17,7 @@ import com.mum.edu.library.model.CheckoutRecords;
 public class CheckoutDAOImpl implements ICheckoutDAO {
 	JAXBContext jaxbContext = null;
 	private final File file = new File(CommonAPI.findExactlyDataBase(Constant.CHECKOUTRECORD_FILE));
+	//private final File file = new File(CommonAPI.findExactlyDataBase("D:\\Java\\Books.xml"));
 
 	@Override
 	public void save(CheckoutRecord saveCheckoutRecord) {

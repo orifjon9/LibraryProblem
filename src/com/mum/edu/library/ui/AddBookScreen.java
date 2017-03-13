@@ -318,11 +318,14 @@ public class AddBookScreen extends Stage {
 					.add(new Author(firstName.getText(), lastName.getText(),
 							new Address(street.getText(), city.getText(), stateCb.getValue(), zip.getText()),
 							phone.getText(), credentials.getText(), shortBio.getText()));
-			for (Integer i = 1; i <= Integer.parseInt(numberOfCopy.getText()); i++) {
-				book.getBookCopies().add(new BookCopy(i, Integer.parseInt(borrowAbleDate.getText()), true));
-			}
 
 			try {
+				Integer maxCurrent = bookDAO.getCurrentCopyIDMax();
+				
+				for (Integer i = maxCurrent + 1 ; i <= maxCurrent + Integer.parseInt(numberOfCopy.getText()); i++) {
+					book.getBookCopies().add(new BookCopy(i, Integer.parseInt(borrowAbleDate.getText()), true));
+				}
+				
 				bookDAO.save(book);
 			} catch (ApplicationException e) {
 				showErrorDialog(e.getMessage());

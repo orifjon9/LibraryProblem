@@ -235,19 +235,14 @@ public class BookManagementScreen extends Stage {
 				selected = table.getSelectionModel().getSelectedItem();
 				int currentIndex = table.getSelectionModel().getSelectedIndex();
 				if (selected != null && currentIndex > -1) {
-					Set<BookCopy> bookCopies = selected.getBookCopies();
-					Integer maxCurrent = 0;
+					
 					Integer borrowAbleDate = 0;
-					
-					for(BookCopy bc:bookCopies)
-					{
-							if(bc.getIdCopyNumber() > maxCurrent)
-							{
-								maxCurrent = bc.getIdCopyNumber();
-								borrowAbleDate = bc.getBorrowAbleDate();
-							}
-					}
-					
+					Set<BookCopy> bookCopies = selected.getBookCopies();
+					borrowAbleDate = selected.getBorrowAbleDate();					
+
+					Integer maxCurrent = bookDAO.getCurrentCopyIDMax();
+
+					bookCopies = selected.getBookCopies();	
 					BookCopy newCopy = new BookCopy(maxCurrent + 1, borrowAbleDate, true);
 					bookCopies.add(newCopy);
 					selected.setBookCopies(bookCopies);
