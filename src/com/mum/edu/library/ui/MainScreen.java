@@ -148,18 +148,6 @@ public class MainScreen extends Stage {
 
 		// did not add menu item for menu edit
 		adminMenu = new Menu("Administrator");
-		MenuItem addBook = new MenuItem("Add Book");
-		MenuItem addCopy = new MenuItem("Add Copy");
-
-		addBook.setOnAction(evt -> {
-			AddBook addBookWindow = AddBook.INSTANCE;
-			addBookWindow.setStage(primaryStage);
-		});
-
-		addCopy.setOnAction(evt -> {
-			AddCopy addCopyWindow = AddCopy.INSTANCE;
-			addCopyWindow.setStage(primaryStage);
-		});
 
 		MenuItem bookManagement = new MenuItem("Book Management");
 		bookManagement.setOnAction(evt -> {
